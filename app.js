@@ -10,7 +10,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const csurf = require("csurf")
 const app = express();
-
+const {validationResult} = require("express-validator")
 // view engine setup
 app.set("view engine", "pug");
 app.use(csurf())
@@ -57,4 +57,7 @@ app.use(function (err, req, res, next) {
 const port = 8081;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
-module.exports = app;
+module.exports ={
+  app,
+  validationResult
+};

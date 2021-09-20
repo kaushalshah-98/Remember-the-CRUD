@@ -1,0 +1,10 @@
+{
+    "development": {
+      "username": "express_project_dev",
+      "password": "password",
+      "database": "Project_DB",
+      "host": "127.0.0.1",
+      "dialect": "postgres",
+      "seederStorage": "sequelize"
+    }
+  }
