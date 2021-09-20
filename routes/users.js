@@ -3,6 +3,7 @@ const router = express.Router();
 const {asyncHandler,validateEmailAndPassword,handleValidationErrors} = require('./utils')
 const csrf = require("csurf")
 const csrfProtection = csrf({cookie: true})
+const {generateHashedPassword,checkPassword} = require("../bcrypt")
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -54,6 +55,32 @@ router.post("/login", validateEmailAndPassword,csrfProtection, asyncHandler( asy
   });
 }));
 
+router.post("/signup", csrfProtection,signUpValidator,asyncHandler(async (req,res) =>{
+  const {firstName,lastName,email,username,password} = req.body
+    const user = db.User.build({
+      firstName,
+      lastName,
+      email,
+      username,
+    })
 
+    const validatorErrors = signUpValidator(req)
+
+    if(validatorErrors.isEmpty()){
+      const hashedPass = generateHashedPassword(password)
+      user.hashedPassword = hashedPass
+      await user.save()
+      loginUser(req,res,user);
+      res.redirect("/tasks")
+    }
+}))
+
+const userValidators = [
+  check("firstName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a value for First Name")
+    .isLength({ max: 50 })
+    .withMessage("First Name must not be more than 50 characters long"),
+]
 
 module.exports = router;
