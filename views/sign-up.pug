@@ -1,0 +1,23 @@
+extends layout.pug
+block content
+    //- if errors.length
+    //-     each error in errors
+    //-         p= error
+    form(action="/signup" method="POST")
+        input(type="hidden" name="_csrf" value=token)
+        label(for="firstName")
+        input(type="text" name="firstName")
+        label(for="lastName")
+        input(type="text" name="lastName")
+        label(for="email")
+        input(type="text" name="email")
+        label(for="username")
+        input(type="text" name="username")
+        label(for="password")
+        input(type="password" name="password")
+        button Sign up!
+
+
+   //- each error in errors
+            //-     if error.name === error
+            //-         p= error.name
