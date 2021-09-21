@@ -21,15 +21,15 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/login", csrfProtection, (req, res) => {
-  res.render("log-in", { csrfToken: req.csrfToken() });
+  res.render("log-in", { title:"Log In", csrfToken: req.csrfToken() });
 });
 
 router.get("/signup", csrfProtection, (req, res) => {
-  res.render("sign-up", { csrfToken: req.csrfToken() });
+  res.render("sign-up", { title:"Sign Up", csrfToken: req.csrfToken() });
 });
 
 router.get("/tasks", (req, res) => {
-  res.render("tasks");
+  res.render("tasks", {title:"Tasks"});
 });
 
 router.post(
@@ -41,7 +41,7 @@ router.post(
     // if(stayLoggedIn)res.render("tasks") to be implemented with session storage
     let errors = [];
     const validatorErrors = validationResult(req);
-    
+
     if (validatorErrors.isEmpty()) {
       // Attempt to get the user by their email address.
       const user = await db.User.findOne({ where: { email } });
