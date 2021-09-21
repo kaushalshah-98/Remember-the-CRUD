@@ -21,6 +21,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: "Lists" },
       },
+      estTime: {
+        type: Sequelize.INTEGER,
+      },
       startDate: {
         type: Sequelize.DATE,
       },
@@ -30,21 +33,22 @@ module.exports = {
       priority: {
         type: Sequelize.BOOLEAN,
       },
-      backLog: {
+      backlog: {
         type: Sequelize.BOOLEAN,
       },
       sprintBacklog: {
+        type: Sequelize.BOOLEAN,
+      },
+      inProgress: {
         type: Sequelize.BOOLEAN,
       },
       complete: {
         type: Sequelize.BOOLEAN,
       },
       createdAt: {
-        allowNull: false,
         type: Sequelize.DATE,
       },
       updatedAt: {
-        allowNull: false,
         type: Sequelize.DATE,
       },
     });

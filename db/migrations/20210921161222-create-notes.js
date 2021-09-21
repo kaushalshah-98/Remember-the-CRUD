@@ -17,11 +17,9 @@ module.exports = {
         references: { model: "Tasks" },
       },
       createdAt: {
-        allowNull: false,
         type: Sequelize.DATE,
       },
       updatedAt: {
-        allowNull: false,
         type: Sequelize.DATE,
       },
     });
