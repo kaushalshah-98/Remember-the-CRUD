@@ -18,7 +18,7 @@ const signUpValidator = [
     .withMessage("Last name is required")
     .isLength({ max: 50 })
     .withMessage("Last name must not be more than 50 characters long"),
-  check("emailAddress")
+  check("email")
     .isEmail()
     .withMessage("Invalid email address")
     .custom((value) => {
@@ -53,4 +53,5 @@ module.exports = {
   validateEmailAndPassword,
   signUpValidator,
   csrfProtection,
+  validationResult
 };

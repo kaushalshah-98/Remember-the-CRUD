@@ -3,9 +3,9 @@ block content
     form(action="/login" method="POST")
         input(type="hidden" name="_csrf" value=token)
         label(for="email")
-        input(type="text" name="email")
+        input(type="text" value placeholder= "email" name="email")
         label(for="password")
-        input(type="password" name="password")
+        input(type="password" value placeholder= "password" name="password")
         label(for="stayLoggedIn") Stay logged In
         input(type="checkbox" name="stayLoggedIn")
         button Log in
