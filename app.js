@@ -6,23 +6,24 @@ const logger = require("morgan");
 const { sequelize } = require("./db/models");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
-const indexRouter = require("./routes/index");
+// const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const csurf = require("csurf")
+const csurf = require('csurf');
 const app = express();
-const {validationResult} = require("express-validator")
+const {sessionSecret} = require("express-session")
 // view engine setup
 app.set("view engine", "pug");
-app.use(csurf())
+
+// app.use(csrf({cookie: true}));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });
 
+app.use(cookieParser(sessionSecret));
 app.use(
   session({
     secret: "superSecret",
@@ -32,10 +33,11 @@ app.use(
   })
 );
 
+
 // create Session table if it doesn't already exist
 store.sync();
 
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
@@ -54,10 +56,7 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-const port = 8081;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
 
-module.exports ={
-  app,
-  validationResult
-};
+
+module.exports = app
+
