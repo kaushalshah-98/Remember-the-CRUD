@@ -1,22 +1,20 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const tagsJoin = sequelize.define(
-    "tagsJoin",
+  const Note = sequelize.define(
+    "Note",
     {
+      message: DataTypes.TEXT,
       taskId: {
+        allowNull: false,
         type: DataTypes.INTEGER,
         references: { model: "Tasks" },
-      },
-      tagsId: {
-        type: DataTypes.INTEGER,
-        references: { model: "Tags" },
       },
     },
     {}
   );
-  tagsJoin.associate = function(models) {
+  Note.associate = function(models) {
     // associations can be defined here
-    
+    Note.belongsTo(models.Task, { foreignKey: "taskId" });
   };
-  return tagsJoin;
+  return Note;
 };

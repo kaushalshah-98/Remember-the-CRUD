@@ -17,9 +17,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: "Languages" },
       },
-      notesId: {
+      listId: {
         type: Sequelize.INTEGER,
-        references: { model: "Notes" },
+        references: { model: "Lists" },
       },
       startDate: {
         type: Sequelize.DATE,

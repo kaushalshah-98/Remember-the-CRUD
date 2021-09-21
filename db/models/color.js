@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Color.associate = function(models) {
     // associations can be defined here
+    Color.hasMany(models.Tag, { foreignKey: "colorId" });
   };
   return Color;
 };

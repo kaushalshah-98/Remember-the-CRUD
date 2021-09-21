@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const Task = sequelize.define(
     "Task",
@@ -12,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         references: { model: "Languages" },
       },
-      notesId: {
+      listId: {
         type: DataTypes.INTEGER,
-        references: { model: "Notes" },
+        references: { model: "Lists" },
       },
       startDate: DataTypes.DATE,
       dueDate: DataTypes.DATE,
@@ -27,6 +28,15 @@ module.exports = (sequelize, DataTypes) => {
   );
   Task.associate = function(models) {
     // associations can be defined here
+    Task.belongsTo(models.List, { foreignKey: "listId" });
+    Task.belongsTo(models.Language, { foreignKey: "langId" });
+    Task.hasMany(models.Note, { foreignKey: "taskId" });
+    const columnMapping = {
+      through: "tagsJoin",
+      otherKey: "tagsId",
+      foreignKey: "taskId",
+    };
+    Task.belongsToMany(models.Tag, columnMapping)
   };
   return Task;
 };

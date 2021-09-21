@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Languages = sequelize.define(
-    "Languages",
+  const Language = sequelize.define(
+    "Language",
     {
       name: {
         allowNull: false,
@@ -10,8 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  Languages.associate = function(models) {
+  Language.associate = function(models) {
     // associations can be defined here
+    Language.hasMany(models.Task, { foreignKey: "langId" });
   };
-  return Languages;
+  return Language;
 };

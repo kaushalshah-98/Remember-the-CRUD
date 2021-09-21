@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: {
         allowNull: false,
-        unique: true,
         type: DataTypes.STRING,
       },
       userId: {
@@ -13,16 +12,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         references: { model: "Users" },
       },
-      taskId: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-        references: { model: "Tasks" },
-      },
     },
     {}
   );
   List.associate = function(models) {
     // associations can be defined here
+    List.belongsTo(models.User, { foreignKey: "userId" });
+    List.hasMany(models.Task, { foreignKey: "listId" });
   };
   return List;
 };
