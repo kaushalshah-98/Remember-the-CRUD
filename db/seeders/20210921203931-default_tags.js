@@ -28,12 +28,6 @@ module.exports = {
          updatedAt: new Date(),
        },
        {
-         name: "Work",
-         colorId: 15,
-         createdAt: new Date(),
-         updatedAt: new Date(),
-       },
-       {
          name: "JavaScript",
          colorId: 2,
          createdAt: new Date(),
