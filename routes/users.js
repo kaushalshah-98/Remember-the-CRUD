@@ -41,7 +41,7 @@ router.post(
     // if(stayLoggedIn)res.render("tasks") to be implemented with session storage
     let errors = [];
     const validatorErrors = validationResult(req);
-
+    
     if (validatorErrors.isEmpty()) {
       // Attempt to get the user by their email address.
       const user = await db.User.findOne({ where: { email } });
@@ -71,7 +71,7 @@ router.post(
     console.log(errors)
     res.render("log-in", {
       title: "Login",
-      emailAddress,
+      email,
       errors,
       csrfToken: req.csrfToken(),
     });

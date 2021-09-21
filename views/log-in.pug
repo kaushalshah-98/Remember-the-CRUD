@@ -1,4 +1,7 @@
 extends layout.pug
+
+include utils.pug
+
 block content
     body
         div.left
@@ -11,8 +14,9 @@ block content
                 div#signupButton
                     button: a(href="/users/signup") Sign up for free
                 div#formBox
-                    form(action="/login" method="POST")
-                        input(type="hidden" name="_csrf" value=token)
+                    +validationErrorSummary(errors)
+                    form(action="/users/login" method="POST")
+                        input(type="hidden" name="_csrf" value=csrfToken)
                         p Been here before? Welcome back!
                         label(for="email")
                         input(type="text" value placeholder= "Email or username" name="email").formField
