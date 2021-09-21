@@ -1,8 +1,9 @@
 const bcrypt = require('bcryptjs');
 
+
 async function generateHashedPassword(password) {
     const hash = bcrypt.hash(password, 10)
-    return hash
+    return hash; 
 }
 
 async function checkPassword(password, hashedPass) {
