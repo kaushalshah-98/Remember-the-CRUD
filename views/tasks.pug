@@ -1,12 +1,38 @@
 doctype html
-html
-  head
-    title= `${title}`
-    link(rel='stylesheet' href="/stylesheets/tasks.css")
-  body
-    div#navbartasks
-    div#largestboxtasks
-        div#sidebartasks
-        div#mainboxtasks
-            div#tasks-view
-            div#tasks-summary
+head
+  title= `${title}`
+  link(rel='stylesheet' href="/stylesheets/tasks.css")
+  script(type='text/javascript' src='/javascripts/tasks-function.js')
+body
+  div#navbartasks
+  div#largestboxtasks
+    div#sidebartasks
+      img#logo(src="/images/logo-placeholder.png")
+      div#taskslistsorts
+        div#tasksorts
+          img#ddownarrow-tasks(src="/images/blue-ddown-arrow.PNG")
+          div#options1
+            p#alltasks="All Tasks"
+            ul#options1list
+              li.alltaskoptions-open= "Inbox"
+              li.alltaskoptions-open= "Today"
+              li.alltaskoptions-open= "Tomorrow"
+              li.alltaskoptions-open= "This Week"
+              li.alltaskoptions-open= "Trash"
+        div#listsorts
+          img#ddownarrow-lists(src="/images/blue-ddown-arrow.PNG")
+          div#options2
+            p#alllists="Lists"
+            ul#options2list
+              li.alllistoptions-open= "Work"
+              li.alllistoptions-open= "Personal"
+
+
+
+
+
+
+
+    div#mainboxtasks
+      div#tasks-view
+      div#tasks-summary
