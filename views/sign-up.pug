@@ -1,10 +1,8 @@
 extends layout.pug
 block content
-    //- if errors.length
-    //-     each error in errors
-    //-         p= error
+    //- +validationErrorSummary(errors)
     form(action="/signup" method="POST")
-        input(type="hidden" name="_csrf" value=token)
+        input(type="hidden" name="_csrf" value=csrfToken)
         label(for="firstName")
         input(type="text" name="firstName")
         label(for="lastName")
@@ -16,8 +14,3 @@ block content
         label(for="password")
         input(type="password" name="password")
         button Sign up!
-
-
-   //- each error in errors
-            //-     if error.name === error
-            //-         p= error.name
