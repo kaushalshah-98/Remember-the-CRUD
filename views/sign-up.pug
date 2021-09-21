@@ -1,16 +1,19 @@
 extends layout.pug
+
+include utils.pug
+
 block content
-    //- +validationErrorSummary(errors)
-    form(action="/signup" method="POST")
+    +validationErrorSummary(errors)
+    form(action="/users/signup" method="POST")
         input(type="hidden" name="_csrf" value=csrfToken)
         label(for="firstName")
-        input(type="text" name="firstName")
+        input(type="text" value placeholder="First Name" name="firstName")
         label(for="lastName")
-        input(type="text" name="lastName")
+        input(type="text" value placeholder="Last Name" name="lastName")
         label(for="email")
-        input(type="text" name="email")
+        input(type="text" value placeholder="Email" name="email")
         label(for="username")
-        input(type="text" name="username")
+        input(type="text" value placeholder="Username" name="username")
         label(for="password")
-        input(type="password" name="password")
+        input(type="password" value placeholder="Password" name="password")
         button Sign up!
