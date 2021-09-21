@@ -1,11 +1,26 @@
 extends layout.pug
 block content
-    form(action="/login" method="POST")
-        input(type="hidden" name="_csrf" value=token)
-        label(for="email")
-        input(type="text" value placeholder= "email" name="email")
-        label(for="password")
-        input(type="password" value placeholder= "password" name="password")
-        label(for="stayLoggedIn") Stay logged In
-        input(type="checkbox" name="stayLoggedIn")
-        button Log in
+    body
+        div.left
+            .quotebox
+                div#quote “Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”
+                div#author – Martin Fowler
+    body
+        div.right
+            div.form
+                div#signupButton
+                    button: a(href="/users/signup") Sign up for free
+                div#formBox
+                    form(action="/login" method="POST")
+                        input(type="hidden" name="_csrf" value=token)
+                        p Been here before? Welcome back!
+                        label(for="email")
+                        input(type="text" value placeholder= "Email or username" name="email").formField
+                        br
+                        label(for="password")
+                        input(type="password" value placeholder= "Password" name="password").formField
+                        br
+                        input(type="checkbox" name="stayLoggedIn").formField#stayLogged
+                        label(for="stayLoggedIn")#stayLoggedText Stay logged In
+                        br
+                        button.formField#loginButton Log in

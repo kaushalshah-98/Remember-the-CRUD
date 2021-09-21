@@ -1,3 +1,106 @@
 h1 {
-    color: #555555;
+  color: #555555;
+}
+
+html {
+ height: 100%;
+}
+
+body {
+  margin: 0cm;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #0060bf;
+  width: 50%;
+  height: 100%;
+  color: aliceblue;
+}
+
+.quotebox {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#quote {
+    font-size: 18pt;
+    color: rgb(226, 225, 225)
+}
+
+#author {
+    margin-top: 10px;
+    font-size: 12pt;
+    color: rgb(212, 211, 211, .8);
+
+}
+
+.right {
+  background-color: white;
+  width: 50%;
+  height: 50%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start ;
+    margin-right: 15%;
+    margin-left: 15%;
+    height: 80%;
+}
+
+#signupButton{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%
+}
+
+#formBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: max-content;
+    width: 100%;
+}
+
+.formField {
+    font-size: 16pt;
+    margin: 8px;
+    padding-left: 12px;
+    width: 100%;
+    height: 35%;
+
+}
+
+#stayLogged{
+    width: 15px;
+    height: 15px;
+}
+
+#stayLoggedText{
+    font-size: 13pt;
+    color: rgb(112, 112, 112);
+}
+
+p {
+    text-align: left;
+    margin: 8px;
+    font-size: 14pt;
+}
+
+#loginButton{
+    background-color: #009DFF;
+    color: honeydew;
+    margin: 0px;
+    padding-left: 0px;
+    width: 100%;
+    height: 35%;
 }
