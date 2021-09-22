@@ -27,9 +27,9 @@ router.get("/signup", csrfProtection, (req, res) => {
 });
 
 router.get("/tasks", asyncHandler(async (req, res) => {
-  // const languages = await db.Language.findAll();
-  // const lists = await db.List.findAll();
-  res.render("tasks");
+  const languages = await db.Language.findAll();
+  const lists = await db.List.findAll();
+  res.render("tasks", { languages, lists });
 }));
 
 router.post(
