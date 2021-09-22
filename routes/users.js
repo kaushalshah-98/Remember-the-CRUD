@@ -39,7 +39,7 @@ router.post(
   "/tasks",
   asyncHandler(async (req, res) => {
     const {taskName, langId, listId, estTime, startDate, dueDate, priority, backlog, sprintBacklog, inProgress, complete} = req.body
-    await Task.create({
+    await db.Task.create({
       taskName,
       langId,
       listId,
