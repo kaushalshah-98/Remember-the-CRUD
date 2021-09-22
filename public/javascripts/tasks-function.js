@@ -14,4 +14,12 @@ window.addEventListener("DOMContentLoaded", (e) => {
       ? (alllistslist.style.display = "none")
       : (alllistslist.style.display = "");
   });
+
+  const alltagslist = document.getElementById("options3list");
+  const alltagsarrow = document.getElementById("ddownarrow-tags");
+  alltagsarrow.addEventListener("click", (e) => {
+    alltagslist.style.display === ""
+      ? (alltagslist.style.display = "none")
+      : (alltagslist.style.display = "");
+  });
 });

@@ -5,7 +5,7 @@ html{
 body {
   display: flex;
   flex-direction: column;
-  background-color: lightblue;
+  background-color: #E4EEF8;
   height:100%;
   width:100%;
   margin: 0px;
@@ -68,7 +68,7 @@ body {
 #alltasks:focus,
 .alltaskoptions-open:hover,
 .alltaskoptions-open:focus{
-  background-color: rgb(180, 180, 224);
+  background-color: rgb(199, 199, 199);
   color:white;
   cursor:pointer;
 }
@@ -175,6 +175,91 @@ body {
 
 }
 #alllists{
+  margin: 0px;
+  padding-left: 2px;
+  font-size:10pt;
+  width: 100%;
+  height:fit-content;
+  border-bottom:1px solid rgb(204, 204, 204)
+}
+#mainboxtasks {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  /* border: 6px solid purple; */
+}
+
+#tasks-view {
+  height: 100%;
+  width: 50%;
+  margin-top: 7px;
+  /* border:6px solid red; */
+  background:white;
+  border-radius: 15px 0px 0px 0px;
+  box-shadow:5px 5px rgba(0, 0, 0, .2);
+}
+
+#tasks-summary {
+  height: 100%;
+  width: 50%;
+  /* border:6px solid green; */
+  background-color: #E4EEF8;
+  margin-top: 7px;
+  margin-right: 7px;
+  border-radius: 0px 15px 0px 0px;
+}
+
+/*Tag Styling*/
+
+#tagsorts{
+  display: flex;
+  flex-direction:row;
+  height:max-content;
+  width: 100%;
+  /* border: 6px solid black; */
+}
+#ddownarrow-tags{
+  margin-top: 2px;
+  height:12px;
+  width:12px;
+}
+
+.alltagoptions-open{
+  display: "";
+  font-size:10pt;
+  width: 100%;
+  height:fit-content;
+  padding-left:2px;
+  border-bottom:1px solid rgb(204, 204, 204)
+
+  /* border:2px solid black; */
+}
+#alltags:hover,
+#alltags:focus,
+.alltagoptions-open:hover,
+.alltagoptions-open:focus{
+  background-color: rgb(180, 180, 224);
+  color:white;
+  cursor:pointer;
+}
+#options3{
+  display: flex;
+  flex-direction: column;
+  height:fit-content;
+  margin:0px;
+  padding: 0px;
+  border:0px solid green;
+}
+#options3list{
+  margin-top:0px;
+  margin-left:2px;
+  padding:0;
+  list-style: none;
+  width:100%
+
+}
+#alltags{
   margin: 0px;
   padding-left: 2px;
   font-size:10pt;
