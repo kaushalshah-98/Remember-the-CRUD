@@ -30,8 +30,31 @@ router.get("/signup", csrfProtection, (req, res) => {
 });
 
 router.get("/tasks", (req, res) => {
-  res.render("tasks", {title:"Tasks"});
+  const languages = await db.Language.findAll();
+  const lists = await db.List.findAll();
+  res.render("tasks", { languages, lists, title: "Tasks" });
 });
+
+router.post(
+  "/tasks",
+  asyncHandler(async (req, res) => {
+    const {taskName, langId, listId, estTime, startDate, dueDate, priority, backlog, sprintBacklog, inProgress, complete} = req.body
+    await Task.create({
+      taskName,
+      langId,
+      listId,
+      estTime,
+      startDate,
+      dueDate,
+      priority,
+      backlog,
+      sprintBacklog,
+      inProgress,
+      complete,
+    });
+    res.redirect("/users/tasks", { title: "Tasks" });
+  })
+);
 
 router.post(
   "/login",

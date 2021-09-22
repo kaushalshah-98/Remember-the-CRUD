@@ -1,13 +1,13 @@
-html{
-    height: 100%;
-    width:100%;
+html {
+  height: 100%;
+  width: 100%;
 }
 body {
   display: flex;
   flex-direction: column;
-  background-color: lightblue;
-  height:100%;
-  width:100%;
+  background-color: #e4eef8;
+  height: 100%;
+  width: 100%;
   margin: 0px;
   padding: 0px;
 }
@@ -33,7 +33,68 @@ body {
 #sidebartasks {
   height: 100%;
   width: 4cm;
+  padding: 6px;
   /* border: 6px solid white; */
+}
+
+#logo {
+  height: 8%;
+  width: 100%;
+  overflow: hidden;
+}
+#tasksorts {
+  display: flex;
+  flex-direction: row;
+  height: max-content;
+  width: 100%;
+  /* border: 6px solid black; */
+}
+#ddownarrow-tasks {
+  margin-top: 2px;
+  height: 12px;
+  width: 12px;
+}
+
+.alltaskoptions-open {
+  display: "";
+  font-size: 10pt;
+  width: 100%;
+  height: fit-content;
+  padding-left: 2px;
+  border-bottom: 1px solid rgb(204, 204, 204);
+
+  /* border:2px solid black; */
+}
+#alltasks:hover,
+#alltasks:focus,
+.alltaskoptions-open:hover,
+.alltaskoptions-open:focus {
+  background-color: rgb(199, 199, 199);
+  color: white;
+  cursor: pointer;
+}
+#options1 {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  margin: 0px;
+  padding: 0px;
+  border: 0px solid green;
+}
+#options1list {
+  margin-top: 0px;
+  margin-left: 2px;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+#alltasks {
+  margin: 0px;
+  padding-left: 2px;
+  font-size: 10pt;
+  width: 100%;
+  height: fit-content;
+  border-bottom: 1px solid rgb(204, 204, 204);
 }
 #mainboxtasks {
   display: flex;
@@ -48,15 +109,245 @@ body {
   width: 50%;
   margin-top: 7px;
   /* border:6px solid red; */
-  background:white;
+  background: white;
   border-radius: 15px 0px 0px 0px;
-  box-shadow:5px 5px rgba(0, 0, 0, .2);
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
 }
+
 #tasks-summary {
   height: 100%;
   width: 50%;
   /* border:6px solid green; */
-  background-color: #E4EEF8;
+  background-color: #e4eef8;
+  margin-top: 7px;
+  margin-right: 7px;
+  border-radius: 0px 15px 0px 0px;
+}
+
+/*List Styling*/
+
+#listsorts {
+  display: flex;
+  flex-direction: row;
+  height: max-content;
+  width: 100%;
+  /* border: 6px solid black; */
+}
+#ddownarrow-lists {
+  margin-top: 2px;
+  height: 12px;
+  width: 12px;
+}
+
+.alllistoptions-open {
+  display: "hidden";
+  font-size: 10pt;
+  width: 100%;
+  height: fit-content;
+  padding-left: 2px;
+  border-bottom: 1px solid rgb(204, 204, 204);
+
+  /* border:2px solid black; */
+}
+#alllists:hover,
+#alllists:focus,
+.alllistoptions-open:hover,
+.alllistoptions-open:focus {
+  background-color: rgb(180, 180, 224);
+  color: white;
+  cursor: pointer;
+}
+#options2 {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  margin: 0px;
+  padding: 0px;
+  border: 0px solid green;
+}
+#options2list {
+  display:none;
+  margin-top: 0px;
+  margin-left: 2px;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+#alllists {
+  margin: 0px;
+  padding-left: 2px;
+  font-size: 10pt;
+  width: 100%;
+  height: fit-content;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+#mainboxtasks {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  /* border: 6px solid purple; */
+}
+
+#tasks-view {
+  height: 100%;
+  width: 50%;
+  margin-top: 7px;
+  /* border:6px solid red; */
+  background: white;
+  border-radius: 15px 0px 0px 0px;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+#tasks-summary {
+  height: 100%;
+  width: 50%;
+  /* border:6px solid green; */
+  background-color: #e4eef8;
+  margin-top: 7px;
+  margin-right: 7px;
+  border-radius: 0px 15px 0px 0px;
+}
+
+/*Tag Styling*/
+
+#tagsorts {
+  display: flex;
+  flex-direction: row;
+  height: max-content;
+  width: 100%;
+  /* border: 6px solid black; */
+}
+#ddownarrow-tags {
+  margin-top: 2px;
+  height: 12px;
+  width: 12px;
+}
+
+.alltagoptions-open {
+  display: "hidden";
+  font-size: 10pt;
+  width: 100%;
+  height: fit-content;
+  padding-left: 2px;
+  border-bottom: 1px solid rgb(204, 204, 204);
+
+  /* border:2px solid black; */
+}
+#alltags:hover,
+#alltags:focus,
+.alltagoptions-open:hover,
+.alltagoptions-open:focus {
+  background-color: rgb(180, 180, 224);
+  color: white;
+  cursor: pointer;
+}
+#options3 {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  margin: 0px;
+  padding: 0px;
+  border: 0px solid green;
+}
+#options3list {
+  display:none;
+  margin-top: 0px;
+  margin-left: 2px;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+#alltags {
+  margin: 0px;
+  padding-left: 2px;
+  font-size: 10pt;
+  width: 100%;
+  height: fit-content;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+/* languages styling  */
+
+#languagesorts {
+  display: flex;
+  flex-direction: row;
+  height: max-content;
+  width: 100%;
+  /* border: 6px solid black; */
+}
+#ddownarrow-languages {
+  margin-top: 2px;
+  height: 12px;
+  width: 12px;
+}
+
+.alllanguageoptions-open {
+  display: "";
+  font-size: 10pt;
+  width: 100%;
+  height: fit-content;
+  padding-left: 2px;
+  border-bottom: 1px solid rgb(204, 204, 204);
+
+  /* border:2px solid black; */
+}
+#alllanguages:hover,
+#alllanguages:focus,
+.alllanguageoptions-open:hover,
+.alllanguageoptions-open:focus {
+  background-color: rgb(180, 180, 224);
+  color: white;
+  cursor: pointer;
+}
+#options4 {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  margin: 0px;
+  padding: 0px;
+  border: 0px solid green;
+}
+#options4list {
+  display:none;
+  margin-top: 0px;
+  margin-left: 2px;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+#alllanguages {
+  margin: 0px;
+  padding-left: 2px;
+  font-size: 10pt;
+  width: 100%;
+  height: fit-content;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+#mainboxtasks {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  /* border: 6px solid purple; */
+}
+
+#tasks-view {
+  height: 100%;
+  width: 50%;
+  margin-top: 7px;
+  /* border:6px solid red; */
+  background: white;
+  border-radius: 15px 0px 0px 0px;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+#tasks-summary {
+  height: 100%;
+  width: 50%;
+  /* border:6px solid green; */
+  background-color: #e4eef8;
   margin-top: 7px;
   margin-right: 7px;
   border-radius: 0px 15px 0px 0px;
