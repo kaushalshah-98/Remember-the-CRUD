@@ -132,8 +132,7 @@ router.post(
       const hashedPass = await generateHashedPassword(password);
       user.password = hashedPass;
       await user.save();
-      await loginUser(req, res, user);
-      await validateUser(req, res, user);
+      loginUser(req, res, user);
     } else {
       const errors = validatorErrors.array().map(error => error.msg);
       console.log(errors);
