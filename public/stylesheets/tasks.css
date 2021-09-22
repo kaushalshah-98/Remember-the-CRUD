@@ -30,16 +30,30 @@ body {
   background-color: #0060bf;
 }
 
-#sidebartasks {
+#hamburger{
+  padding-left: 6px;
+}
+
+#sidebartasks--open {
   height: 100%;
   width: 4cm;
   padding: 6px;
+  transition: ease-in-out 300ms;
+  /* border: 6px solid white; */
+}
+
+#sidebartasks--closed {
+  height: 0;
+  width: 0;
+  padding: 0;
+  transition: ease-in-out 300ms;
   /* border: 6px solid white; */
 }
 
 #logo {
+  transform:translateX(-25px);
   height: 8%;
-  width: 100%;
+  width: 135%;
   overflow: hidden;
 }
 #tasksorts {
@@ -53,6 +67,7 @@ body {
   margin-top: 2px;
   height: 12px;
   width: 12px;
+  transition: ease-in-out 300ms;
 }
 
 .alltaskoptions-open {
@@ -61,7 +76,6 @@ body {
   width: 100%;
   height: fit-content;
   padding-left: 2px;
-  border-bottom: 1px solid rgb(204, 204, 204);
 
   /* border:2px solid black; */
 }
@@ -81,20 +95,23 @@ body {
   padding: 0px;
   border: 0px solid green;
 }
-#options1list {
+#options1list{
+  display:block;
+  border-bottom: .5px solid rgb(151, 151, 151);
   margin-top: 0px;
   margin-left: 2px;
   padding: 0;
   list-style: none;
   width: 100%;
+  transition: ease-in-out 300ms;
 }
+
 #alltasks {
   margin: 0px;
   padding-left: 2px;
   font-size: 10pt;
   width: 100%;
   height: fit-content;
-  border-bottom: 1px solid rgb(204, 204, 204);
 }
 #mainboxtasks {
   display: flex;
@@ -104,25 +121,7 @@ body {
   /* border: 6px solid purple; */
 }
 
-#tasks-view {
-  height: 100%;
-  width: 50%;
-  margin-top: 7px;
-  /* border:6px solid red; */
-  background: white;
-  border-radius: 15px 0px 0px 0px;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
-}
 
-#tasks-summary {
-  height: 100%;
-  width: 50%;
-  /* border:6px solid green; */
-  background-color: #e4eef8;
-  margin-top: 7px;
-  margin-right: 7px;
-  border-radius: 0px 15px 0px 0px;
-}
 
 /*List Styling*/
 
@@ -141,12 +140,10 @@ body {
 }
 
 .alllistoptions-open {
-  display: "hidden";
   font-size: 10pt;
   width: 100%;
   height: fit-content;
   padding-left: 2px;
-  border-bottom: 1px solid rgb(204, 204, 204);
 
   /* border:2px solid black; */
 }
@@ -164,7 +161,6 @@ body {
   height: fit-content;
   margin: 0px;
   padding: 0px;
-  border: 0px solid green;
 }
 #options2list {
   display: none;
@@ -180,7 +176,7 @@ body {
   font-size: 10pt;
   width: 100%;
   height: fit-content;
-  border-bottom: 1px solid rgb(204, 204, 204);
+  border-top:1px solid rgb(177, 177, 177);
 }
 #mainboxtasks {
   display: flex;
@@ -217,7 +213,6 @@ body {
   flex-direction: row;
   height: max-content;
   width: 100%;
-  /* border: 6px solid black; */
 }
 #ddownarrow-tags {
   margin-top: 2px;
@@ -232,10 +227,8 @@ body {
   width: 100%;
   height: fit-content;
   padding-left: 2px;
-  border-bottom: 1px solid rgb(204, 204, 204);
-
-  /* border:2px solid black; */
 }
+
 #alltags:hover,
 #alltags:focus,
 .alltagoptions-open:hover,
@@ -250,7 +243,6 @@ body {
   height: fit-content;
   margin: 0px;
   padding: 0px;
-  border: 0px solid green;
 }
 #options3list {
   display: none;
@@ -266,7 +258,7 @@ body {
   font-size: 10pt;
   width: 100%;
   height: fit-content;
-  border-bottom: 1px solid rgb(204, 204, 204);
+  border-top:1px solid rgb(177, 177, 177);
 }
 
 /* languages styling  */
@@ -291,7 +283,6 @@ body {
   width: 100%;
   height: fit-content;
   padding-left: 2px;
-  border-bottom: 1px solid rgb(204, 204, 204);
 
   /* border:2px solid black; */
 }
@@ -325,7 +316,27 @@ body {
   font-size: 10pt;
   width: 100%;
   height: fit-content;
-  border-bottom: 1px solid rgb(204, 204, 204);
+  border-top:1px solid rgb(177, 177, 177);
+}
+
+#tasks-view {
+  height: 100%;
+  width: 50%;
+  margin-top: 7px;
+  /* border:6px solid red; */
+  background: white;
+  border-radius: 15px 0px 0px 0px;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+#tasks-summary {
+  height: 100%;
+  width: 50%;
+  /* border:6px solid green; */
+  background-color: #e4eef8;
+  margin-top: 7px;
+  margin-right: 7px;
+  border-radius: 0px 15px 0px 0px;
 }
 
 #mainboxtasks {

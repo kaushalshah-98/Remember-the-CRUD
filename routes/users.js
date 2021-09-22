@@ -26,32 +26,17 @@ router.get("/signup", csrfProtection, (req, res) => {
   res.render("sign-up", { title: "Sign Up", csrfToken: req.csrfToken() });
 });
 
-router.get(
-  "/tasks",
-  asyncHandler(async (req, res) => {
-    // const languages = await db.Language.findAll();
-    // const lists = await db.List.findAll();
-    res.render("tasks");
-  })
-);
+router.get("/tasks", asyncHandler(async (req, res) => {
+  // const languages = await db.Language.findAll();
+  // const lists = await db.List.findAll();
+  res.render("tasks");
+}));
 
 router.post(
   "/tasks",
   asyncHandler(async (req, res) => {
-    const {
-      taskName,
-      langId,
-      listId,
-      estTime,
-      startDate,
-      dueDate,
-      priority,
-      backlog,
-      sprintBacklog,
-      inProgress,
-      complete,
-    } = req.body;
-    await Task.create({
+    const {taskName, langId, listId, estTime, startDate, dueDate, priority, backlog, sprintBacklog, inProgress, complete} = req.body
+    await db.Task.create({
       taskName,
       langId,
       listId,
