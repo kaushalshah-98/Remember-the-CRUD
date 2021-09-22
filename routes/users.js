@@ -29,10 +29,10 @@ router.get("/signup", csrfProtection, (req, res) => {
   res.render("sign-up", { title:"Sign Up", csrfToken: req.csrfToken() });
 });
 
-router.get("/tasks", asyncHandler (async(req, res) => {
-  const languages = await db.Language.findAll();
-  const lists = await db.List.findAll();
-  res.render("tasks", { languages, lists, title: "Tasks" });
+router.get("/tasks", asyncHandler(async (req, res) => {
+  // const languages = await db.Language.findAll();
+  // const lists = await db.List.findAll();
+  res.render("tasks");
 }));
 
 router.post(
