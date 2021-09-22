@@ -6,15 +6,12 @@ const {
   handleValidationErrors,
   signUpValidator,
   csrfProtection,
-  validationResult
+  validationResult,
 } = require("./utils");
 const { generateHashedPassword, checkPassword } = require("../bcrypt");
 const db = require("../db/models");
 
-const {
-  loginUser,
-  logoutUser,
-} = require("../auth");
+const { loginUser, logoutUser } = require("../auth");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -22,23 +19,38 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/login", csrfProtection, (req, res) => {
-  res.render("log-in", { title:"Log In", csrfToken: req.csrfToken() });
+  res.render("log-in", { title: "Log In", csrfToken: req.csrfToken() });
 });
 
 router.get("/signup", csrfProtection, (req, res) => {
-  res.render("sign-up", { title:"Sign Up", csrfToken: req.csrfToken() });
+  res.render("sign-up", { title: "Sign Up", csrfToken: req.csrfToken() });
 });
 
-router.get("/tasks", (req, res) => {
-  const languages = await db.Language.findAll();
-  const lists = await db.List.findAll();
-  res.render("tasks", { languages, lists, title: "Tasks" });
-});
+router.get(
+  "/tasks",
+  asyncHandler(async (req, res) => {
+    // const languages = await db.Language.findAll();
+    // const lists = await db.List.findAll();
+    res.render("tasks");
+  })
+);
 
 router.post(
   "/tasks",
   asyncHandler(async (req, res) => {
-    const {taskName, langId, listId, estTime, startDate, dueDate, priority, backlog, sprintBacklog, inProgress, complete} = req.body
+    const {
+      taskName,
+      langId,
+      listId,
+      estTime,
+      startDate,
+      dueDate,
+      priority,
+      backlog,
+      sprintBacklog,
+      inProgress,
+      complete,
+    } = req.body;
     await Task.create({
       taskName,
       langId,
@@ -90,9 +102,9 @@ router.post(
       // Otherwise display an error message to the user.
       errors.push("Sorry, that wasn't a valid login. Please try again.");
     } else {
-      errors = validatorErrors.array().map((error) => error.msg);
+      errors = validatorErrors.array().map(error => error.msg);
     }
-    console.log(errors)
+    console.log(errors);
     res.render("log-in", {
       title: "Login",
       email,
@@ -107,7 +119,6 @@ router.post(
   csrfProtection,
   signUpValidator,
   asyncHandler(async (req, res) => {
-
     const { firstName, lastName, email, username, password } = req.body;
     const user = db.User.build({
       firstName,
@@ -119,13 +130,13 @@ router.post(
     const validatorErrors = validationResult(req);
     if (validatorErrors.isEmpty()) {
       const hashedPass = await generateHashedPassword(password);
-      user.password = hashedPass
+      user.password = hashedPass;
       await user.save();
       loginUser(req, res, user);
       res.redirect("/users/tasks");
     } else {
-      const errors = validatorErrors.array().map((error) => error.msg);
-      console.log(errors)
+      const errors = validatorErrors.array().map(error => error.msg);
+      console.log(errors);
       res.render("sign-up", {
         user,
         errors,
@@ -134,6 +145,5 @@ router.post(
     }
   })
 );
-
 
 module.exports = router;

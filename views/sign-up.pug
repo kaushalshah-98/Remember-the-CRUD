@@ -3,17 +3,29 @@ extends layout.pug
 include utils.pug
 
 block content
-    +validationErrorSummary(errors)
-    form(action="/users/signup" method="POST")
-        input(type="hidden" name="_csrf" value=csrfToken)
-        label(for="firstName")
-        input(type="text" value placeholder="First Name" name="firstName")
-        label(for="lastName")
-        input(type="text" value placeholder="Last Name" name="lastName")
-        label(for="email")
-        input(type="text" value placeholder="Email" name="email")
-        label(for="username")
-        input(type="text" value placeholder="Username" name="username")
-        label(for="password")
-        input(type="password" value placeholder="Password" name="password")
-        button Sign up!
+    body
+            div.left
+                .quotebox
+                    div#quote Having trouble planning and executing projects?
+                    div#author Join and get more organized and productive!
+    body
+        div.right
+            div#signupButton
+                img#logo-signup(src="/images/logo-trans-final.png")
+                button#loginFromSignUp: a#loginFromSignUpLink(href="/users/login") Log in
+            div.form
+                div#formBox
+                    +validationErrorSummary(errors)
+                    form(action="/users/signup" method="POST")
+                        input(type="hidden" name="_csrf" value=csrfToken)
+                        label(for="firstName")
+                        input(type="text" value placeholder="First Name" name="firstName").formField
+                        label(for="lastName")
+                        input(type="text" value placeholder="Last Name" name="lastName").formField
+                        label(for="email")
+                        input(type="text" value placeholder="Email" name="email").formField
+                        label(for="username")
+                        input(type="text" value placeholder="Username" name="username").formField
+                        label(for="password")
+                        input(type="password" value placeholder="Password" name="password").formField
+                        button.formField#loginButton Sign up!
