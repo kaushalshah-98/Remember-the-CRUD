@@ -1,16 +1,8 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  development: {
-    username:express_project_dev,
-    password:password,
-    database:Project_DB,
-    host:localhost,
-    dialect: 'postgres',
-  },
-  production: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
-    seederStorage: 'sequelize',
-  }
+  config: path.resolve("config", "database.js"),
+  "models-path": path.resolve("db", "models"),
+  "seeders-path": path.resolve("db", "seeders"),
+  "migrations-path": path.resolve("db", "migrations"),
 };
