@@ -42,7 +42,7 @@ const validateEmailAndPassword = [
   check("email")
     .exists({ checkFalsy: true })
     .isEmail()
-    .withMessage("Sorry, that wasn't a valid login. Please try again."),
+    .withMessage("email wrong"),
   check("password")
     .exists({ checkFalsy: true })
     .withMessage("Sorry, that wasn't a valid login. Please try again."),

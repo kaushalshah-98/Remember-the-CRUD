@@ -11,12 +11,10 @@ const {
 const { generateHashedPassword, checkPassword } = require("../bcrypt");
 const db = require("../db/models");
 
-const { loginUser, logoutUser } = require("../auth");
+const { loginUser, logoutUser, validateUser } = require("../auth");
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.get("/", function (req, res, next) {});
 
 router.get("/login", csrfProtection, (req, res) => {
   res.render("log-in", { title: "Log In", csrfToken: req.csrfToken() });
@@ -26,16 +24,33 @@ router.get("/signup", csrfProtection, (req, res) => {
   res.render("sign-up", { title: "Sign Up", csrfToken: req.csrfToken() });
 });
 
-router.get("/tasks", asyncHandler(async (req, res) => {
-  // const languages = await db.Language.findAll();
-  // const lists = await db.List.findAll();
-  res.render("tasks");
-}));
+router.get(
+  "/tasks",
+  validateUser,
+  asyncHandler(async (req, res) => {
+    // const languages = await db.Language.findAll();
+    // const lists = await db.List.findAll();
+    console.log(req.session.auth);
+    res.render("tasks");
+  })
+);
 
 router.post(
   "/tasks",
   asyncHandler(async (req, res) => {
-    const {taskName, langId, listId, estTime, startDate, dueDate, priority, backlog, sprintBacklog, inProgress, complete} = req.body
+    const {
+      taskName,
+      langId,
+      listId,
+      estTime,
+      startDate,
+      dueDate,
+      priority,
+      backlog,
+      sprintBacklog,
+      inProgress,
+      complete,
+    } = req.body;
     await db.Task.create({
       taskName,
       langId,
@@ -70,32 +85,32 @@ router.post(
       if (user !== null) {
         // If the user exists then compare their password
         // to the provided password.
-        const passwordMatch = await checkPassword(
-          password,
-          user.password.toString()
-        );
-
+        console.log(user.password);
+        console.log(password);
+        const passwordMatch = await checkPassword(password, user.password);
+        console.log(passwordMatch);
         if (passwordMatch) {
           // If the password hashes match, then login the user
           // and redirect them to the default route.
           // TODO Login the user.
+          console.log("hi");
           loginUser(req, res, user);
-          res.redirect("/users/tasks");
+          // res.redirect("/users/tasks");
         }
       }
 
       // Otherwise display an error message to the user.
-      errors.push("Sorry, that wasn't a valid login. Please try again.");
+      errors.push("line 104");
     } else {
       errors = validatorErrors.array().map(error => error.msg);
+      res.render("log-in", {
+        title: "Login",
+        email,
+        errors,
+        csrfToken: req.csrfToken(),
+      });
     }
     console.log(errors);
-    res.render("log-in", {
-      title: "Login",
-      email,
-      errors,
-      csrfToken: req.csrfToken(),
-    });
   })
 );
 
@@ -117,8 +132,8 @@ router.post(
       const hashedPass = await generateHashedPassword(password);
       user.password = hashedPass;
       await user.save();
-      loginUser(req, res, user);
-      res.redirect("/users/tasks");
+      await loginUser(req, res, user);
+      await validateUser(req, res, user);
     } else {
       const errors = validatorErrors.array().map(error => error.msg);
       console.log(errors);
