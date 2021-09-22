@@ -5,8 +5,9 @@ head
   script(type='text/javascript' src='/javascripts/tasks-function.js')
 body
   div#navbartasks
+    img#hamburger(src="/images/Hamburger_icon.png")
   div#largestboxtasks
-    div#sidebartasks
+    div#sidebartasks--open
       img#logo(src="/images/logo-trans-final.png")
       div#taskslistsorts
         div#tasksorts
@@ -20,21 +21,21 @@ body
               li.alltaskoptions-open= "This Week"
               li.alltaskoptions-open= "Trash"
         div#listsorts
-          img#ddownarrow-lists(src="/images/blue-ddown-arrow.PNG")
+          img#ddownarrow-lists(src="/images/blue-dright-arrow.PNG")
           div#options2
             p#alllists="Lists"
             ul#options2list
               li.alllistoptions-open= "Work"
               li.alllistoptions-open= "Personal"
         div#tagsorts
-          img#ddownarrow-tags(src="/images/blue-ddown-arrow.PNG")
+          img#ddownarrow-tags(src="/images/blue-dright-arrow.PNG")
           div#options3
             p#alltags="Tags"
             ul#options3list
               li.alltagoptions-open= "Work"
               li.alltagoptions-open= "Personal"
         div#languagesorts
-          img#ddownarrow-languages(src="/images/blue-ddown-arrow.PNG")
+          img#ddownarrow-languages(src="/images/blue-dright-arrow.PNG")
           div#options4
             p#alllanguages="Languages"
             ul#options4list
@@ -50,11 +51,11 @@ body
             label(for="taskName")
             input(type="text" name="taskName")
             select(name="langId" required)
-                  each language in languages
-                      option(value=language.id)=language.name
+                  //- each language in languages
+                  //-     option(value=language.id)=language.name
             select(name="listId" required)
-                  each list in lists
-                      option(value=list.id)=list.name
+                  //- each list in lists
+                  //-     option(value=list.id)=list.name
             input(type="integer" name="estTime")
             input(type="date" name="startDate")
             input(type="date" name="dueDate")
@@ -65,6 +66,3 @@ body
             input(type="checkbox" name="complete")
             button Add Task
       div#tasks-summary
-      
-
-
