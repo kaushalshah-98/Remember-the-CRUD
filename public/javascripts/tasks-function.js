@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", e => {
     alltaskslist.style.display === "block"
       ? (alltaskslist.style.display = "none")&&alltasksarrow.setAttribute("src","/images/blue-dright-arrow.PNG")
       : (alltaskslist.style.display = "block")&&alltasksarrow.setAttribute("src","/images/blue-ddown-arrow.PNG");
-  });
+    });
 
   const alllistslist = document.getElementById("options2list");
   const alllistsarrow = document.getElementById("ddownarrow-lists");
