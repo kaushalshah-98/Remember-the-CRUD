@@ -46,23 +46,24 @@ body
               li.alllanguageoptions-open= "C#"
     div#mainboxtasks
       div#tasks-view
-        form(action="/users/tasks" method="POST")
-            input(type="hidden" name="_csrf" value=csrfToken)
-            label(for="taskName")
-            input(type="text" name="taskName")
-            select(name="langId" required)
-                  //- each language in languages
-                  //-     option(value=language.id)=language.name
-            select(name="listId" required)
-                  //- each list in lists
-                  //-     option(value=list.id)=list.name
-            input(type="integer" name="estTime")
-            input(type="date" name="startDate")
-            input(type="date" name="dueDate")
-            input(type="checkbox" name="priority")
-            input(type="checkbox" name="backlog")
-            input(type="checkbox" name="sprintBacklog")
-            input(type="checkbox" name="inProgress")
-            input(type="checkbox" name="complete")
-            button Add Task
+        div#tasks-form
+          form(action="/users/tasks" method="POST")
+              input(type="hidden" name="_csrf" value=csrfToken)
+              input(type="text" value placeholder="Add a task..." name="taskName")#tasks-input
+              div#test-div
+                select(name="langId" required).attribute.task-hidden
+                      each language in languages
+                          option(value=language.id)=language.name
+                select(name="listId" required).attribute.task-hidden
+                      each list in lists
+                          option(value=list.id)=list.name
+                input(type="integer" name="estTime").attribute.task-hidden
+                input(type="date" name="startDate").attribute.task-hidden
+                input(type="date" name="dueDate").attribute.task-hidden
+                input(type="checkbox" name="priority").attribute.task-hidden
+                input(type="checkbox" name="backlog").attribute.task-hidden
+                input(type="checkbox" name="sprintBacklog").attribute.task-hidden
+                input(type="checkbox" name="inProgress").attribute.task-hidden
+                input(type="checkbox" name="complete").attribute.task-hidden
+                button#tasks-button.task-hidden(disabled) Add Task
       div#tasks-summary

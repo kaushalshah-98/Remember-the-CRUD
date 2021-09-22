@@ -355,6 +355,8 @@ body {
   background: white;
   border-radius: 15px 0px 0px 0px;
   box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
+  background-image: url(../images/Task-list.png);
+  /* background-repeat: repeat; */
 }
 
 #tasks-summary {
@@ -367,4 +369,33 @@ body {
   border-radius: 0px 15px 0px 0px;
 }
 
+ /*Tasks Styling*/
 
+#tasks-form {
+  display: flex;
+  flex-direction: row;
+  justify-content:stretch;
+  height: 30%;
+  width: 100%;
+  border: 1px solid tomato;
+
+}
+
+#tasks-input {
+  position: absolute;
+  width: 42%;
+  height: 22px;
+  margin-top: 61px;
+  margin-left: 12px;
+  margin-right: 10px;
+}
+
+.task-hidden {
+  display: none;
+}
+
+#test-div {
+  height: 100%;
+  width: 100%;
+  border: 1px solid tomato;
+}
