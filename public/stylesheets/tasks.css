@@ -136,6 +136,7 @@ body {
   margin-top: 2px;
   height: 12px;
   width: 12px;
+  transform: rotate(-90deg);
 }
 
 .alllistoptions-open {
@@ -162,7 +163,7 @@ body {
   padding: 0px;
 }
 #options2list {
-  display:none;
+  display: none;
   margin-top: 0px;
   margin-left: 2px;
   padding: 0;
@@ -217,6 +218,7 @@ body {
   margin-top: 2px;
   height: 12px;
   width: 12px;
+  transform: rotate(-90deg);
 }
 
 .alltagoptions-open {
@@ -243,7 +245,7 @@ body {
   padding: 0px;
 }
 #options3list {
-  display:none;
+  display: none;
   margin-top: 0px;
   margin-left: 2px;
   padding: 0;
@@ -272,6 +274,7 @@ body {
   margin-top: 2px;
   height: 12px;
   width: 12px;
+  transform: rotate(-90deg);
 }
 
 .alllanguageoptions-open {
@@ -300,7 +303,7 @@ body {
   border: 0px solid green;
 }
 #options4list {
-  display:none;
+  display: none;
   margin-top: 0px;
   margin-left: 2px;
   padding: 0;
@@ -363,3 +366,5 @@ body {
   margin-right: 7px;
   border-radius: 0px 15px 0px 0px;
 }
+
+

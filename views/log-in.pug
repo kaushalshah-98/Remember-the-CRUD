@@ -4,6 +4,7 @@ include utils.pug
 
 block content
 
+
     body
         div.left
             .quotebox
@@ -11,21 +12,21 @@ block content
                 div#author – Martin Fowler
     body
         div.right
-            div.form
                 div#signupButton
-                    button: a(href="/users/signup") Sign up for free
-                div#formBox
-                    +validationErrorSummary(errors)
-                    form(action="/users/login" method="POST")
-                        input(type="hidden" name="_csrf" value=csrfToken)
-                        p Been here before? Welcome back!
-                        label(for="email")
-                        input(type="text" value placeholder= "Email or username" name="email").formField
-                        br
-                        label(for="password")
-                        input(type="password" value placeholder= "Password" name="password").formField
-                        br
-                        input(type="checkbox" name="stayLoggedIn").formField#stayLogged
-                        label(for="stayLoggedIn")#stayLoggedText Stay logged In
-                        br
-                        button.formField#loginButton Log in
+                    button#loginFromSignUp: a#loginFromSignUpLink(href="/users/signup") Sign up for free
+                div.form
+                    div#formBox
+                        +validationErrorSummary(errors)
+                        form(action="/users/login" method="POST")
+                            input(type="hidden" name="_csrf" value=csrfToken)
+                            p Been here before? Welcome back!
+                            label(for="email")
+                            input(type="text" value placeholder= "Email or username" name="email").formField
+                            br
+                            label(for="password")
+                            input(type="password" value placeholder= "Password" name="password").formField
+                            br
+                            input(type="checkbox" name="stayLoggedIn").formField#stayLogged
+                            label(for="stayLoggedIn")#stayLoggedText Stay logged In
+                            br
+                            button.formField#loginButton Log in
