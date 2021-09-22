@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", e => {
     alltaskslist.style.display === "block"
       ? (alltaskslist.style.display = "none")&&alltasksarrow.setAttribute("src","/images/blue-dright-arrow.PNG")
       : (alltaskslist.style.display = "block")&&alltasksarrow.setAttribute("src","/images/blue-ddown-arrow.PNG");
-    });
+  });
 
   const alllistslist = document.getElementById("options2list");
   const alllistsarrow = document.getElementById("ddownarrow-lists");
@@ -39,4 +39,35 @@ window.addEventListener("DOMContentLoaded", e => {
       ? (alllanguagelist.style.display = "none")&&alllanguagearrow.setAttribute("src","/images/blue-dright-arrow.PNG")
       : (alllanguagelist.style.display = "block")&&alllanguagearrow.setAttribute("src","/images/blue-ddown-arrow.PNG");
   });
+
+  // Functionality adding button or create task but not active until typing begins
+  const input = document.getElementById("tasks-input");
+  const addTaskButton = document.getElementById("tasks-button");
+  input.addEventListener("click", e => {
+    input.removeAttribute("placeholder");
+    addTaskButton.classList.remove("task-hidden");
+
+  });
+
+  input.addEventListener("change", (e) => {
+    if (e.target.value){
+      addTaskButton.disabled = false
+    }
+  });
+
+  const feature = document.querySelectorAll(".attribute");
+  const test = document.getElementById("test-div");
+  input.addEventListener("keypress", e => {
+    feature.forEach(el => {
+      el.classList.remove("task-hidden");
+    })
+    test.classList.remove("task-hidden");
+  })
+
+
+
+
+  
 });
+
+
