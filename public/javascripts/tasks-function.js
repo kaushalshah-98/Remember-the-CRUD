@@ -26,8 +26,8 @@ window.addEventListener("DOMContentLoaded", e => {
   const alllanguagelist = document.getElementById("options4list");
   const alllanguagearrow = document.getElementById("ddownarrow-languages");
   alllanguagearrow.addEventListener("click", e => {
-    alllanguagelist.style.display === ""
+    alllanguagelist.style.display === "block"
       ? (alllanguagelist.style.display = "none")
-      : (alllanguagelist.style.display = "");
+      : (alllanguagelist.style.display = "block");
   });
 });
