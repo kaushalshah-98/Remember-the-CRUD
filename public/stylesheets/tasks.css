@@ -38,8 +38,9 @@ body {
 }
 
 #logo {
-  height: 2cm;
-  width: 4cm;
+  height: 8%;
+  width: 100%;
+  overflow: hidden;
 }
 #tasksorts {
   display: flex;
@@ -139,7 +140,7 @@ body {
 }
 
 .alllistoptions-open {
-  display: "";
+  display: "hidden";
   font-size: 10pt;
   width: 100%;
   height: fit-content;
@@ -165,6 +166,7 @@ body {
   border: 0px solid green;
 }
 #options2list {
+  display:none;
   margin-top: 0px;
   margin-left: 2px;
   padding: 0;
@@ -223,7 +225,7 @@ body {
 }
 
 .alltagoptions-open {
-  display: "";
+  display: "hidden";
   font-size: 10pt;
   width: 100%;
   height: fit-content;
@@ -249,6 +251,7 @@ body {
   border: 0px solid green;
 }
 #options3list {
+  display:none;
   margin-top: 0px;
   margin-left: 2px;
   padding: 0;
