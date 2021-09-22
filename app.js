@@ -32,6 +32,7 @@ app.use(
     resave: false,
   })
 );
+
 app.use(cookieParser());
 
 // create Session table if it doesn't already exist
