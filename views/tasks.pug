@@ -11,29 +11,3 @@ html
             div#tasks-view
             div#tasks-summary
 
-
-
-
-
-        form(action="/users/tasks" method="POST")
-          input(type="hidden" name="_csrf" value=csrfToken)
-          label(for="taskName")
-          input(type="text" name="taskName")
-          select(name="langId" required)
-                each language in languages
-                    option(value=language.id)=language.name
-          select(name="listId" required)
-                each list in lists
-                    option(value=list.id)=list.name
-          input(type="date" name="startDate")
-          input(type="date" name="dueDate")
-          input(type="checkbox" name="priority")
-          input(type="checkbox" name="backlog")
-          input(type="checkbox" name="sprintBacklog")
-          input(type="checkbox" name="inProgress")
-          input(type="checkbox" name="complete")
-          button Add Task
-
-
-
-
