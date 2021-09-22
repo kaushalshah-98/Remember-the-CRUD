@@ -12,17 +12,12 @@ window.addEventListener("DOMContentLoaded", e => {
   const alltasksarrow = document.getElementById("ddownarrow-tasks");
   alltasksarrow.addEventListener("click", e => {
     alltaskslist.style.display === "block"
-<<<<<<< HEAD
       ? (alltaskslist.style.display = "none")
       : (alltaskslist.style.display = "block");
 
     alltasksarrow.style.transform === "rotate(0deg)"
       ? (alltasksarrow.style.transform = "rotate(-90deg)")
       : (alltasksarrow.style.transform = "rotate(0deg)");
-=======
-      ? (alltaskslist.style.display = "none")&&alltasksarrow.setAttribute("src","/images/blue-dright-arrow.PNG")
-      : (alltaskslist.style.display = "block")&&alltasksarrow.setAttribute("src","/images/blue-ddown-arrow.PNG");
->>>>>>> main
   });
 
   const alllistslist = document.getElementById("options2list");
