@@ -16,6 +16,10 @@ const { loginUser, logoutUser, validateUser } = require("../auth");
 /* GET users listing. */
 router.get("/", function (req, res, next) {});
 
+router.get("/logout", function (req, res, next) {
+  logoutUser(req, res);
+});
+
 router.get("/login", csrfProtection, (req, res) => {
   res.render("log-in", { title: "Log In", csrfToken: req.csrfToken() });
 });
