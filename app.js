@@ -26,7 +26,7 @@ const store = new SequelizeStore({ db: sequelize });
 app.use(cookieParser(sessionSecret));
 app.use(
   session({
-    secret: "william",
+    secret: "0dc829fa-ce81-48ff-b82f-3747ef4289c3",
     store,
     saveUninitialized: false,
     resave: false,
