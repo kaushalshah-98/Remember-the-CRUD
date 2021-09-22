@@ -20,7 +20,8 @@ module.exports = {
          lastName: "User",
          email: "demoUser@gmail.com",
          username: "demoUser",
-         password: "hashedPassword*****",
+         password:
+           "$2a$10$s2eO6tmjJGz/v9KfckhmHu4xSdcIr9.OJVdBshcVz8UK8oOzpi8Hy",
          organization: "App Academy",
          createdAt: new Date(),
          updatedAt: new Date(),

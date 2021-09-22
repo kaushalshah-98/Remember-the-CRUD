@@ -14,7 +14,8 @@ const db = require("../db/models");
 const {
   loginUser,
   logoutUser,
-} = require("../auth")
+} = require("../auth");
+
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
@@ -32,6 +33,12 @@ router.get("/tasks", (req, res) => {
   res.render("tasks", {title:"Tasks"});
 });
 
+router.post("/tasks", asyncHandler (async (req, res) => {
+  const languages = await db.Language.findAll();
+  const lists = await db.List.findAll();
+  res.render("tasks", { languages, lists, title: "Tasks" });
+}));
+// TODO comeback to this
 router.post(
   "/login",
   validateEmailAndPassword,
