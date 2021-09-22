@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded", (e) => {
+window.addEventListener("DOMContentLoaded", e => {
   const alltaskslist = document.getElementById("options1list");
   const alltasksarrow = document.getElementById("ddownarrow-tasks");
   alltasksarrow.addEventListener("click", (e) => {
@@ -21,5 +21,13 @@ window.addEventListener("DOMContentLoaded", (e) => {
     alltagslist.style.display === "block"
       ? (alltagslist.style.display = "none")
       : (alltagslist.style.display = "block");
+  });
+
+  const alllanguagelist = document.getElementById("options4list");
+  const alllanguagearrow = document.getElementById("ddownarrow-languages");
+  alllanguagearrow.addEventListener("click", e => {
+    alllanguagelist.style.display === ""
+      ? (alllanguagelist.style.display = "none")
+      : (alllanguagelist.style.display = "");
   });
 });
