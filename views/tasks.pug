@@ -68,6 +68,6 @@ body
                 input(type="checkbox" name="complete").attribute.task-hidden
                 button#tasks-button.task-hidden(disabled) Add Task
         div#tasks-container
-
-
+          each task in tasks
+            li.mainTaskList= task.taskName
       div#tasks-summary
