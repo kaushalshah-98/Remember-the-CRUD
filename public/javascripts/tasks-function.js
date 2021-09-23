@@ -52,7 +52,7 @@ window.addEventListener("DOMContentLoaded", e => {
   // Functionality adding button or create task but not active until typing begins
   const input = document.getElementById("tasks-input");
   const addTaskButton = document.getElementById("tasks-button");
-  input.addEventListener("focus", e => {
+  input.addEventListener("click", e => {
     input.removeAttribute("placeholder");
     addTaskButton.classList.remove("task-hidden");
   });
@@ -62,6 +62,7 @@ window.addEventListener("DOMContentLoaded", e => {
       el.classList.remove("task-hidden");
     });
     test.classList.remove("task-hidden");
+    addTaskButton.disabled = false;
   });
 
   const feature = document.querySelectorAll(".attribute");
@@ -75,11 +76,5 @@ window.addEventListener("DOMContentLoaded", e => {
     });
     test.classList.add("task-hidden");
     addTaskButton.classList.add("task-hidden");
-  });
-
-  input.addEventListener("change", e => {
-    if (e.target.value) {
-      addTaskButton.disabled = false;
-    }
   });
 });
