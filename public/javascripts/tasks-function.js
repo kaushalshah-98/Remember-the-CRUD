@@ -66,8 +66,4 @@ window.addEventListener("DOMContentLoaded", e => {
     test.classList.remove("task-hidden");
   })
 
-
-
-
-
 });
