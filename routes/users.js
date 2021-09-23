@@ -34,7 +34,13 @@ router.get(
   validateUser, asyncHandler(async (req, res) => {
   const languages = await db.Language.findAll();
   const lists = await db.List.findAll();
-  res.render("tasks", { languages, lists });
+  const tasks = await db.List.findAll({
+    where:{userId:req.session.auth.userId},
+    include:db.Task
+
+  })
+  console.log(tasks)
+  res.render("tasks", {title: "Tasks", languages, lists,tasks });
 }));
 
 
