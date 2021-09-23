@@ -34,13 +34,14 @@ router.get(
   validateUser, asyncHandler(async (req, res) => {
   const languages = await db.Language.findAll();
   const lists = await db.List.findAll();
-  const tasks = await db.List.findAll({
-    where:{userId:req.session.auth.userId},
-    include:db.Task
-
-  })
+  const userLists = await db.List.findAll({
+    // where:{userId:req.session.auth.userId},
+    where: { userId: 4 },
+    include: db.Task,
+  });
+  const tasks = userLists.map((list) => list.Tasks).flat();
   console.log(tasks)
-  res.render("tasks", {title: "Tasks", languages, lists,tasks });
+  res.render("tasks", {title: "Tasks", languages, lists, tasks });
 }));
 
 
@@ -60,7 +61,7 @@ router.post(
       inProgress,
       complete,
     } = req.body;
-    await db.Task.create({
+    const newTask = await db.Task.create({
       taskName,
       langId,
       listId,
@@ -73,7 +74,7 @@ router.post(
       inProgress,
       complete,
     });
-    res.redirect("/users/tasks", { title: "Tasks" });
+    res.redirect("/users/tasks", { newTask, title: "Tasks" });
   })
 );
 
@@ -136,11 +137,37 @@ router.post(
       username,
     });
 
+    
+
+    // const list2 = await db.List.create({
+    //   name: "All Tasks",
+    //   userId: req.session.auth.userId,
+    // });
+
+    //  const list3 = await db.List.create({
+    //    name: "Today",
+    //    userId: req.session.auth.userId,
+    //  });
+
+    //  const list4 = await db.List.create({
+    //    name: "Tomorrow",
+    //    userId: req.session.auth.userId,
+    //  });
+
+    //   const list5 = await db.List.create({
+    //     name: "This Week",
+    //     userId: req.session.auth.userId,
+    //   });
+
     const validatorErrors = validationResult(req);
     if (validatorErrors.isEmpty()) {
       const hashedPass = await generateHashedPassword(password);
       user.password = hashedPass;
       await user.save();
+      const list1 = await db.List.create({
+        name: "Inbox",
+        userId: 4,
+      });
       loginUser(req, res, user);
     } else {
       const errors = validatorErrors.array().map(error => error.msg);
