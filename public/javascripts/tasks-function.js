@@ -67,7 +67,5 @@ window.addEventListener("DOMContentLoaded", e => {
 
 
 
-  
+
 });
-
-
