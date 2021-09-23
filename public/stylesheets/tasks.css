@@ -400,10 +400,10 @@ body {
   display: grid;
   grid-template-rows: 115px;
   grid-template-areas:
+    "a a a"
     "b b b"
     "c c c";
-  border: 1px solid tomato;
-}
+};
 
 #tasks-input {
   grid-area: b;
@@ -418,7 +418,7 @@ body {
   border: 2px solid black;
 }
 
-.task-hidden{
+.task-hidden {
   visibility: hidden;
 }
 
@@ -427,13 +427,11 @@ body {
   justify-self: end;
   height: 15%;
   width: 100%;
-  border: 1px solid tomato;
 }
 
 #tasks-container {
   height: 74%;
   width: 100%;
-  border: 1px solid tomato;
 }
 
 /*  indivial task styling */
@@ -443,6 +441,7 @@ body {
   justify-content: space-between;
   height: 0.65cm;
   width: 100%;
+  margin-top: 6px;
 }
 
 .taskText {
