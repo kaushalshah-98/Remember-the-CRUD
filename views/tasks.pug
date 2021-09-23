@@ -69,7 +69,13 @@ body
                 input(type="checkbox" name="complete").attribute.task-hidden
                 button#tasks-button.task-hidden(disabled) Add Task
         div#tasks-container
-          if (tasks)
+          if tasks
             each task in tasks
-              li.mainTaskList= task.taskName
+              div.mainTaskList
+                div.taskLeft
+                  input(type="checkbox")#taskCheckBox
+                  p.taskText= task.taskName
+                div.taskRight
+                  button#completed Completed
+                  button#delete Delete
       div#tasks-summary

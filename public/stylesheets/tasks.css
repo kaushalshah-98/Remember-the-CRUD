@@ -24,7 +24,7 @@ body {
 }
 
 #navbartasks {
-  display:flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -32,20 +32,20 @@ body {
   /* border: 3px solid blue; */
   background-color: #0060bf;
 }
-#navButtonsTasks{
-  display:flex;
+#navButtonsTasks {
+  display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
 
 #logoutButton,
-#logoutLink{
-  border:none;
+#logoutLink {
+  border: none;
   text-decoration: none;
-  margin:4px;
+  margin: 4px;
 }
 
-#hamburger{
+#hamburger {
   padding-left: 6px;
 }
 
@@ -58,18 +58,18 @@ body {
 }
 
 #sidebartasks--closed {
-  transform:translateY(-300px);
+  transform: translateY(-300px);
   height: 0;
   width: 0;
   padding: 0;
-  color:transparent;
+  color: transparent;
   transition: ease-in-out 300ms;
 
   /* border: 6px solid white; */
 }
 
 #logo {
-  transform:translateX(-25px);
+  transform: translateX(-25px);
   height: 8%;
   width: 135%;
   overflow: hidden;
@@ -113,9 +113,9 @@ body {
   padding: 0px;
   border: 0px solid green;
 }
-#options1list{
-  display:block;
-  border-bottom: .5px solid rgb(151, 151, 151);
+#options1list {
+  display: block;
+  border-bottom: 0.5px solid rgb(151, 151, 151);
   margin-top: 0px;
   margin-left: 2px;
   padding: 0;
@@ -138,8 +138,6 @@ body {
   width: 100%;
   /* border: 6px solid purple; */
 }
-
-
 
 /*List Styling*/
 
@@ -194,7 +192,7 @@ body {
   font-size: 10pt;
   width: 100%;
   height: fit-content;
-  border-top:1px solid rgb(177, 177, 177);
+  border-top: 1px solid rgb(177, 177, 177);
 }
 #mainboxtasks {
   display: flex;
@@ -276,7 +274,7 @@ body {
   font-size: 10pt;
   width: 100%;
   height: fit-content;
-  border-top:1px solid rgb(177, 177, 177);
+  border-top: 1px solid rgb(177, 177, 177);
 }
 
 /* languages styling  */
@@ -334,7 +332,7 @@ body {
   font-size: 10pt;
   width: 100%;
   height: fit-content;
-  border-top:1px solid rgb(177, 177, 177);
+  border-top: 1px solid rgb(177, 177, 177);
 }
 
 #tasks-view {
@@ -387,9 +385,7 @@ body {
   border-radius: 0px 15px 0px 0px;
 }
 
- /* Tasks Styling*/
-
-
+/* Tasks Styling*/
 
 /* #form{
   grid-area: b;
@@ -399,43 +395,79 @@ body {
 #tasks-form {
   margin-top: 10px;
   display: grid;
-  grid-template-rows:115px;
+  grid-template-rows: 115px;
   grid-template-areas:
     "b b b"
     "c c c";
-    border:1px solid tomato
+  border: 1px solid tomato;
 }
-
-
-
 
 #tasks-input {
   grid-area: b;
   /* justify-self: stretch;
   align-self: stretch; */
   place-self: center stretch;
-  width:100%;
+  width: 100%;
   height: 22px;
   margin-top: 50px;
   margin-left: 10px;
   margin-right: 10px;
-  border: 2px solid black
+  border: 2px solid black;
 }
 
-.task-hidden {
+.task-hidden{
   visibility: hidden;
 }
 
 #test-div {
- grid-area: c;
- justify-self: end;
+  grid-area: c;
+  justify-self: end;
   height: 15%;
   width: 100%;
   border: 1px solid tomato;
 }
 
-#tasks-container{
-  height: 84.5%;
+#tasks-container {
+  height: 74%;
   width: 100%;
-  border:1px solid tomato;
+  border: 1px solid tomato;
+}
+
+/*  indivial task styling */
+
+.mainTaskList {
+  display: flex;
+  justify-content: space-between;
+  height: 0.65cm;
+  width: 100%;
+}
+
+.taskText {
+  margin: 0cm;
+}
+
+#taskCheckBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.taskLeft {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.taskRight {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 3px;
+  align-items: center;
+}
+
+#completed,
+#delete {
+  margin: 3px;
+  /* margin-top: 5px; */
 }

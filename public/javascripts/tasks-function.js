@@ -45,10 +45,22 @@ window.addEventListener("DOMContentLoaded", e => {
   // Functionality adding button or create task but not active until typing begins
   const input = document.getElementById("tasks-input");
   const addTaskButton = document.getElementById("tasks-button");
-  input.addEventListener("click", e => {
+  input.addEventListener("focus", e => {
     input.removeAttribute("placeholder");
     addTaskButton.classList.remove("task-hidden");
 
+  });
+
+  const feature = document.querySelectorAll(".attribute");
+  const test = document.getElementById("test-div");
+  
+  input.addEventListener("blur", e => {
+    input.removeAttribute("placeholder");
+    feature.forEach(el => {
+      el.classList.add("task-hidden");
+    })
+    test.classList.add("task-hidden");
+    addTaskButton.classList.add("task-hidden");
   });
 
   input.addEventListener("change", (e) => {
@@ -57,8 +69,6 @@ window.addEventListener("DOMContentLoaded", e => {
     }
   });
 
-  const feature = document.querySelectorAll(".attribute");
-  const test = document.getElementById("test-div");
   input.addEventListener("keypress", e => {
     feature.forEach(el => {
       el.classList.remove("task-hidden");

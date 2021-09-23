@@ -7,16 +7,20 @@ const {
   signUpValidator,
   csrfProtection,
   validationResult,
-
 } = require("./utils");
 const { generateHashedPassword, checkPassword } = require("../bcrypt");
 const db = require("../db/models");
 
-const { loginUser, logoutUser, validateUser,loginDemoUser } = require("../auth");
+const {
+  loginUser,
+  logoutUser,
+  validateUser,
+  loginDemoUser,
+} = require("../auth");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
-  res.render("splash",{ title:"Welcome" },)
+  res.render("splash", { title: "Welcome" });
 });
 
 router.get("/logout", function (req, res, next) {
@@ -27,39 +31,38 @@ router.get("/login", csrfProtection, (req, res) => {
   res.render("log-in", { title: "Log In", csrfToken: req.csrfToken() });
 });
 
-router.get("/demo", asyncHandler(async (req, res) => {
-  // const email = "demo@rtc.com";
-  // const user = await db.User.findOne({ where: { email } });
-  loginDemoUser(req, res);
-}));
+router.get(
+  "/demo",
+  asyncHandler(async (req, res) => {
+    // const email = "demo@rtc.com";
+    // const user = await db.User.findOne({ where: { email } });
+    loginDemoUser(req, res);
+  })
+);
 
 router.get("/signup", csrfProtection, (req, res) => {
   res.render("sign-up", { title: "Sign Up", csrfToken: req.csrfToken() });
 });
 
-
 router.get(
   "/tasks",
-  validateUser, asyncHandler(async (req, res) => {
-  const languages = await db.Language.findAll();
-  console.log(languages, "$$$$$$$$$$$$$$$$$$$$$$$$");
-
-  const lists = await db.List.findAll({
-    where: {
-      userId: 4,
-    },
-  });
-  console.log(lists, "*************************");
-  const userLists = await db.List.findAll({
-    // where:{userId:req.session.auth.userId},
-    where: { userId: 4 },
-    include: db.Task,
-  });
-  const tasks = userLists.map((list) => list.Tasks).flat();
-  console.log(tasks, "!!!!!!!!!!!!!!!!!!!!!!!!!");
-  await res.render("tasks", {title: "Tasks", languages, lists, tasks });
-}));
-
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const languages = await db.Language.findAll();
+    const lists = await db.List.findAll({
+      where: {
+        userId: req.session.auth.userId,
+      },
+    });
+    const userLists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: req.session.auth.userId },
+      include: db.Task,
+    });
+    const tasks = userLists.map(list => list.Tasks).flat();
+    res.render("tasks", { title: "Tasks", languages, lists, tasks });
+  })
+);
 
 router.post(
   "/tasks",
@@ -77,19 +80,9 @@ router.post(
       inProgress,
       complete,
     } = req.body;
-    const languages = await db.Language.findAll();
-    const lists = await db.List.findAll({
-      where: {
-        userId: 4,
-      },
-    });
-    const userLists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
-      where: { userId: 4 },
-      include: db.Task,
-    });
-    const tasks = userLists.map((list) => list.Tasks).flat();
-    const newTask = await db.Task.create({
+
+    // creating task
+    await db.Task.create({
       taskName,
       langId,
       listId,
@@ -102,7 +95,7 @@ router.post(
       inProgress,
       complete,
     });
-    res.render("tasks", { languages,lists,tasks, title: "Tasks" });
+    res.redirect("/users/tasks");
   })
 );
 
@@ -165,41 +158,44 @@ router.post(
       username,
     });
 
-
-
-    // const list2 = await db.List.create({
-    //   name: "Inbox",
-    //   userId: req.session.auth.userId,
-    // });
-
-    //  const list3 = await db.List.create({
-    //    name: "Today",
-    //    userId: req.session.auth.userId,
-    //  });
-
-    //  const list4 = await db.List.create({
-    //    name: "Tomorrow",
-    //    userId: req.session.auth.userId,
-    //  });
-
-    //   const list5 = await db.List.create({
-    //     name: "This Week",
-    //     userId: req.session.auth.userId,
-    //   });
-
     const validatorErrors = validationResult(req);
     if (validatorErrors.isEmpty()) {
       const hashedPass = await generateHashedPassword(password);
       user.password = hashedPass;
       await user.save();
-      const list1 = await db.List.create({
+
+      req.session.auth = {
+        userId: user.id,
+      };
+
+      await db.List.create({
         name: "All Tasks",
-        userId: 4,
+        userId: req.session.auth.userId,
       });
-      loginUser(req, res, user);
+
+      await db.List.create({
+        name: "Inbox",
+        userId: req.session.auth.userId,
+      });
+
+      await db.List.create({
+        name: "Today",
+        userId: req.session.auth.userId,
+      });
+
+      await db.List.create({
+        name: "Tomorrow",
+        userId: req.session.auth.userId,
+      });
+
+      await db.List.create({
+        name: "This Week",
+        userId: req.session.auth.userId,
+      });
+
+      req.session.save(() => res.redirect("/users/tasks"));
     } else {
       const errors = validatorErrors.array().map(error => error.msg);
-      console.log(errors);
       res.render("sign-up", {
         user,
         errors,
