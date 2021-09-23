@@ -1,0 +1,62 @@
+doctype html
+head
+title= `${title}`
+
+link(rel="preconnect" href="https://fonts.googleapis.com")
+link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+link(href="https://fonts.googleapis.com/css2?family=Yaldevi:wght@500&display=swap" rel="stylesheet")
+link(rel='stylesheet' href="/stylesheets/splash.css")
+body#splashbody
+    div#navbar
+        img#splashlogo(src="/images/logo-trans-final.png")
+        div#splashnavplaceholder
+        div#splashlinks
+            button.splashlinkbuttons: a.splashlinkitems#splashSignUpLink(href="/users/signup") Sign Up
+            button.splashlinkbuttons: a.splashlinkitems#splashLoginLink(href="/users/login") Login
+            button.splashlinkbuttons: a.splashlinkitems#splashDemoUser(href="/users/login") Demo User
+
+    div#splashmain
+        div#welcomeMessage
+            p="The smart to-do app for busy coders."
+        div#welcomeSignUp
+            button#welcomeSignUpButton: a#welcomeSignUpLink(href="/users/signup") Sign up for free
+        div#welcomeImageContainer
+            img#welcomeImage(src="/images/carousel1final.PNG")
+        div#welcomeTextContainer
+            p#welcomeImageText="Get the code out of your head and into the repo!"
+            div#welcomeTextBodyContainer
+                p#welcomeImageTextBody="The all-in-one task management solution for the busy coder in everyone!"
+footer#splashfooter
+    div#aboutdiv
+        div.credentialdivs#anndiv
+            div#annname
+                p.splashname="Ann Donnelly"
+            div#annlinks
+                a(href="https://github.com/anndonnelly")
+                    img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                a(href="https://www.linkedin.com/in/ann-donnelly/")
+                    img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+        div.credentialdivs#ajdiv
+            div#ajname
+                p.splashname="AJ Abushaban"
+            div#ajlinks
+                a(href="https://github.com/asabushaban")
+                    img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                a(href="https://www.linkedin.com/in/aj-abushaban-919231100/")
+                    img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+        div.credentialdivs#patchdiv
+            div#patrickname
+                p.splashname="Patrick Story"
+            div#patchlinks
+                a(href="https://github.com/pstory721")
+                    img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                a(href="https://www.linkedin.com/in/patrick-story-546539217")
+                    img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+        div.credentialdivs#williamdiv
+            div#williamname
+                p.splashname="William Ziller"
+            div#williamlinks
+                a(href="https://github.com/wziller")
+                    img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                a(href="https://www.linkedin.com/in/william-ziller-99b45a90/")
+                    img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
