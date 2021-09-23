@@ -1,4 +1,6 @@
 window.addEventListener("DOMContentLoaded", e => {
+
+
   //Sidebar whole menu dropdown functionality
   const hamburgerButton = document.getElementById("hamburger");
   const sideBar = document.getElementById("sidebartasks--open")
@@ -67,7 +69,5 @@ window.addEventListener("DOMContentLoaded", e => {
 
 
 
-  
+
 });
-
-

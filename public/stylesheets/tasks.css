@@ -356,7 +356,7 @@ body {
   border-radius: 15px 0px 0px 0px;
   box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
   background-image: url(../images/Task-list.png);
-  /* background-repeat: repeat; */
+  background-repeat: repeat;
 }
 
 #tasks-summary {
@@ -369,33 +369,56 @@ body {
   border-radius: 0px 15px 0px 0px;
 }
 
- /*Tasks Styling*/
+ /* Tasks Styling*/
+
+
+
+/* #form{
+  grid-area: b;
+  border: 1px solid tomato;
+} */
 
 #tasks-form {
-  display: flex;
-  flex-direction: row;
-  justify-content:stretch;
-  height: 30%;
-  width: 100%;
-  border: 1px solid tomato;
-
+  margin-top: 10px;
+  display: grid;
+  grid-template-rows:115px;
+  grid-template-areas:
+    "b b b"
+    "c c c";
+    border:1px solid tomato
 }
 
+
+
+
 #tasks-input {
-  position: absolute;
-  width: 42%;
+  grid-area: b;
+  /* justify-self: stretch;
+  align-self: stretch; */
+  place-self: center stretch;
+  width:100%;
   height: 22px;
-  margin-top: 61px;
-  margin-left: 12px;
+  margin-top: 50px;
+  margin-left: 10px;
   margin-right: 10px;
+  border: 2px solid black
 }
 
 .task-hidden {
-  display: none;
+  visibility: hidden;
 }
 
 #test-div {
-  height: 100%;
+ grid-area: c;
+ justify-self: end;
+  height: 15%;
   width: 100%;
   border: 1px solid tomato;
 }
+
+#tasks-container{
+  height: 84.5%;
+  width: 100%;
+  border:1px solid tomato;
+}
+

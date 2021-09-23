@@ -26,7 +26,7 @@ const store = new SequelizeStore({ db: sequelize });
 app.use(cookieParser(sessionSecret));
 app.use(
   session({
-    secret: "william",
+    secret: "0dc829fa-ce81-48ff-b82f-3747ef4289c3",
     store,
     saveUninitialized: false,
     resave: false,
@@ -38,7 +38,7 @@ app.use(cookieParser());
 // create Session table if it doesn't already exist
 store.sync();
 
-// app.use("/", indexRouter);
+app.use("/", usersRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler

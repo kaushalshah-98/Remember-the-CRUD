@@ -20,7 +20,7 @@ const loginUser = (req, res, user) => {
 
 const logoutUser = (req, res) => {
   delete req.session.auth;
-  res.redirect("/users/login");
+  res.redirect("/users/login")
 };
 
 module.exports = {

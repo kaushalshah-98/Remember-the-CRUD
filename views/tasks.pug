@@ -6,6 +6,7 @@ head
 body
   div#navbartasks
     img#hamburger(src="/images/Hamburger_icon.png")
+    button#logoutButton: a#logoutLink(href="/users/logout") Logout
   div#largestboxtasks
     div#sidebartasks--open
       img#logo(src="/images/logo-trans-final.png")
@@ -47,7 +48,7 @@ body
     div#mainboxtasks
       div#tasks-view
         div#tasks-form
-          form(action="/users/tasks" method="POST")
+          form(action="/users/tasks" method="POST")#form
               input(type="hidden" name="_csrf" value=csrfToken)
               input(type="text" value placeholder="Add a task..." name="taskName")#tasks-input
               div#test-div
@@ -57,7 +58,7 @@ body
                 select(name="listId" required).attribute.task-hidden
                       each list in lists
                           option(value=list.id)=list.name
-                input(type="integer" name="estTime").attribute.task-hidden
+                input(type="integer" value=0 name="estTime").attribute.task-hidden
                 input(type="date" name="startDate").attribute.task-hidden
                 input(type="date" name="dueDate").attribute.task-hidden
                 input(type="checkbox" name="priority").attribute.task-hidden
@@ -66,4 +67,7 @@ body
                 input(type="checkbox" name="inProgress").attribute.task-hidden
                 input(type="checkbox" name="complete").attribute.task-hidden
                 button#tasks-button.task-hidden(disabled) Add Task
+        div#tasks-container
+          each task in tasks
+            li.mainTaskList= task.taskName
       div#tasks-summary
