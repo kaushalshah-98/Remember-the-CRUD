@@ -42,15 +42,22 @@ router.get(
   "/tasks",
   validateUser, asyncHandler(async (req, res) => {
   const languages = await db.Language.findAll();
-  const lists = await db.List.findAll();
+  console.log(languages, "$$$$$$$$$$$$$$$$$$$$$$$$");
+
+  const lists = await db.List.findAll({
+    where: {
+      userId: 4,
+    },
+  });
+  console.log(lists, "*************************");
   const userLists = await db.List.findAll({
     // where:{userId:req.session.auth.userId},
     where: { userId: 4 },
     include: db.Task,
   });
   const tasks = userLists.map((list) => list.Tasks).flat();
-  console.log(tasks)
-  res.render("tasks", {title: "Tasks", languages, lists, tasks });
+  console.log(tasks, "!!!!!!!!!!!!!!!!!!!!!!!!!");
+  await res.render("tasks", {title: "Tasks", languages, lists, tasks });
 }));
 
 
@@ -70,6 +77,18 @@ router.post(
       inProgress,
       complete,
     } = req.body;
+    const languages = await db.Language.findAll();
+    const lists = await db.List.findAll({
+      where: {
+        userId: 4,
+      },
+    });
+    const userLists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: 4 },
+      include: db.Task,
+    });
+    const tasks = userLists.map((list) => list.Tasks).flat();
     const newTask = await db.Task.create({
       taskName,
       langId,
@@ -83,7 +102,7 @@ router.post(
       inProgress,
       complete,
     });
-    res.redirect("/users/tasks", { newTask, title: "Tasks" });
+    res.render("tasks", { languages,lists,tasks, title: "Tasks" });
   })
 );
 
@@ -149,7 +168,7 @@ router.post(
 
 
     // const list2 = await db.List.create({
-    //   name: "All Tasks",
+    //   name: "Inbox",
     //   userId: req.session.auth.userId,
     // });
 
@@ -174,7 +193,7 @@ router.post(
       user.password = hashedPass;
       await user.save();
       const list1 = await db.List.create({
-        name: "Inbox",
+        name: "All Tasks",
         userId: 4,
       });
       loginUser(req, res, user);
