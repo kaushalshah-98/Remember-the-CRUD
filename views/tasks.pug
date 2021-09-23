@@ -48,26 +48,28 @@ body
               li.alllanguageoptions-open= "C#"
     div#mainboxtasks
       div#tasks-view
-        div#tasks-form
-          form(action="/users/tasks" method="POST")#form
-              input(type="hidden" name="_csrf" value=csrfToken)
-              input(type="text" value placeholder="Add a task..." name="taskName")#tasks-input
-              div#test-div
-                select(name="langId" required).attribute.task-hidden
-                      each language in languages
-                          option(value=language.id)=language.name
-                select(name="listId" required).attribute.task-hidden
-                      each list in lists
-                          option(value=list.id)=list.name
-                input(type="integer" value=0 name="estTime").attribute.task-hidden
-                input(type="date" name="startDate").attribute.task-hidden
-                input(type="date" name="dueDate").attribute.task-hidden
-                input(type="checkbox" name="priority").attribute.task-hidden
-                input(type="checkbox" name="backlog").attribute.task-hidden
-                input(type="checkbox" name="sprintBacklog").attribute.task-hidden
-                input(type="checkbox" name="inProgress").attribute.task-hidden
-                input(type="checkbox" name="complete").attribute.task-hidden
-                button#tasks-button.task-hidden(disabled) Add Task
+        div.taskRight
+                  button#completed Completed
+                  button#delete Delete
+        form(action="/users/tasks" method="POST")#tasks-form
+          input(type="hidden" name="_csrf" value=csrfToken)
+          input(type="text" placeholder="Add a task..." name="taskName")#tasks-input
+          div#test-div
+            select(name="langId" required).attribute.task-hidden
+                each language in languages
+                  option(value=language.id)=language.name
+            select(name="listId" required).attribute.task-hidden
+                each list in lists
+                    option(value=list.id)=list.name
+            input(type="integer" value=0 name="estTime").attribute.task-hidden
+            input(type="date" name="startDate").attribute.task-hidden
+            input(type="date" name="dueDate").attribute.task-hidden
+            input(type="checkbox" name="priority").attribute.task-hidden
+            input(type="checkbox" name="backlog").attribute.task-hidden
+            input(type="checkbox" name="sprintBacklog").attribute.task-hidden
+            input(type="checkbox" name="inProgress").attribute.task-hidden
+            input(type="checkbox" name="complete").attribute.task-hidden
+            button#tasks-button.task-hidden(disabled) Add Task
         div#tasks-container
           if tasks
             each task in tasks
@@ -75,9 +77,9 @@ body
                 div.taskLeft
                   input(type="checkbox")#taskCheckBox
                   p.taskText= task.taskName
-                div.taskRight
-                  button#completed Completed
-                  button#delete Delete
+                //- div.taskRight
+                //-   button#completed Completed
+                //-   button#delete Delete
       div#tasks-summary
         p#taskssummarycurrentsort="AllTasks"
         div#tasksummaryitemscontainer

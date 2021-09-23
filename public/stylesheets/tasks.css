@@ -205,7 +205,7 @@ body {
 #tasks-view {
   display: flex;
   flex-direction: column;
-  padding:20px;
+  padding: 20px;
   height: 100%;
   width: 50%;
   margin-top: 7px;
@@ -391,41 +391,30 @@ body {
 /* Tasks Styling*/
 
 /* #form{
+  width: 100%;
+  height: 100;
   grid-area: b;
   border: 1px solid tomato;
 } */
 
 #tasks-form {
-  margin-top: 10px;
-  display: grid;
-  grid-template-rows: 115px;
+  width: 100%;
+  height: 12%;
+  /* margin-top: 10px; */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* grid-template-rows: 115px;
+  grid-template-columns: auto;
   grid-template-areas:
     "a a a"
     "b b b"
-    "c c c";
-};
-
-#tasks-input {
-  grid-area: b;
-  /* justify-self: stretch;
-  align-self: stretch; */
-  place-self: center stretch;
-  width: 100%;
-  height: 22px;
-  margin-top: 50px;
-  margin-left: 10px;
-  margin-right: 10px;
-  border: 2px solid black;
-}
-
-.task-hidden {
-  visibility: hidden;
+    "c c c"; */
 }
 
 #test-div {
-  grid-area: c;
   justify-self: end;
-  height: 15%;
+  height: 50%;
   width: 100%;
 }
 
@@ -474,63 +463,63 @@ body {
   /* margin-top: 5px; */
 }
 
-#tasks-summary{
-  height:25%;
-  width:50%;
+#tasks-summary {
+  height: 25%;
+  width: 50%;
   flex-direction: column;
   background-color: transparent;
-  padding:12px;
+  padding: 12px;
 }
 
-#taskssummarycurrentsort{
+#taskssummarycurrentsort {
   font-size: 22pt;
-  width:100%;
-  height:10%;
+  width: 100%;
+  height: 10%;
 }
 
-#tasksummaryitemscontainer{
+#tasksummaryitemscontainer {
   display: flex;
   justify-content: space-evenly;
-  width:50%;
-  height:66;
-
+  width: 50%;
+  height: 66;
 }
 
-#taskscount_est{
+#taskscount_est {
   display: flex;
-  width:50%;
+  width: 50%;
   justify-content: space-evenly;
 }
 
-#est_time{
-  display:flex;
+#est_time {
+  display: flex;
   flex-direction: column;
-  justify-content:space-evenly;
-  width:50%;
+  justify-content: space-evenly;
+  width: 50%;
 }
-#est_numbers{
-  display:flex;
+#est_numbers {
+  display: flex;
   flex-direction: row;
-  width:50%;
+  width: 50%;
 }
 
-#est_title, #task_title,
-#task_num{
-  width:100%;
-  height:50%;
+#est_title,
+#task_title,
+#task_num {
+  width: 100%;
+  height: 50%;
 }
 
 #numhrs,
-#nummin{
-  display:flex;
+#nummin {
+  display: flex;
   flex-direction: row;
 }
 #taskscount_est,
 #completedcount,
-#duetommorrowcount{
-  width:33%;
-  height:2cm;
-  padding:6px;
+#duetommorrowcount {
+  width: 33%;
+  height: 2cm;
+  padding: 6px;
   background-color: #dfebf8;
   border-radius: 5px;
   margin: 4px;
@@ -542,20 +531,35 @@ body {
 #nummin > p,
 #taskcount > p,
 #duetommorrowcount > p,
-#completedcount > p{
+#completedcount > p {
   display: flex;
-  text-align:left;
-  height:.5cm;
-  padding:0;
-  margin:0;
+  text-align: left;
+  height: 0.5cm;
+  padding: 0;
+  margin: 0;
 }
 
-.bottomsummarytext{
+.bottomsummarytext {
   font-size: 10pt;
-  margin-top:4px;
-
+  margin-top: 4px;
 }
 
-.summarynumber{
+.summarynumber {
   font-size: 15pt;
+}
+
+#tasks-input {
+  /* justify-self: stretch;
+  align-self: stretch; */
+  /* place-self: center stretch; */
+  width: 100%;
+  height: 25px;
+  /* margin-top: 50px;
+  margin-left: 10px;
+  margin-right: 10px; */
+  border: 2px solid black;
+}
+
+.task-hidden {
+  visibility: hidden;
 }
