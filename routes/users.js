@@ -7,11 +7,12 @@ const {
   signUpValidator,
   csrfProtection,
   validationResult,
+
 } = require("./utils");
 const { generateHashedPassword, checkPassword } = require("../bcrypt");
 const db = require("../db/models");
 
-const { loginUser, logoutUser, validateUser } = require("../auth");
+const { loginUser, logoutUser, validateUser,loginDemoUser } = require("../auth");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -25,6 +26,12 @@ router.get("/logout", function (req, res, next) {
 router.get("/login", csrfProtection, (req, res) => {
   res.render("log-in", { title: "Log In", csrfToken: req.csrfToken() });
 });
+
+router.get("/demo", asyncHandler(async (req, res) => {
+  // const email = "demo@rtc.com";
+  // const user = await db.User.findOne({ where: { email } });
+  loginDemoUser(req, res);
+}));
 
 router.get("/signup", csrfProtection, (req, res) => {
   res.render("sign-up", { title: "Sign Up", csrfToken: req.csrfToken() });
@@ -139,7 +146,7 @@ router.post(
       username,
     });
 
-    
+
 
     // const list2 = await db.List.create({
     //   name: "All Tasks",
