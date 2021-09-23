@@ -203,6 +203,9 @@ body {
 }
 
 #tasks-view {
+  display: flex;
+  flex-direction: column;
+  padding:20px;
   height: 100%;
   width: 50%;
   margin-top: 7px;
@@ -470,4 +473,90 @@ body {
 #delete {
   margin: 3px;
   /* margin-top: 5px; */
+}
+
+#tasks-summary{
+  height:25%;
+  width:50%;
+  flex-direction: column;
+  background-color: transparent;
+  padding:12px;
+}
+
+#taskssummarycurrentsort{
+  font-size: 22pt;
+  width:100%;
+  height:10%;
+}
+
+#tasksummaryitemscontainer{
+  display: flex;
+  justify-content: space-evenly;
+  width:50%;
+  height:66;
+
+}
+
+#taskscount_est{
+  display: flex;
+  width:50%;
+  justify-content: space-evenly;
+}
+
+#est_time{
+  display:flex;
+  flex-direction: column;
+  justify-content:space-evenly;
+  width:50%;
+}
+#est_numbers{
+  display:flex;
+  flex-direction: row;
+  width:50%;
+}
+
+#est_title, #task_title,
+#task_num{
+  width:100%;
+  height:50%;
+}
+
+#numhrs,
+#nummin{
+  display:flex;
+  flex-direction: row;
+}
+#taskscount_est,
+#completedcount,
+#duetommorrowcount{
+  width:33%;
+  height:2cm;
+  padding:6px;
+  background-color: #dfebf8;
+  border-radius: 5px;
+  margin: 4px;
+  box-shadow: 5px 5px 8px 0px gray;
+}
+
+#est_title > p,
+#numhrs > p,
+#nummin > p,
+#taskcount > p,
+#duetommorrowcount > p,
+#completedcount > p{
+  display: flex;
+  text-align:left;
+  height:.5cm;
+  padding:0;
+  margin:0;
+}
+
+.bottomsummarytext{
+  font-size: 10pt;
+  margin-top:4px;
+
+}
+
+.summarynumber{
+  font-size: 15pt;
 }

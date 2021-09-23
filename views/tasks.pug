@@ -79,3 +79,25 @@ body
                   button#completed Completed
                   button#delete Delete
       div#tasks-summary
+        p#taskssummarycurrentsort="AllTasks"
+        div#tasksummaryitemscontainer
+          div#taskscount_est
+            div#taskcount
+              p=7
+              p.bottomsummarytext="tasks"
+            div#est_time
+              div#est_numbers
+                div#numhrs
+                  p.summarynumber=1
+                  p.bottomsummarytext="hr"
+                div#nummin
+                  p.summarynumber=50
+                  p.bottomsummarytext="min"
+              div#est_title
+                p.bottomsummarytext="estimated"
+          div#duetommorrowcount
+            p.summarynumber=1
+            p.bottomsummarytext="due tommorrow"
+          div#completedcount
+            p.summarynumber=2
+            p.bottomsummarytext="completed"
