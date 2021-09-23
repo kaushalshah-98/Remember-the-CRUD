@@ -14,7 +14,9 @@ const db = require("../db/models");
 const { loginUser, logoutUser, validateUser } = require("../auth");
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {});
+router.get("/", function (req, res, next) {
+  res.render("splash",{ title:"Welcome" },)
+});
 
 router.get("/logout", function (req, res, next) {
   logoutUser(req, res);

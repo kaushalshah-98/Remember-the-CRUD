@@ -38,7 +38,7 @@ app.use(cookieParser());
 // create Session table if it doesn't already exist
 store.sync();
 
-// app.use("/", indexRouter);
+app.use("/", usersRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
