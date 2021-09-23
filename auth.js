@@ -1,5 +1,3 @@
-const { asyncHandler } = require("./routes/utils.js");
-
 const validateUser = (req, res, next) => {
   console.log(req.session.auth);
   if (!req.session.auth) {
@@ -18,7 +16,7 @@ const loginUser = (req, res, user) => {
   req.session.save(() => res.redirect("/users/tasks"));
 };
 
-const loginDemoUser = (req, res,) => {
+const loginDemoUser = (req, res) => {
   req.session.auth = {
     userId: "Demo",
   };
@@ -29,7 +27,7 @@ const loginDemoUser = (req, res,) => {
 
 const logoutUser = (req, res) => {
   delete req.session.auth;
-  res.redirect("/users/login")
+  res.redirect("/users/login");
 };
 
 module.exports = {
