@@ -77,4 +77,14 @@ window.addEventListener("DOMContentLoaded", e => {
     test.classList.add("task-hidden");
     addTaskButton.classList.add("task-hidden");
   });
+
+  const search = document.getElementById("search")
+
+  search.addEventListener("click",(e) => {
+    search.removeAttribute("placeholder");
+  })
+
+
+
+
 });

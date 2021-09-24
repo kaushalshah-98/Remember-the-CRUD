@@ -209,7 +209,6 @@ body {
   height: 100%;
   width: 50%;
   margin-top: 7px;
-  /* border:6px solid red; */
   background: white;
   border-radius: 15px 0px 0px 0px;
   box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
@@ -338,16 +337,6 @@ body {
   border-top: 1px solid rgb(177, 177, 177);
 }
 
-#tasks-view {
-  height: 100%;
-  width: 50%;
-  margin-top: 7px;
-  /* border:6px solid red; */
-  background: white;
-  border-radius: 15px 0px 0px 0px;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
-}
-
 #tasks-summary {
   height: 100%;
   width: 50%;
@@ -364,18 +353,6 @@ body {
   height: 100%;
   width: 100%;
   /* border: 6px solid purple; */
-}
-
-#tasks-view {
-  height: 100%;
-  width: 50%;
-  margin-top: 7px;
-  /* border:6px solid red; */
-  background: white;
-  border-radius: 15px 0px 0px 0px;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
-  background-image: url(../images/Task-list.png);
-  background-repeat: repeat;
 }
 
 #tasks-summary {
@@ -427,10 +404,10 @@ body {
 
 .mainTaskList {
   display: flex;
+  border-bottom: 0.5px solid lightgrey;
   justify-content: space-between;
   height: 0.65cm;
   width: 100%;
-  margin-top: 6px;
 }
 
 .taskText {
@@ -457,12 +434,15 @@ body {
   align-items: center;
 }
 
-#completed,
 #delete {
   margin: 3px;
+  background-color: rgb(169, 209, 235);
   /* margin-top: 5px; */
 }
-
+#completed {
+  color: white;
+  background-color: #0060bf;
+}
 #tasks-summary {
   height: 25%;
   width: 50%;
@@ -557,9 +537,21 @@ body {
   /* margin-top: 50px;
   margin-left: 10px;
   margin-right: 10px; */
-  border: 2px solid black;
+  border: 2px solid rgb(187, 186, 186);
 }
 
 .task-hidden {
   visibility: hidden;
+}
+#search-Button {
+  width: 15px;
+  visibility: hidden;
+}
+#search-img {
+  position: absolute;
+  height: 20px;
+  width: 15px;
+}
+#searchbar {
+  display: flex;
 }
