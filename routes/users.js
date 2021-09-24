@@ -51,67 +51,22 @@ router.get("/signup", (req, res) => {
 
 router.get(
   "/tasks/All-Tasks",
-  validateUser, asyncHandler(async (req, res) => {
-  const languages = await db.Language.findAll();
-  // const lists = await db.List.findAll();
-  const colors = await db.Color.findAll();
-  const lists = await db.List.findAll({
-    // where:{userId:req.session.auth.userId},
-    where: { userId: req.session.auth.userId},
-    include: { model: db.Task, include: db.Tag },
-  });
-
-  // console.log(userLists);
-  let userTags = new Set();
-
-  const tasks = lists.map(list => list.Tasks).flat();
-  console.log(tasks)
-  // below provides the tags list when creating a new task
-  for (let i = 0; i < lists.length; i++) {
-    const list = lists[i];
-    let Tasks = list.Tasks;
-    for (let j = 0; j < Tasks.length; j++) {
-      const task = Tasks[j];
-      let Tags = task.Tags;
-      for (let k = 0; k < Tags.length; k++) {
-        const tag = Tags[k];
-        userTags.add(tag.name);
-      }
-    }
-  }
-
-  const taskCount = tasks.length.toString();
-  tags = Array.from(userTags);
-
-  res.render("tasks", {
-    title: "Tasks",
-    languages,
-    lists,
-    tasks,
-    taskCount,
-    tags,
-    colors,
-});
-  }));
-
-  router.get(
-    "/tasks/Completed-Tasks",
-    validateUser, asyncHandler(async (req, res) => {
+  validateUser,
+  asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
     // const lists = await db.List.findAll();
     const colors = await db.Color.findAll();
     const lists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
-      where: { userId: req.session.auth.userId},
+      where: { userId: req.session.auth.userId },
       include: { model: db.Task, include: db.Tag },
     });
 
-
+    // console.log(userLists);
     let userTags = new Set();
 
-    let tasks = lists.map(list => list.Tasks).flat();
-    tasks = completedSort(tasks);
-    console.log(tasks)
+    const tasks = lists.map(list => list.Tasks).flat();
+    console.log(tasks);
     // below provides the tags list when creating a new task
     for (let i = 0; i < lists.length; i++) {
       const list = lists[i];
@@ -137,11 +92,56 @@ router.get(
       taskCount,
       tags,
       colors,
-  });
-    }));
+    });
+  })
+);
 
+router.get(
+  "/tasks/Completed-Tasks",
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const languages = await db.Language.findAll();
+    // const lists = await db.List.findAll();
+    const colors = await db.Color.findAll();
+    const lists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: req.session.auth.userId },
+      include: { model: db.Task, include: db.Tag },
+    });
 
+    let userTags = new Set();
 
+    let tasks = lists.map(list => list.Tasks).flat();
+    tasks = completedSort(tasks);
+    console.log(tasks);
+    // below provides the tags list when creating a new task
+    for (let i = 0; i < lists.length; i++) {
+      const list = lists[i];
+      let Tasks = list.Tasks;
+      for (let j = 0; j < Tasks.length; j++) {
+        const task = Tasks[j];
+        let Tags = task.Tags;
+        for (let k = 0; k < Tags.length; k++) {
+          const tag = Tags[k];
+          userTags.add(tag.name);
+        }
+      }
+    }
+
+    const taskCount = tasks.length.toString();
+    tags = Array.from(userTags);
+
+    res.render("tasks", {
+      title: "Tasks",
+      languages,
+      lists,
+      tasks,
+      taskCount,
+      tags,
+      colors,
+    });
+  })
+);
 
 //Get tasks list by list Id
 router.get(
@@ -151,7 +151,7 @@ router.get(
     const languages = await db.Language.findAll();
     let tags = await db.Tag.findAll();
     const colors = await db.Color.findAll();
-    
+
     const userLists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId, id: req.params.id },
@@ -167,7 +167,7 @@ router.get(
 
     const tagsLists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
-      where: { userId: req.session.auth.userId},
+      where: { userId: req.session.auth.userId },
       include: { model: db.Task, include: db.Tag },
     });
 
@@ -240,7 +240,6 @@ router.post(
       complete,
     });
 
-
     res.redirect(`/users/tasks/${listId}`);
   })
 );
@@ -270,10 +269,12 @@ router.post(
           // If the password hashes match, then login the user
           // and redirect them to the default route.
           // TODO Login the user.
-          const userAllTaskList = await db.List.findOne({where: {
-            userId: user.id,
-            name: "All Tasks"
-          }})
+          const userAllTaskList = await db.List.findOne({
+            where: {
+              userId: user.id,
+              name: "All Tasks",
+            },
+          });
           console.log("hi");
           loginUser(req, res, user, userAllTaskList.id);
           // res.redirect("/users/tasks");
@@ -318,31 +319,36 @@ router.post(
       };
 
       await db.List.create({
-        name: "All Tasks",
-        userId: req.session.auth.userId,
-      });
-
-      await db.List.create({
         name: "Inbox",
         userId: req.session.auth.userId,
       });
 
       await db.List.create({
-        name: "Today",
+        name: "Database Contruction",
         userId: req.session.auth.userId,
       });
 
       await db.List.create({
-        name: "Tomorrow",
+        name: "Mobile Optimization",
         userId: req.session.auth.userId,
       });
 
       await db.List.create({
-        name: "This Week",
+        name: "Personal Website Update",
         userId: req.session.auth.userId,
       });
 
-      req.session.save(() => res.redirect("/users/tasks"));
+      await db.List.create({
+        name: "New Employee On-Boarding",
+        userId: req.session.auth.userId,
+      });
+
+      await db.List.create({
+        name: "POS services",
+        userId: req.session.auth.userId,
+      });
+
+      req.session.save(() => res.redirect("/users/tasks/All-Tasks"));
     } else {
       const errors = validatorErrors.array().map(error => error.msg);
       res.render("sign-up", {

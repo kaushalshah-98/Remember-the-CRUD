@@ -57,7 +57,7 @@ body
                   button#delete Delete
         form(action="/users/tasks" method="POST")#tasks-form
           input(type="hidden" name="_csrf" value=csrfToken)
-          input(type="text" placeholder="Add a task..." name="taskName")#tasks-input
+          input(type="text" placeholder="Add a task..." name="taskName" required)#tasks-input
           div#test-div
             select(name="langId" required).attribute.task-hidden
               each language in languages
@@ -68,9 +68,9 @@ body
             select(name="tagId").attribute.task-hidden
               each tag in tags
                 option(value=tag.id)=tag.name
-            input(type="integer" value=0 name="estTime").attribute.task-hidden
-            input(type="date" name="startDate").attribute.task-hidden
-            input(type="date" name="dueDate").attribute.task-hidden
+            input(type="number" value=0 name="estTime" required).attribute.task-hidden
+            input(type="date" name="startDate" required).attribute.task-hidden
+            input(type="date" name="dueDate" required).attribute.task-hidden
             button#tasks-button.task-hidden(disabled) Add Task
 
         div#tasks-container
