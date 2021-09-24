@@ -31,8 +31,8 @@ body
           div#options2
             p#alllists="Lists"
             ul#options2list
-              //- each list in lists
-              //-   li.alllistoptions-open= language.name
+              each list in lists
+                li.alllistoptions-open= list.name
         div#tagsorts
           img#ddownarrow-tags(src="/images/blue-dright-arrow.PNG")
           div#options3
@@ -51,29 +51,6 @@ body
       div#tasks-view
 
         div#tasks-form
-          form(action="/users/tasks" method="POST")#form
-              input(type="hidden" name="_csrf" value=csrfToken)
-              input(type="text" value placeholder="Add a task..." name="taskName")#tasks-input
-              div#test-div
-                select(name="langId" required).attribute.task-hidden
-                      each language in languages
-                          option(value=language.id)=language.name
-                select(name="listId" required).attribute.task-hidden
-                      each list in lists
-                          option(value=list.id)=list.name
-                select(name="tagId").attribute.task-hidden
-                  each tag in tags
-                    option(value=tag.id)=tag.name
-                input(type="integer" value=0 name="estTime").attribute.task-hidden
-                input(type="date" name="startDate").attribute.task-hidden
-                input(type="date" name="dueDate").attribute.task-hidden
-                input(type="checkbox" name="priority").attribute.task-hidden
-                input(type="checkbox" name="backlog").attribute.task-hidden
-                input(type="checkbox" name="sprintBacklog").attribute.task-hidden
-                input(type="checkbox" name="inProgress").attribute.task-hidden
-                input(type="checkbox" name="complete").attribute.task-hidden
-                button#tasks-button.task-hidden(disabled) Add Task
-
         div.taskRight
                   button#completed Completed
                   button#delete Delete
@@ -82,11 +59,14 @@ body
           input(type="text" placeholder="Add a task..." name="taskName")#tasks-input
           div#test-div
             select(name="langId" required).attribute.task-hidden
-                each language in languages
-                  option(value=language.id)=language.name
+              each language in languages
+                option(value=language.id)=language.name
             select(name="listId" required).attribute.task-hidden
-                each list in lists
-                    option(value=list.id)=list.name
+              each list in lists
+                option(value=list.id)=list.name
+            select(name="tagId").attribute.task-hidden
+              each tag in tags
+                option(value=tag.id)=tag.name
             input(type="integer" value=0 name="estTime").attribute.task-hidden
             input(type="date" name="startDate").attribute.task-hidden
             input(type="date" name="dueDate").attribute.task-hidden
@@ -134,7 +114,7 @@ body
         div#tasksummaryitemscontainer
           div#taskscount_est
             div#taskcount
-              p#totalTasksSummary.summarynumber
+              p.summarynumber
               p.bottomsummarytext="tasks"
             div#est_time
               div#est_numbers
