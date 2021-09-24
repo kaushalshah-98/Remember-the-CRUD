@@ -151,7 +151,7 @@ router.get(
     const languages = await db.Language.findAll();
     let tags = await db.Tag.findAll();
     const colors = await db.Color.findAll();
-    console.log("req params ==============" , req.params)
+    
     const userLists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId, id: req.params.id },
