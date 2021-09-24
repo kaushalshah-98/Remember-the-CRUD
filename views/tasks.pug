@@ -31,27 +31,49 @@ body
           div#options2
             p#alllists="Lists"
             ul#options2list
-              li.alllistoptions-open= "Work"
-              li.alllistoptions-open= "Personal"
+              //- each list in lists
+              //-   li.alllistoptions-open= language.name
         div#tagsorts
           img#ddownarrow-tags(src="/images/blue-dright-arrow.PNG")
           div#options3
             p#alltags="Tags"
             ul#options3list
-              li.alltagoptions-open= "Work"
-              li.alltagoptions-open= "Personal"
+              each tag in userTags
+                li.alltagoptions-open= tag
         div#languagesorts
           img#ddownarrow-languages(src="/images/blue-dright-arrow.PNG")
           div#options4
             p#alllanguages="Languages"
             ul#options4list
-              li.alllanguageoptions-open= "JavaScript"
-              li.alllanguageoptions-open= "Python"
-              li.alllanguageoptions-open= "HTML"
-              li.alllanguageoptions-open= "CSS"
-              li.alllanguageoptions-open= "C#"
+              each language in languages
+                li.alllanguageoptions-open= language.name
     div#mainboxtasks
       div#tasks-view
+
+        div#tasks-form
+          form(action="/users/tasks" method="POST")#form
+              input(type="hidden" name="_csrf" value=csrfToken)
+              input(type="text" value placeholder="Add a task..." name="taskName")#tasks-input
+              div#test-div
+                select(name="langId" required).attribute.task-hidden
+                      each language in languages
+                          option(value=language.id)=language.name
+                select(name="listId" required).attribute.task-hidden
+                      each list in lists
+                          option(value=list.id)=list.name
+                select(name="tagId").attribute.task-hidden
+                  each tag in tags
+                    option(value=tag.id)=tag.name
+                input(type="integer" value=0 name="estTime").attribute.task-hidden
+                input(type="date" name="startDate").attribute.task-hidden
+                input(type="date" name="dueDate").attribute.task-hidden
+                input(type="checkbox" name="priority").attribute.task-hidden
+                input(type="checkbox" name="backlog").attribute.task-hidden
+                input(type="checkbox" name="sprintBacklog").attribute.task-hidden
+                input(type="checkbox" name="inProgress").attribute.task-hidden
+                input(type="checkbox" name="complete").attribute.task-hidden
+                button#tasks-button.task-hidden(disabled) Add Task
+
         div.taskRight
                   button#completed Completed
                   button#delete Delete
@@ -74,6 +96,7 @@ body
             input(type="checkbox" name="inProgress").attribute.task-hidden
             input(type="checkbox" name="complete").attribute.task-hidden
             button#tasks-button.task-hidden(disabled) Add Task
+
         div#tasks-container
           if tasks
             each task in tasks
@@ -111,7 +134,7 @@ body
         div#tasksummaryitemscontainer
           div#taskscount_est
             div#taskcount
-              p=7
+              p#totalTasksSummary.summarynumber
               p.bottomsummarytext="tasks"
             div#est_time
               div#est_numbers
@@ -127,5 +150,5 @@ body
             p.summarynumber=1
             p.bottomsummarytext="due tommorrow"
           div#completedcount
-            p.summarynumber=2
+            p.summarynumber
             p.bottomsummarytext="completed"

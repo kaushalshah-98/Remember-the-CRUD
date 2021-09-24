@@ -18,7 +18,7 @@ const loginUser = (req, res, user) => {
 
 const loginDemoUser = (req, res) => {
   req.session.auth = {
-    userId: "Demo",
+    userId: 1,
   };
   console.log(req.session.auth);
 
