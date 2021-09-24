@@ -152,7 +152,7 @@ body {
   margin-top: 2px;
   height: 12px;
   width: 12px;
-  transform: rotate(-90deg);
+  transition: ease-in-out 300ms;
 }
 
 .alllistoptions-open {
@@ -236,7 +236,7 @@ body {
   margin-top: 2px;
   height: 12px;
   width: 12px;
-  transform: rotate(-90deg);
+  transition: ease-in-out 300ms;
 }
 
 .alltagoptions-open {
@@ -292,7 +292,7 @@ body {
   margin-top: 2px;
   height: 12px;
   width: 12px;
-  transform: rotate(-90deg);
+  transition: ease-in-out 300ms;
 }
 
 .alllanguageoptions-open {
@@ -525,6 +525,8 @@ body {
 }
 
 .summarynumber {
+  height:1cm;
+  width:1cm;
   font-size: 15pt;
 }
 

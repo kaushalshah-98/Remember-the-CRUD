@@ -9,9 +9,9 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   let totalTasks = tasks.length
   console.log(totalTasks)
-  let totalTasksSummary = document.getElementById("")
+  let totalTasksSummary = document.getElementById("totalTasksSummary")
   window.onload= ()=>{
-    totalTasksSummary.innerText = "8";
+    totalTasksSummary.innerText = totalTasks.toString();
   }
 
 
