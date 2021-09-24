@@ -22,7 +22,7 @@ const loginDemoUser = (req, res) => {
   };
   console.log(req.session.auth);
 
-  req.session.save(() => res.redirect("/users/tasks"));
+  req.session.save(() => res.redirect("/users/tasks/All-Tasks"));
 };
 
 const logoutUser = (req, res) => {
