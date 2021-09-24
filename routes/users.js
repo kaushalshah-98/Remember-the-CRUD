@@ -49,6 +49,53 @@ router.get("/signup", (req, res) => {
 });
 
 router.get(
+  "/tasks/All-Tasks",
+  validateUser, asyncHandler(async (req, res) => {
+  const languages = await db.Language.findAll();
+  // const lists = await db.List.findAll();
+  const colors = await db.Color.findAll();
+  const lists = await db.List.findAll({
+    // where:{userId:req.session.auth.userId},
+    where: { userId: req.session.auth.userId},
+    include: { model: db.Task, include: db.Tag },
+  });
+
+  // console.log(userLists);
+  let userTags = new Set();
+
+  const tasks = lists.map(list => list.Tasks).flat();
+
+  // below provides the tags list when creating a new task
+  for (let i = 0; i < lists.length; i++) {
+    const list = lists[i];
+    let Tasks = list.Tasks;
+    for (let j = 0; j < Tasks.length; j++) {
+      const task = Tasks[j];
+      let Tags = task.Tags;
+      for (let k = 0; k < Tags.length; k++) {
+        const tag = Tags[k];
+        userTags.add(tag.name);
+      }
+    }
+  }
+
+  const taskCount = tasks.length.toString();
+  tags = Array.from(userTags);
+
+  res.render("tasks", {
+    title: "Tasks",
+    languages,
+    lists,
+    tasks,
+    taskCount,
+    userTags,
+    colors,
+    tags,
+});
+  }));
+
+//Get tasks list by list Id
+router.get(
   "/tasks/:id",
   validateUser,
   asyncHandler(async (req, res) => {
@@ -68,19 +115,11 @@ router.get(
       },
     });
 
+
+
     let userTags = new Set();
 
     const tasks = userLists.map(list => list.Tasks).flat();
-    // console.log(typeof tasks[0].createdAt)
-    // console.log(userLists)
-    // userLists.forEach(List => {
-    //   List.Tasks.forEach((task) => {
-    //     task.Tags.forEach((tag) => {
-    //       console.log(tag);
-    //     })
-    //   })
-    // })
-    console.log("hit---------------->");
 
     // below provides the tags list when creating a new task
     for (let i = 0; i < userLists.length; i++) {
@@ -97,14 +136,14 @@ router.get(
         }
       }
     }
-    console.log();
     userTags = Array.from(userTags);
-    // console.log(tags)
+    const taskCount = tasks.length.toString();
     res.render("tasks", {
       title: "Tasks",
       languages,
       lists,
       tasks,
+      taskCount,
       tags,
       colors,
       userTags,
@@ -148,8 +187,8 @@ router.post(
       complete,
     });
 
-  
-    res.redirect("/users/tasks/:id");
+
+    res.redirect(`/users/tasks/${listId}`);
   })
 );
 
