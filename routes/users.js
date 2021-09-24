@@ -45,19 +45,18 @@ router.get("/signup", csrfProtection, (req, res) => {
 });
 
 router.get(
-  "/tasks",
+  "/tasks/:id",
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
     let tags = await db.Tag.findAll();
     const colors = await db.Color.findAll();
-
+    console.log("req params ==============" , req.params)
     const userLists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
-      where: { userId: req.session.auth.userId },
-      include: {model:db.Task, include: db.Tag}
+      where: { userId: req.session.auth.userId, id: req.params.id },
+      include: { model: db.Task, include: db.Tag },
     });
-
 
     const lists = await db.List.findAll({
       where: {
@@ -65,38 +64,38 @@ router.get(
       },
     });
 
-
     let userTags = new Set();
 
-    const tasks = userLists.map((list) => list.Tasks).flat();
+    const tasks = userLists.map(list => list.Tasks).flat();
+    // console.log(typeof tasks[0].createdAt)
     // console.log(userLists)
-  // userLists.forEach(List => {
-  //   List.Tasks.forEach((task) => {
-  //     task.Tags.forEach((tag) => {
-  //       console.log(tag);
-  //     })
-  //   })
-  // })
-    console.log("hit---------------->")
-  for (let i = 0; i < userLists.length; i++) {
-    const list = userLists[i];
-    let Tasks = list.Tasks
+    // userLists.forEach(List => {
+    //   List.Tasks.forEach((task) => {
+    //     task.Tags.forEach((tag) => {
+    //       console.log(tag);
+    //     })
+    //   })
+    // })
+    console.log("hit---------------->");
+
+    // below provides the tags list when creating a new task
+    for (let i = 0; i < userLists.length; i++) {
+      const list = userLists[i];
+      let Tasks = list.Tasks;
 
       for (let j = 0; j < Tasks.length; j++) {
         const task = Tasks[j];
-        let Tags = task.Tags
+        let Tags = task.Tags;
         // console.log(Tags)
-          for (let k = 0; k < Tags.length; k++) {
-            const tag = Tags[k];
-            userTags.add(tag.name)
-          }
-
+        for (let k = 0; k < Tags.length; k++) {
+          const tag = Tags[k];
+          userTags.add(tag.name);
+        }
       }
-
-  }
-  console.log()
-  userTags = Array.from(userTags);
-  // console.log(tags)
+    }
+    console.log();
+    userTags = Array.from(userTags);
+    // console.log(tags)
     res.render("tasks", {
       title: "Tasks",
       languages,
@@ -104,7 +103,7 @@ router.get(
       tasks,
       tags,
       colors,
-      userTags
+      userTags,
     });
   })
 );
@@ -123,7 +122,7 @@ router.get(
       where: { userId: req.session.auth.userId },
       include: db.Task,
     });
-    const tasks = userLists.map((list) => list.Tasks).flat();
+    const tasks = userLists.map(list => list.Tasks).flat();
     res.json(tasks);
   })
 );
@@ -131,19 +130,8 @@ router.get(
 router.post(
   "/tasks",
   asyncHandler(async (req, res) => {
-    const {
-      taskName,
-      langId,
-      listId,
-      estTime,
-      startDate,
-      dueDate,
-      priority,
-      backlog,
-      sprintBacklog,
-      inProgress,
-      complete,
-    } = req.body;
+    const { taskName, langId, listId, estTime, startDate, dueDate, complete } =
+      req.body;
 
     // creating task
     await db.Task.create({
@@ -153,13 +141,11 @@ router.post(
       estTime,
       startDate,
       dueDate,
-      priority,
-      backlog,
-      sprintBacklog,
-      inProgress,
       complete,
     });
-    res.redirect("/users/tasks");
+
+  
+    res.redirect("/users/tasks/:id");
   })
 );
 
@@ -188,8 +174,12 @@ router.post(
           // If the password hashes match, then login the user
           // and redirect them to the default route.
           // TODO Login the user.
+          const userAllTaskList = await db.List.findOne({where: {
+            userId: user.id,
+            name: "All Tasks"
+          }})
           console.log("hi");
-          loginUser(req, res, user);
+          loginUser(req, res, user, userAllTaskList.id);
           // res.redirect("/users/tasks");
         }
       }
@@ -197,7 +187,7 @@ router.post(
       // Otherwise display an error message to the user.
       errors.push("line 104");
     } else {
-      errors = validatorErrors.array().map((error) => error.msg);
+      errors = validatorErrors.array().map(error => error.msg);
       res.render("log-in", {
         title: "Login",
         email,
@@ -214,12 +204,11 @@ router.post(
   csrfProtection,
   signUpValidator,
   asyncHandler(async (req, res) => {
-    const { firstName, lastName, email, username, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
     const user = db.User.build({
       firstName,
       lastName,
       email,
-      username,
     });
 
     const validatorErrors = validationResult(req);
@@ -259,7 +248,7 @@ router.post(
 
       req.session.save(() => res.redirect("/users/tasks"));
     } else {
-      const errors = validatorErrors.array().map((error) => error.msg);
+      const errors = validatorErrors.array().map(error => error.msg);
       res.render("sign-up", {
         user,
         errors,
