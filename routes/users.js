@@ -3,7 +3,8 @@ const router = express.Router();
 const {
   asyncHandler,
   validateEmailAndPassword,
-  handleValidationErrors,
+  todaySort,
+  completedSort,
   signUpValidator,
   csrfProtection,
   validationResult,
@@ -64,7 +65,7 @@ router.get(
   let userTags = new Set();
 
   const tasks = lists.map(list => list.Tasks).flat();
-
+  console.log(tasks)
   // below provides the tags list when creating a new task
   for (let i = 0; i < lists.length; i++) {
     const list = lists[i];
@@ -93,6 +94,55 @@ router.get(
 });
   }));
 
+  router.get(
+    "/tasks/Completed-Tasks",
+    validateUser, asyncHandler(async (req, res) => {
+    const languages = await db.Language.findAll();
+    // const lists = await db.List.findAll();
+    const colors = await db.Color.findAll();
+    const lists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: req.session.auth.userId},
+      include: { model: db.Task, include: db.Tag },
+    });
+
+
+    let userTags = new Set();
+
+    let tasks = lists.map(list => list.Tasks).flat();
+    tasks = completedSort(tasks);
+    console.log(tasks)
+    // below provides the tags list when creating a new task
+    for (let i = 0; i < lists.length; i++) {
+      const list = lists[i];
+      let Tasks = list.Tasks;
+      for (let j = 0; j < Tasks.length; j++) {
+        const task = Tasks[j];
+        let Tags = task.Tags;
+        for (let k = 0; k < Tags.length; k++) {
+          const tag = Tags[k];
+          userTags.add(tag.name);
+        }
+      }
+    }
+
+    const taskCount = tasks.length.toString();
+    tags = Array.from(userTags);
+
+    res.render("tasks", {
+      title: "Tasks",
+      languages,
+      lists,
+      tasks,
+      taskCount,
+      tags,
+      colors,
+  });
+    }));
+
+
+
+
 //Get tasks list by list Id
 router.get(
   "/tasks/:id",
@@ -113,28 +163,32 @@ router.get(
         userId: req.session.auth.userId,
       },
     });
+    //below generates all user tags
 
-
+    const tagsLists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: req.session.auth.userId},
+      include: { model: db.Task, include: db.Tag },
+    });
 
     let userTags = new Set();
 
     const tasks = userLists.map(list => list.Tasks).flat();
 
     // below provides the tags list when creating a new task
-    for (let i = 0; i < userLists.length; i++) {
-      const list = userLists[i];
+    for (let i = 0; i < tagsLists.length; i++) {
+      const list = tagsLists[i];
       let Tasks = list.Tasks;
-
       for (let j = 0; j < Tasks.length; j++) {
         const task = Tasks[j];
         let Tags = task.Tags;
-        // console.log(Tags)
         for (let k = 0; k < Tags.length; k++) {
           const tag = Tags[k];
           userTags.add(tag.name);
         }
       }
     }
+
     tags = Array.from(userTags);
     const taskCount = tasks.length.toString();
     res.render("tasks", {

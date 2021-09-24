@@ -16,31 +16,31 @@ module.exports = {
      "Lists",
      [
        {
-         name: "Inbox",
+         name: "Database Contruction",
          userId: 1,
          createdAt: new Date(),
          updatedAt: new Date(),
        },
        {
-         name: "All Tasks",
+         name: "New Employee On-Boarding",
          userId: 1,
          createdAt: new Date(),
          updatedAt: new Date(),
        },
        {
-         name: "Today",
+         name: "Mobile Optimization",
          userId: 1,
          createdAt: new Date(),
          updatedAt: new Date(),
        },
        {
-         name: "Tomorrow",
+         name: "POS services",
          userId: 1,
          createdAt: new Date(),
          updatedAt: new Date(),
        },
        {
-         name: "This Week",
+         name: "Personal Website Update",
          userId: 1,
          createdAt: new Date(),
          updatedAt: new Date(),

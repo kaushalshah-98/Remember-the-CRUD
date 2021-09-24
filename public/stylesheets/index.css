@@ -66,6 +66,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   height: max-content;
   width: 100%;
 }
@@ -76,6 +77,8 @@ body {
   padding-left: 12px;
   width: 100%;
   height: 35%;
+  border:2px solid grey;
+  border-radius: 5px;
 }
 
 #stayLogged {
@@ -96,11 +99,22 @@ p {
 
 #loginButton {
   background-color: #009dff;
-  color: honeydew;
-  margin: 0px;
-  padding-left: 0px;
-  width: 100%;
+  color: white;
+  width: 103.5%;
   height: 35%;
+  border:none;
+  border-radius: 5px;
+}
+#reminderDiv{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+#loginSpan > a{
+  text-decoration: none;
+  font-size: 14pt;
+  color:#009dff
 }
 
 /* sign up page specific styling below */
@@ -136,3 +150,48 @@ p {
 }
 
 /*sign up page specific styling above  */
+#splashfooter{
+  position:absolute;
+  bottom: 0;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:center;
+  height:1.5cm;
+  width:100%;
+  background-color:#d7e7f5;
+}
+#aboutdiv{
+  display:flex;
+  justify-content:space-between;
+  width:50%;
+  height:100%;
+}
+#copyrightdiv{
+  width:50%;
+  height:100%;
+}
+.credentialdivs{
+  font-family: "Yaldevi";
+  display:flex;
+  flex-direction: row;
+  align-items:center;
+  justify-content: center;
+  width:50%;
+  height:100%;
+
+}
+
+
+.githublogo{
+  margin-left:10px;
+  width:30px;
+  height:30px;
+}
+.linkedinlogo{
+  width:30px;
+  height:30px;
+}
+.splashname{
+  font-size: 13pt;
+}
