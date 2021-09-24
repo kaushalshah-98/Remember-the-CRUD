@@ -1,6 +1,9 @@
 doctype html
 head
   title= `${title}`
+  link(rel="preconnect" href="https://fonts.googleapis.com")
+  link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+  link(href="https://fonts.googleapis.com/css2?family=Yaldevi:wght@500&display=swap" rel="stylesheet")
   link(rel='stylesheet' href="/stylesheets/tasks.css")
   script(type='text/javascript' src='/javascripts/tasks-function.js')
 body
@@ -21,10 +24,10 @@ body
           div#options1
             p#alltasks: a.listLink(href="/users/tasks/All-Tasks")="All Tasks"
             ul#options1list
-              li.alltaskoptions-open= "Inbox"
               li.alltaskoptions-open= "Today"
               li.alltaskoptions-open= "Tomorrow"
               li.alltaskoptions-open= "This Week"
+              li.alltaskoptions-open: a.listLink(href="/users/tasks/Completed-Tasks")= "Completed Tasks"
               li.alltaskoptions-open= "Trash"
         div#listsorts
           img#ddownarrow-lists(src="/images/blue-dright-arrow.PNG")
@@ -125,3 +128,37 @@ body
           div#completedcount
             p.summarynumber
             p.bottomsummarytext="completed"
+footer#splashfooter
+        div#aboutdiv
+            div.credentialdivs#anndiv
+                div#annname
+                    p.splashname="Ann Donnelly"
+                div#annlinks
+                    a(href="https://github.com/anndonnelly")
+                        img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                    a(href="https://www.linkedin.com/in/ann-donnelly/")
+                        img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+            div.credentialdivs#ajdiv
+                div#ajname
+                    p.splashname="AJ Abushaban"
+                div#ajlinks
+                    a(href="https://github.com/asabushaban")
+                        img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                    a(href="https://www.linkedin.com/in/aj-abushaban-919231100/")
+                        img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+            div.credentialdivs#patchdiv
+                div#patrickname
+                    p.splashname="Patrick Story"
+                div#patchlinks
+                    a(href="https://github.com/pstory721")
+                        img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                    a(href="https://www.linkedin.com/in/patrick-story-546539217")
+                        img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+            div.credentialdivs#williamdiv
+                div#williamname
+                    p.splashname="William Ziller"
+                div#williamlinks
+                    a(href="https://github.com/wziller")
+                        img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                    a(href="https://www.linkedin.com/in/william-ziller-99b45a90/")
+                        img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")

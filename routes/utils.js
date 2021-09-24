@@ -46,11 +46,34 @@ const validateEmailAndPassword = [
     .exists({ checkFalsy: true })
     .withMessage("Sorry, that wasn't a valid login. Please try again."),
 ];
+//taskSorting Functions
+const todaySort = (tasks) => {
+
+}
+
+const tomorrowSort = (tasks) => {
+
+};
+
+const thisWeekSort = (tasks) => {
+
+};
+
+const completedSort = (tasks) => {
+  let res = [];
+  tasks.forEach(task => {
+    if(task.complete) res.push(task)
+  })
+  return res;
+};
+
+
 
 module.exports = {
   asyncHandler,
   validateEmailAndPassword,
   signUpValidator,
   csrfProtection,
+  completedSort,
   validationResult
 };
