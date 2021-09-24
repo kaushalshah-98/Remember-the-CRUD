@@ -44,6 +44,10 @@ router.get("/signup", csrfProtection, (req, res) => {
   res.render("sign-up", { title: "Sign Up", csrfToken: req.csrfToken() });
 });
 
+router.get("/signup", (req, res) => {
+  res.render("sign-up", { title: "Sign Up", csrfToken: req.csrfToken() });
+});
+
 router.get(
   "/tasks",
   validateUser,
