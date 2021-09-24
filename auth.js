@@ -13,7 +13,7 @@ const loginUser = (req, res, user, listId) => {
   };
   console.log(req.session.auth);
 
-  req.session.save(() => res.redirect(`/users/tasks/${listId}`));
+  req.session.save(() => res.redirect(`/users/tasks/All-Tasks`));
 };
 
 const loginDemoUser = (req, res) => {

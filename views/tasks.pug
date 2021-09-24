@@ -19,7 +19,7 @@ body
         div#tasksorts
           img#ddownarrow-tasks(src="/images/blue-ddown-arrow.PNG")
           div#options1
-            p#alltasks="All Tasks"
+            p#alltasks: a.listLink(href="/users/tasks/All-Tasks")="All Tasks"
             ul#options1list
               li.alltaskoptions-open= "Inbox"
               li.alltaskoptions-open= "Today"
@@ -107,7 +107,7 @@ body
         div#tasksummaryitemscontainer
           div#taskscount_est
             div#taskcount
-              p.summarynumber
+              p.summarynumber= `${taskCount}`
               p.bottomsummarytext="tasks"
             div#est_time
               div#est_numbers
