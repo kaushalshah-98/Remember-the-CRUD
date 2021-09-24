@@ -38,6 +38,15 @@ body {
   align-items: flex-end;
 }
 
+#logoutButton {
+  border-radius: 5px;
+  border:none;
+  background-color: orange;
+  text-decoration: none;
+  width: 1.5cm;
+  height: .8cm;
+}
+
 #logoutButton,
 #logoutLink {
   border: none;
@@ -389,6 +398,16 @@ body {
     "c c c"; */
 }
 
+#tasks-button {
+  border-radius: 5px;
+  border:none;
+  color: white;
+  background-color: rgb(248, 215, 152);;
+  text-decoration: none;
+  width: 3cm;
+  height: 1cm;
+}
+
 #test-div {
   justify-self: end;
   height: 50%;
@@ -408,6 +427,10 @@ body {
   justify-content: space-between;
   height: 0.65cm;
   width: 100%;
+}
+
+#createdTask:hover{
+  background-color: rgb(248, 215, 152);
 }
 
 .taskText {
@@ -443,6 +466,15 @@ body {
   color: white;
   background-color: #0060bf;
 }
+
+#completed, #delete {
+  border-radius: 5px;
+  border:none;
+  text-decoration: none;
+  width: 3cm;
+  height: 1cm;
+}
+
 #tasks-summary {
   height: 25%;
   width: 50%;

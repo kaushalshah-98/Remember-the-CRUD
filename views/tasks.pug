@@ -32,7 +32,7 @@ body
             p#alllists="Lists"
             ul#options2list
               each list in lists
-                li.alllistoptions-open= list.name
+                li.alllistoptions-open: a.listLink(href=`/users/tasks/${list.id}`) #{list.name}
         div#tagsorts
           img#ddownarrow-tags(src="/images/blue-dright-arrow.PNG")
           div#options3
@@ -49,8 +49,6 @@ body
                 li.alllanguageoptions-open= language.name
     div#mainboxtasks
       div#tasks-view
-
-        div#tasks-form
         div.taskRight
                   button#completed Completed
                   button#delete Delete
@@ -70,17 +68,12 @@ body
             input(type="integer" value=0 name="estTime").attribute.task-hidden
             input(type="date" name="startDate").attribute.task-hidden
             input(type="date" name="dueDate").attribute.task-hidden
-            input(type="checkbox" name="priority").attribute.task-hidden
-            input(type="checkbox" name="backlog").attribute.task-hidden
-            input(type="checkbox" name="sprintBacklog").attribute.task-hidden
-            input(type="checkbox" name="inProgress").attribute.task-hidden
-            input(type="checkbox" name="complete").attribute.task-hidden
             button#tasks-button.task-hidden(disabled) Add Task
 
         div#tasks-container
           if tasks
             each task in tasks
-              div.mainTaskList
+              div.mainTaskList#createdTask
                 div.taskLeft
                   input(type="checkbox")#taskCheckBox
                   p.taskText= task.taskName

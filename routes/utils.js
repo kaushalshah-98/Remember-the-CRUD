@@ -28,7 +28,6 @@ const signUpValidator = [
         }
       });
     }),
-  check("username").isLength({ min: 2 }).withMessage("Minimum is 2 characters"),
   check("password")
     .isLength({ min: 5 })
     .withMessage("Minimum is 5 characters")
