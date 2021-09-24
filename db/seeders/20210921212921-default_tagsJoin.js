@@ -21,6 +21,31 @@ module.exports = {
          createdAt: new Date(),
          updatedAt: new Date(),
        },
+       {
+        taskId: 2,
+        tagsId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        taskId: 3,
+        tagsId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        taskId: 4,
+        tagsId: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        taskId: 5,
+        tagsId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      
      ],
      {}
    );

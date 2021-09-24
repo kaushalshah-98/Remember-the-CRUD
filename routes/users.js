@@ -49,18 +49,82 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
+    let tags = await db.Tag.findAll();
+    const colors = await db.Color.findAll();
+
+    const userLists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: req.session.auth.userId },
+      include: {model:db.Task, include: db.Tag}
+    });
+
+
     const lists = await db.List.findAll({
       where: {
         userId: req.session.auth.userId,
       },
     });
+
+
+    let userTags = new Set();
+
+    const tasks = userLists.map((list) => list.Tasks).flat();
+    // console.log(userLists)
+  // userLists.forEach(List => {
+  //   List.Tasks.forEach((task) => {
+  //     task.Tags.forEach((tag) => {
+  //       console.log(tag);
+  //     })
+  //   })
+  // })
+    console.log("hit---------------->")
+  for (let i = 0; i < userLists.length; i++) {
+    const list = userLists[i];
+    let Tasks = list.Tasks
+
+      for (let j = 0; j < Tasks.length; j++) {
+        const task = Tasks[j];
+        let Tags = task.Tags
+        // console.log(Tags)
+          for (let k = 0; k < Tags.length; k++) {
+            const tag = Tags[k];
+            userTags.add(tag.name)
+          }
+
+      }
+
+  }
+  console.log()
+  userTags = Array.from(userTags);
+  // console.log(tags)
+    res.render("tasks", {
+      title: "Tasks",
+      languages,
+      lists,
+      tasks,
+      tags,
+      colors,
+      userTags
+    });
+  })
+);
+
+router.get(
+  "/tasksArray",
+  asyncHandler(async (req, res) => {
+    // const languages = await db.Language.findAll();
+    //   const lists = await db.List.findAll({
+    //     where: {
+    //       userId: req.session.auth.userId,
+    //     },
+    //   });
     const userLists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId },
       include: db.Task,
     });
-    const tasks = userLists.map(list => list.Tasks).flat();
-    res.render("tasks", { title: "Tasks", languages, lists, tasks });
+    const tasks = userLists.map((list) => list.Tasks).flat();
+    res.json(tasks);
   })
 );
 
@@ -133,7 +197,7 @@ router.post(
       // Otherwise display an error message to the user.
       errors.push("line 104");
     } else {
-      errors = validatorErrors.array().map(error => error.msg);
+      errors = validatorErrors.array().map((error) => error.msg);
       res.render("log-in", {
         title: "Login",
         email,
@@ -195,7 +259,7 @@ router.post(
 
       req.session.save(() => res.redirect("/users/tasks"));
     } else {
-      const errors = validatorErrors.array().map(error => error.msg);
+      const errors = validatorErrors.array().map((error) => error.msg);
       res.render("sign-up", {
         user,
         errors,

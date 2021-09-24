@@ -1,4 +1,20 @@
-window.addEventListener("DOMContentLoaded", e => {
+
+
+window.addEventListener("DOMContentLoaded", async e => {
+  let tasks = await fetch('/users/tasksArray')
+  tasks = await tasks.json();
+  console.log("hit",tasks)
+
+
+
+  let totalTasks = tasks.length
+  console.log(totalTasks)
+  let totalTasksSummary = document.getElementById("")
+  window.onload= ()=>{
+    totalTasksSummary.innerText = "8";
+  }
+
+
   //Sidebar whole menu dropdown functionality
   const hamburgerButton = document.getElementById("hamburger");
   const sideBar = document.getElementById("sidebartasks--open");
@@ -82,4 +98,5 @@ window.addEventListener("DOMContentLoaded", e => {
       addTaskButton.disabled = false;
     }
   });
+
 });
