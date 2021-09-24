@@ -88,9 +88,8 @@ router.get(
     lists,
     tasks,
     taskCount,
-    userTags,
-    colors,
     tags,
+    colors,
 });
   }));
 
@@ -136,7 +135,7 @@ router.get(
         }
       }
     }
-    userTags = Array.from(userTags);
+    tags = Array.from(userTags);
     const taskCount = tasks.length.toString();
     res.render("tasks", {
       title: "Tasks",
