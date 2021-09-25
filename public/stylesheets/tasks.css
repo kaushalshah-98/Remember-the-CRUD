@@ -430,8 +430,7 @@ body {
   width: 100%;
 }
 
-#tasks-container {
-  height: 74%;
+.tasks-container {
   width: 100%;
   overflow: hidden;
 }
@@ -491,7 +490,15 @@ body {
   font-weight: bolder;
   font-size: 12pt;
 }
+/* tasks-container-incomplete */
+#tasks-container{
+  height:100%;
+}
 
+#tasks-container-complete{
+  max-height:50%;
+  min-height: 15%;
+}
 #completed:focus {
   background-color: #6d92b8;
 }

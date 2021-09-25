@@ -78,48 +78,46 @@ body
             input(type="date" name="startDate" title="Start Date" required).feature.task-hidden
             input(type="date" name="dueDate" title="Due Date" required).feature.task-hidden
             button#tasks-button.task-hidden(disabled) Add Task
-        div#tasks-container
+        p= "To Do:"
+        div.tasks-container#tasks-container
           if tasks
-            each task in tasks
-              if !task.complete
+            each task in incompleteTasks
               div.mainTaskList#createdTask
                 div.taskLeft
                   input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
                   p(taskId=`${task.id}`).taskText= task.taskName
-
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
+          div.mainTaskList
         p= "Completed:"
-        div#tasks-container
+        div.tasks-container#tasks-container-complete
           if tasks
-            each task in tasks
-              if task.complete
+            each task in completeTasks
               div.mainTaskList#createdTask
                 div.taskLeft
                   input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
                   p(taskId=`${task.id}` class ="completedTask").taskText= task.taskName
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
       div#tasks-summary
         p#taskssummarycurrentsort= `${sortedBy}`
         div#tasksummaryitemscontainer
