@@ -25,8 +25,8 @@ body
             p#alltasks: a.listLink(href="/users/tasks/All-Tasks")="All Tasks"
             ul#options1list
               li.alltaskoptions-open= "Today"
-              li.alltaskoptions-open= "Tomorrow"
-              li.alltaskoptions-open= "This Week"
+              li.alltaskoptions-open: a.listLink(href="/users/tasks/Tomorrow")= "Tomorrow"
+              //- li.alltaskoptions-open= "This Week"
               li.alltaskoptions-open: a.listLink(href="/users/tasks/Completed-Tasks")= "Completed Tasks"
               li.alltaskoptions-open= "Trash"
         div#listsorts
@@ -108,7 +108,7 @@ body
           div.mainTaskList
           div.mainTaskList
       div#tasks-summary
-        p#taskssummarycurrentsort="AllTasks"
+        p#taskssummarycurrentsort= `${sortedBy}`
         div#tasksummaryitemscontainer
           div#taskscount_est
             div#taskcount
@@ -117,18 +117,18 @@ body
             div#est_time
               div#est_numbers
                 div#numhrs
-                  p.summarynumber=1
-                  p.bottomsummarytext="hr"
+                  p#hoursnum= `${estHrs}`
+                  p#hours="hr"
                 div#nummin
-                  p.summarynumber=50
-                  p.bottomsummarytext="min"
+                  p#minutesnum= `${estMinutes}`
+                  p#mins="min"
               div#est_title
                 p.bottomsummarytext="estimated"
           div#duetommorrowcount
-            p.summarynumber=1
+            p.summarynumber= `${tomorrowCount}`
             p.bottomsummarytext="due tommorrow"
           div#completedcount
-            p.summarynumber
+            p.summarynumber= `${completedCount}`
             p.bottomsummarytext="completed"
 footer#splashfooter
         div#aboutdiv
