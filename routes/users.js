@@ -63,9 +63,8 @@ router.get(
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
-  
-    // let userTags = new Set();
 
+    // let userTags = new Set();
     let tasks = lists.map(list => list.Tasks).flat();
 
     // below provides the tags list when creating a new task
@@ -81,7 +80,17 @@ router.get(
     //     }
     //   }
     // }
-    // tasks = incompletedSort(tasks);
+
+    let incompleteTasks = incompletedSort(tasks);
+    incompleteTasks = incompleteTasks.sort((a,b) => {
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    })
+
+    let completeTasks = completedSort(tasks);
+    completeTasks = completeTasks.sort((a,b) => {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })
+
     const taskCount = tasks.length.toString();
 
     // tags = Array.from(userTags);
@@ -96,10 +105,10 @@ router.get(
       languages,
       lists,
       tasks,
+      completeTasks,
+      incompleteTasks,
       taskCount,
-
       // tags,
-
       tomorrowCount,
       completedCount,
       sortedBy,
@@ -281,7 +290,7 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    let tags = await db.Tag.findAll();
+    // let tags = await db.Tag.findAll();
     const colors = await db.Color.findAll();
     const userLists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
@@ -302,16 +311,26 @@ router.get(
     });
     //below generates all user tags
 
-    const tagsLists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
-      where: { userId: req.session.auth.userId },
-      include: { model: db.Task, include: db.Tag },
-    });
+    // const tagsLists = await db.List.findAll({
+    //   // where:{userId:req.session.auth.userId},
+    //   where: { userId: req.session.auth.userId },
+    //   include: { model: db.Task, include: db.Tag },
+    // });
 
-    let userTags = new Set();
+    // let userTags = new Set();
 
     let tasks = userLists.map(list => list.Tasks).flat();
-    tasks = incompletedSort(tasks);
+
+    let incompleteTasks = incompletedSort(tasks);
+    incompleteTasks = incompleteTasks.sort((a,b) => {
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    })
+
+    let completeTasks = completedSort(tasks);
+    completeTasks = completeTasks.sort((a,b) => {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })
+
 
     // below provides the tags list when creating a new task
     // for (let i = 0; i < tagsLists.length; i++) {
@@ -339,18 +358,18 @@ router.get(
       languages,
       lists,
       tasks,
-      taskCount,
+      incompleteTasks,
+      completeTasks,
 
       // tags,
-
       tomorrowCount,
       completedCount,
       sortedBy,
+      taskCount,
       estMinutes,
       estHrs,
-
       colors,
-      userTags,
+      // userTags,
     });
   })
 );
@@ -504,23 +523,12 @@ router.post("/search", async (req, res, next) => {
   const { searchString } = req.body;
   const userLists3 = await db.List.findAll({
     where: { userId: req.session.auth.userId },
-    include: { model: db.Task, include: db.Tag },
+    include: { model: db.Task },
   });
-  const tasks2 = userLists3.map(list => list.Tasks).flat();
-
+  let tasks2 = userLists3.map(list => list.Tasks).flat();
+  tasks2 = incompletedSort(tasks2);
   res.json({ tasks2 });
 });
 
-// router.get('/tasks/search-results',async (req,res,next) =>{
-//   console.log(req.query)
-//   const userLists2 = await db.List.findAll({
-//     where: { userId: req.session.auth.userId },
-//     include: {model:db.Task, include: db.Tag}
-//   });
-//   const tasks2 = await db.Task.findAll(req.query)
-//   res.setHeader('Content-Type', 'application/json');
-//   res.end(JSON.stringify(data.filter(value => value.includes(req.query.q))));
-
-// })
 
 module.exports = router;
