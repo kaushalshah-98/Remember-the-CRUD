@@ -156,52 +156,31 @@ search.addEventListener("blur", e => {
 
 })
 
+search.addEventListener("keyup", async (e) => {
+  try {
+    const input = e.target.value;
+    const data = await fetch(`/search`, {
+      method: "POST",
+      body: JSON.stringify({ input }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!data.ok) throw data;
+    let results = await data.json();
+    results = results.tasks2.filter((ele) => ele.taskName.includes(input));
+    //  if(results.taskName.includes(input)){
+    showResults(results);
+    //  }
+  } catch (err) {
+    console.error("Something went wrong.", err);
+  }
+});
 
   //completed button event listenter
 
   const completedButton = document.getElementById('completed')
 
-
   completedButton.addEventListener('click', async e=>{
-    // const text = document.querySelectorAll('.taskText')
-    // console.log(text.values())
-
-
-const searchForm =document.getElementById('search-form')
-
-    search.addEventListener("keyup", async (e) =>{
-        try {
-            const input = e.target.value
-            const data = await fetch(`/search`,{
-              method:'POST',
-              body: JSON.stringify({input}),
-              headers:{'Content-Type': 'application/json'}
-            });
-              if(!data.ok) throw data
-            let results = await data.json();
-             results = results.tasks2.filter((ele) => ele.taskName.includes(input))
-            //  if(results.taskName.includes(input)){
-              showResults(results)
-            //  }
-
-        } catch(err) {
-            console.error('Something went wrong.', err);
-        }
-});
-
-// document
-//     .getElementById("search")
-//     .addEventListner("keyup", async (e) =>{
-//       try{
-//       const input = e.value
-//       const data = await fetch(`/search?q=${input}`);
-//       const results = await data.json();
-//       return true
-//     } catch(err) {
-//       console.error("item not found",err);
-//       return false
-//     }
-
+    
     const checkedBoxes = document.querySelectorAll('input[type=checkbox]:checked')
     const ids = [...checkedBoxes].map(el => el.getAttribute('taskId'))
     console.log(ids)

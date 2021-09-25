@@ -11,10 +11,11 @@ html {
 body {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin: 0cm;
   height: 100%;
   width: 100%;
-  display: flex;
+  /* display: flex; */
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -80,7 +81,7 @@ body {
   margin: 8px;
   padding-left: 12px;
   width: 100%;
-  height: 35%;
+  height: 25%;
   border:2px solid grey;
   border-radius: 5px;
 }
@@ -104,12 +105,13 @@ p {
   display:flex;
   height: 100%;
   width: 100%;
+
 }
 #loginButton {
   background-color: #009dff;
   color: white;
   width: 103.5%;
-  height: 35%;
+  height: 25%;
   border:none;
   border-radius: 5px;
 }
@@ -136,6 +138,7 @@ p {
   justify-content: space-around;
   width: 100%;
   padding-top: 20px;
+  
 }
 
 #loginFromSignUp {
@@ -172,7 +175,7 @@ p {
 #aboutdiv{
   display:flex;
   justify-content:space-between;
-  width:50%;
+  width:70%;
   height:100%;
 }
 #copyrightdiv{
@@ -185,7 +188,7 @@ p {
   flex-direction: row;
   align-items:center;
   justify-content: center;
-  width:50%;
+  width:60%;
   height:100%;
 
 }
