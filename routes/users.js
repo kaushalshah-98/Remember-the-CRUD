@@ -4,7 +4,10 @@ const {
   asyncHandler,
   validateEmailAndPassword,
   todaySort,
+  tomorrowSort,
   completedSort,
+  estMin,
+  estHours,
   signUpValidator,
   csrfProtection,
   validationResult,
@@ -82,6 +85,11 @@ router.get(
     }
 
     const taskCount = tasks.length.toString();
+    const tomorrowCount = tomorrowSort(tasks).length.toString();
+    const completedCount = completedSort(tasks).length.toString();
+    const sortedBy = "All Tasks";
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
     tags = Array.from(userTags);
 
     res.render("tasks", {
@@ -90,12 +98,17 @@ router.get(
       lists,
       tasks,
       taskCount,
+      tomorrowCount,
+      completedCount,
+      sortedBy,
+      estMinutes,
+      estHrs,
       tags,
       colors,
     });
   })
 );
-
+//get Completed Tasks
 router.get(
   "/tasks/Completed-Tasks",
   validateUser,
@@ -129,6 +142,11 @@ router.get(
     }
 
     const taskCount = tasks.length.toString();
+    const tomorrowCount = 0;
+    const completedCount = tasks.length.toString();
+    const sortedBy = "Complete Tasks";
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
     tags = Array.from(userTags);
 
     res.render("tasks", {
@@ -137,11 +155,76 @@ router.get(
       lists,
       tasks,
       taskCount,
+      completedCount,
+      tomorrowCount,
+      sortedBy,
+      estMinutes,
+      estHrs,
       tags,
       colors,
     });
   })
 );
+
+
+//Get tomrrow tasks
+router.get(
+  "/tasks/Tomorrow",
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const languages = await db.Language.findAll();
+    // const lists = await db.List.findAll();
+    const colors = await db.Color.findAll();
+    const lists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: req.session.auth.userId },
+      include: { model: db.Task, include: db.Tag },
+    });
+
+    let userTags = new Set();
+
+    let tasks = lists.map(list => list.Tasks).flat();
+    tasks = tomorrowSort(tasks);
+    console.log(tasks);
+    // below provides the tags list when creating a new task
+    for (let i = 0; i < lists.length; i++) {
+      const list = lists[i];
+      let Tasks = list.Tasks;
+      for (let j = 0; j < Tasks.length; j++) {
+        const task = Tasks[j];
+        let Tags = task.Tags;
+        for (let k = 0; k < Tags.length; k++) {
+          const tag = Tags[k];
+          userTags.add(tag.name);
+        }
+      }
+    }
+
+    const taskCount = tasks.length.toString();
+    const tomorrowCount = tasks.length.toString();
+    const completedCount = completedSort(tasks).length.toString();
+    const sortedBy = "Tomorrow";
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
+    tags = Array.from(userTags);
+
+    res.render("tasks", {
+      title: "Tasks",
+      languages,
+      lists,
+      tasks,
+      taskCount,
+      tomorrowCount,
+      completedCount,
+      sortedBy,
+      estMinutes,
+      estHrs,
+      tags,
+      colors,
+    });
+  })
+);
+
 
 //Get tasks list by list Id
 router.get(
@@ -191,12 +274,22 @@ router.get(
 
     tags = Array.from(userTags);
     const taskCount = tasks.length.toString();
+    const tomorrowCount = tomorrowSort(tasks).length.toString();
+    const completedCount = completedSort(tasks).length.toString();
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
+    const sortedBy = userLists[0].name
     res.render("tasks", {
       title: "Tasks",
       languages,
       lists,
       tasks,
       taskCount,
+      tomorrowCount,
+      completedCount,
+      sortedBy,
+      estMinutes,
+      estHrs,
       tags,
       colors,
       userTags,
@@ -207,14 +300,7 @@ router.get(
 router.get(
   "/tasksArray",
   asyncHandler(async (req, res) => {
-    // const languages = await db.Language.findAll();
-    //   const lists = await db.List.findAll({
-    //     where: {
-    //       userId: req.session.auth.userId,
-    //     },
-    //   });
     const userLists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId },
       include: db.Task,
     });
