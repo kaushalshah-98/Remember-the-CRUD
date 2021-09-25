@@ -13,7 +13,8 @@ block content
                     div#author – Martin Fowler
             div.right
                     div#signupButton
-                        button#loginFromSignUp: a#loginFromSignUpLink(href="/users/signup") Sign up for free
+                        button.linkbuttons#loginFromSignUp: a.linkitems#loginFromSignUpLink(href="/users/signup") Sign up for free
+                        button.linkbuttons: a.linkitems#splashDemoUser(href="/users/demo") Demo User
                     div.form
                         div#formBox
                             +validationErrorSummary(errors)
@@ -64,5 +65,3 @@ block content
                             img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
                         a(href="https://www.linkedin.com/in/william-ziller-99b45a90/")
                             img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
-
-
