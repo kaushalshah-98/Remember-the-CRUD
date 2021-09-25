@@ -1,14 +1,14 @@
 
 
+
 window.addEventListener("DOMContentLoaded", async e => {
   let tasks = await fetch('/users/tasksArray')
   tasks = await tasks.json();
-  console.log("hit",tasks)
 
 
 
   let totalTasks = tasks.length
-  console.log(totalTasks)
+
   let totalTasksSummary = document.getElementById("")
   window.onload= ()=>{
     totalTasksSummary.innerText = "8";
@@ -107,8 +107,80 @@ window.addEventListener("DOMContentLoaded", async e => {
     search.removeAttribute("placeholder");
   })
 
+/* patches searches*/
+  const showResults = (input) => {
+    let tasksContainer = document.querySelector("#tasks-container");
+   console.log(tasksContainer.children)
+
+for (let i = 0; i < tasksContainer.children.length;i++) {
+            tasksContainer.children[i].remove()
+
+}
 
 
+   input.forEach( result =>{
+     let newDiv = document.createElement("div")
+      let divMain = document.createElement("div")
+      let divLeft = document.createElement("div")
+      let input1 = document.createElement("input")
+      let pTasks = document.createElement("p")
+      divMain.classList.add('mainTaskList')
+      divLeft.classList.add('taskLeft')
+      input1.id = "taskCheckBox"
+      pTasks.classList.add('taskText')
+
+      divMain.appendChild(divLeft)
+      divLeft.appendChild(input1)
+      divLeft.appendChild(pTasks)
+      tasksContainer.appendChild(divMain)
+      tasksContainer.appendChild(divLeft)
+      tasksContainer.appendChild(input1)
+      tasksContainer.appendChild(pTasks)
+      for (let i = 0; i < 24; i++) {
+         tasksContainer.appendChild(newDiv)
+
+      }
+    });
+
+
+}
+
+
+const searchForm =document.getElementById('search-form')
+
+    search.addEventListener("keyup", async (e) =>{
+        try {
+            const input = e.target.value
+            const data = await fetch(`/search`,{
+              method:'POST',
+              body: JSON.stringify({input}),
+              headers:{'Content-Type': 'application/json'}
+            });
+              if(!data.ok) throw data
+            let results = await data.json();
+             results = results.tasks2.filter((ele) => ele.taskName.includes(input))
+             console.log(results)
+            //  if(results.taskName.includes(input)){
+              showResults(results)
+            //  }
+
+        } catch(err) {
+            console.error('Something went wrong.', err);
+        }
+});
+
+// document
+//     .getElementById("search")
+//     .addEventListner("keyup", async (e) =>{
+//       try{
+//       const input = e.value
+//       const data = await fetch(`/search?q=${input}`);
+//       const results = await data.json();
+//       return true
+//     } catch(err) {
+//       console.error("item not found",err);
+//       return false
+//     }
 
 
 });

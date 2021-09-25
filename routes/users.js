@@ -53,7 +53,6 @@ router.get(
     const colors = await db.Color.findAll();
 
     const userLists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId },
       include: {model:db.Task, include: db.Tag}
     });
@@ -69,7 +68,8 @@ router.get(
     let userTags = new Set();
 
     const tasks = userLists.map((list) => list.Tasks).flat();
-    // console.log(userLists)
+
+    console.log(tasks)
   // userLists.forEach(List => {
   //   List.Tasks.forEach((task) => {
   //     task.Tags.forEach((tag) => {
@@ -268,5 +268,27 @@ router.post(
     }
   })
 );
+router.post('/search',async (req, res, next) => {
+  const {searchString} = req.body
+  const userLists3 = await db.List.findAll({
+    where: { userId: req.session.auth.userId },
+    include: {model:db.Task, include: db.Tag}
+  });
+  const tasks2 = userLists3.map((list) => list.Tasks).flat()
+  console.log(tasks2)
+  res.json({tasks2})
+});
+
+// router.get('/tasks/search-results',async (req,res,next) =>{
+//   console.log(req.query)
+//   const userLists2 = await db.List.findAll({
+//     where: { userId: req.session.auth.userId },
+//     include: {model:db.Task, include: db.Tag}
+//   });
+//   const tasks2 = await db.Task.findAll(req.query)
+//   res.setHeader('Content-Type', 'application/json');
+//   res.end(JSON.stringify(data.filter(value => value.includes(req.query.q))));
+
+// })
 
 module.exports = router;
