@@ -7,13 +7,13 @@ const validateUser = (req, res, next) => {
   }
 };
 
-const loginUser = (req, res, user) => {
+const loginUser = (req, res, user, listId) => {
   req.session.auth = {
     userId: user.id,
   };
   console.log(req.session.auth);
 
-  req.session.save(() => res.redirect("/users/tasks"));
+  req.session.save(() => res.redirect(`/users/tasks/All-Tasks`));
 };
 
 const loginDemoUser = (req, res) => {
@@ -22,7 +22,7 @@ const loginDemoUser = (req, res) => {
   };
   console.log(req.session.auth);
 
-  req.session.save(() => res.redirect("/users/tasks"));
+  req.session.save(() => res.redirect("/users/tasks/All-Tasks"));
 };
 
 const logoutUser = (req, res) => {

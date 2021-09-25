@@ -20,10 +20,6 @@ module.exports = (sequelize, DataTypes) => {
       estTime: DataTypes.INTEGER,
       startDate: DataTypes.DATE,
       dueDate: DataTypes.DATE,
-      priority: DataTypes.BOOLEAN,
-      backlog: DataTypes.BOOLEAN,
-      sprintBacklog: DataTypes.BOOLEAN,
-      inProgress: DataTypes.BOOLEAN,
       complete: DataTypes.BOOLEAN,
     },
     {}

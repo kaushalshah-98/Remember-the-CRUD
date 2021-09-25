@@ -30,18 +30,6 @@ module.exports = {
       dueDate: {
         type: Sequelize.DATE,
       },
-      priority: {
-        type: Sequelize.BOOLEAN,
-      },
-      backlog: {
-        type: Sequelize.BOOLEAN,
-      },
-      sprintBacklog: {
-        type: Sequelize.BOOLEAN,
-      },
-      inProgress: {
-        type: Sequelize.BOOLEAN,
-      },
       complete: {
         type: Sequelize.BOOLEAN,
       },

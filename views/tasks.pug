@@ -1,6 +1,9 @@
 doctype html
 head
   title= `${title}`
+  link(rel="preconnect" href="https://fonts.googleapis.com")
+  link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+  link(href="https://fonts.googleapis.com/css2?family=Yaldevi:wght@500&display=swap" rel="stylesheet")
   link(rel='stylesheet' href="/stylesheets/tasks.css")
   script(type='text/javascript' src='/javascripts/tasks-function.js')
 body
@@ -20,27 +23,28 @@ body
         div#tasksorts
           img#ddownarrow-tasks(src="/images/blue-ddown-arrow.PNG")
           div#options1
-            p#alltasks="All Tasks"
+            p#alltasks: a.listLink(href="/users/tasks/All-Tasks")="All Tasks"
             ul#options1list
-              li.alltaskoptions-open= "Inbox"
               li.alltaskoptions-open= "Today"
-              li.alltaskoptions-open= "Tomorrow"
-              li.alltaskoptions-open= "This Week"
+              li.alltaskoptions-open: a.listLink(href="/users/tasks/Tomorrow")= "Tomorrow"
+              //- li.alltaskoptions-open= "This Week"
+              li.alltaskoptions-open: a.listLink(href="/users/tasks/Completed-Tasks")= "Completed Tasks"
               li.alltaskoptions-open= "Trash"
         div#listsorts
           img#ddownarrow-lists(src="/images/blue-dright-arrow.PNG")
           div#options2
             p#alllists="Lists"
             ul#options2list
-              //- each list in lists
-              //-   li.alllistoptions-open= language.name
+              each list in lists
+                li.alllistoptions-open: a.listLink(href=`/users/tasks/${list.id}`) #{list.name}
         div#tagsorts
           img#ddownarrow-tags(src="/images/blue-dright-arrow.PNG")
           div#options3
             p#alltags="Tags"
             ul#options3list
-              each tag in userTags
-                li.alltagoptions-open= tag
+              if tags
+                each tag in tags
+                  li.alltagoptions-open= tag
         div#languagesorts
           img#ddownarrow-languages(src="/images/blue-dright-arrow.PNG")
           div#options4
@@ -51,39 +55,38 @@ body
     div#mainboxtasks
       div#tasks-view
 
+
         div#tasks-form
+
         div.taskRight
                   button#completed Completed
                   button#delete Delete
         form(action="/users/tasks" method="POST")#tasks-form
           input(type="hidden" name="_csrf" value=csrfToken)
-          input(type="text" placeholder="Add a task..." name="taskName")#tasks-input
+          input(type="text" placeholder="Add a task..." name="taskName" required)#tasks-input
           div#test-div
             select(name="langId" required).attribute.task-hidden
-                each language in languages
-                  option(value=language.id)=language.name
+              each language in languages
+                option(value=language.id)=language.name
             select(name="listId" required).attribute.task-hidden
-                each list in lists
-                  option(value=list.id)=list.name
+
+              each list in lists
+                option(value=list.id)=list.name
             select(name="tagId").attribute.task-hidden
+              if tags
                 each tag in tags
                   option(value=tag.id)=tag.name
-            input(type="integer" value=0 name="estTime").attribute.task-hidden
-            input(type="date" name="startDate").attribute.task-hidden
-            input(type="date" name="dueDate").attribute.task-hidden
-            input(type="checkbox" name="priority").attribute.task-hidden
-            input(type="checkbox" name="backlog").attribute.task-hidden
-            input(type="checkbox" name="sprintBacklog").attribute.task-hidden
-            input(type="checkbox" name="inProgress").attribute.task-hidden
-            input(type="checkbox" name="complete").attribute.task-hidden
+            input(type="number" value=0 name="estTime" required).attribute.task-hidden
+            input(type="date" name="startDate" required).attribute.task-hidden
+            input(type="date" name="dueDate" required).attribute.task-hidden
             button#tasks-button.task-hidden(disabled) Add Task
 
         div#tasks-container
           if tasks
             each task in tasks
-              div.mainTaskList
+              div.mainTaskList#createdTask
                 div.taskLeft
-                  input(type="checkbox")#taskCheckBox
+                  input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
                   p.taskText= task.taskName
           div.mainTaskList
           div.mainTaskList
@@ -110,25 +113,59 @@ body
           div.mainTaskList
           div.mainTaskList
       div#tasks-summary
-        p#taskssummarycurrentsort="AllTasks"
+        p#taskssummarycurrentsort= `${sortedBy}`
         div#tasksummaryitemscontainer
           div#taskscount_est
             div#taskcount
-              p#totalTasksSummary.summarynumber
+              p.summarynumber= `${taskCount}`
               p.bottomsummarytext="tasks"
             div#est_time
               div#est_numbers
                 div#numhrs
-                  p.summarynumber=1
-                  p.bottomsummarytext="hr"
+                  p#hoursnum= `${estHrs}`
+                  p#hours="hr"
                 div#nummin
-                  p.summarynumber=50
-                  p.bottomsummarytext="min"
+                  p#minutesnum= `${estMinutes}`
+                  p#mins="min"
               div#est_title
                 p.bottomsummarytext="estimated"
           div#duetommorrowcount
-            p.summarynumber=1
+            p.summarynumber= `${tomorrowCount}`
             p.bottomsummarytext="due tommorrow"
           div#completedcount
-            p.summarynumber
+            p.summarynumber= `${completedCount}`
             p.bottomsummarytext="completed"
+footer#splashfooter
+        div#aboutdiv
+            div.credentialdivs#anndiv
+                div#annname
+                    p.splashname="Ann Donnelly"
+                div#annlinks
+                    a(href="https://github.com/anndonnelly")
+                        img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                    a(href="https://www.linkedin.com/in/ann-donnelly/")
+                        img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+            div.credentialdivs#ajdiv
+                div#ajname
+                    p.splashname="AJ Abushaban"
+                div#ajlinks
+                    a(href="https://github.com/asabushaban")
+                        img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                    a(href="https://www.linkedin.com/in/aj-abushaban-919231100/")
+                        img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+            div.credentialdivs#patchdiv
+                div#patrickname
+                    p.splashname="Patrick Story"
+                div#patchlinks
+                    a(href="https://github.com/pstory721")
+                        img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                    a(href="https://www.linkedin.com/in/patrick-story-546539217")
+                        img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+            div.credentialdivs#williamdiv
+                div#williamname
+                    p.splashname="William Ziller"
+                div#williamlinks
+                    a(href="https://github.com/wziller")
+                        img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                    a(href="https://www.linkedin.com/in/william-ziller-99b45a90/")
+                        img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")

@@ -1,4 +1,4 @@
-
+// const db = require("../../db/models");
 
 
 window.addEventListener("DOMContentLoaded", async e => {
@@ -7,11 +7,17 @@ window.addEventListener("DOMContentLoaded", async e => {
 
 
 
+
   let totalTasks = tasks.length
 
-  let totalTasksSummary = document.getElementById("")
+
+
+
+  // console.log(totalTasks)
+  let totalTasksSummary = document.getElementById("totalTasksSummary")
+
   window.onload= ()=>{
-    totalTasksSummary.innerText = "8";
+    totalTasksSummary.innerText = totalTasks.toString();
   }
 
 
@@ -151,6 +157,15 @@ search.addEventListener("blur", e => {
 })
 
 
+  //completed button event listenter
+
+  const completedButton = document.getElementById('completed')
+
+
+  completedButton.addEventListener('click', async e=>{
+    // const text = document.querySelectorAll('.taskText')
+    // console.log(text.values())
+
 
 const searchForm =document.getElementById('search-form')
 
@@ -187,5 +202,25 @@ const searchForm =document.getElementById('search-form')
 //       return false
 //     }
 
+    const checkedBoxes = document.querySelectorAll('input[type=checkbox]:checked')
+    const ids = [...checkedBoxes].map(el => el.getAttribute('taskId'))
+    console.log(ids)
 
-});
+
+    await fetch('/users/tasks/Completed-Tasks', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({completedIds: ids}),
+    })
+
+    // const checkboxes = document.querySelectorAll('#taskCheckBox')
+    // const taskText = [...document.querySelectorAll('.taskText')].map(task => task.innerText)
+
+    // checkboxes.forEach(checkbox => {
+    //   // console.log(task)
+    //   if(checkbox.checked){
+    //     // console.log(checkbox.innerText)
+    //   }
+    })
+
+  })

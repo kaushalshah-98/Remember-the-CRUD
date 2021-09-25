@@ -3,10 +3,15 @@ const router = express.Router();
 const {
   asyncHandler,
   validateEmailAndPassword,
-  handleValidationErrors,
+  todaySort,
+  tomorrowSort,
+  completedSort,
+  estMin,
+  estHours,
   signUpValidator,
   csrfProtection,
   validationResult,
+  incompletedSort
 } = require("./utils");
 const { generateHashedPassword, checkPassword } = require("../bcrypt");
 const db = require("../db/models");
@@ -45,29 +50,103 @@ router.get("/signup", csrfProtection, (req, res) => {
 });
 
 router.get(
-  "/tasks",
+  "/tasks/All-Tasks",
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    let tags = await db.Tag.findAll();
+    // const lists = await db.List.findAll();
     const colors = await db.Color.findAll();
 
-    const userLists = await db.List.findAll({
-      where: { userId: req.session.auth.userId },
-      include: {model:db.Task, include: db.Tag}
-    });
 
+    
 
     const lists = await db.List.findAll({
-      where: {
-        userId: req.session.auth.userId,
-      },
-    });
+      // where:{userId:req.session.auth.userId},
 
+      where: { userId: req.session.auth.userId },
+      include: { model: db.Task, order: [["createdAt", "DESC"]] },
+    });
+    // console.log(userLists);
+    // let userTags = new Set();
+
+    let tasks = lists.map(list => list.Tasks).flat();
+
+    // below provides the tags list when creating a new task
+    // for (let i = 0; i < lists.length; i++) {
+    //   const list = lists[i];
+    //   let Tasks = list.Tasks;
+    //   for (let j = 0; j < Tasks.length; j++) {
+    //     const task = Tasks[j];
+    //     let Tags = task.Tags;
+    //     for (let k = 0; k < Tags.length; k++) {
+    //       const tag = Tags[k];
+    //       userTags.add(tag.name);
+    //     }
+    //   }
+    // }
+    tasks = incompletedSort(tasks)
+    const taskCount = tasks.length.toString();
+
+    // tags = Array.from(userTags);
+    const tomorrowCount = tomorrowSort(tasks).length.toString();
+    const completedCount = completedSort(tasks).length.toString();
+    const sortedBy = "All Tasks";
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
+
+    res.render("tasks", {
+      title: "Tasks",
+      languages,
+      lists,
+      tasks,
+      taskCount,
+
+      // tags,
+
+      tomorrowCount,
+      completedCount,
+      sortedBy,
+      estMinutes,
+      estHrs,
+      colors,
+    });
+  })
+);
+
+
+router.post(
+  "/tasks/Completed-Tasks",
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const { completedIds } = req.body;
+
+    completedIds.forEach(async id => {
+      const task = await db.Task.findByPk(id);
+      task.complete = true;
+      await task.save()
+    });
+    res.redirect('/users/tasks/All-Tasks')
+  })
+);
+
+
+router.get(
+  "/tasks/Completed-Tasks",
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const languages = await db.Language.findAll();
+    // const lists = await db.List.findAll();
+    const colors = await db.Color.findAll();
+    const lists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: req.session.auth.userId },
+      include: { model: db.Task, order: [["createdAt", "DESC"]] },
+    });
 
     let userTags = new Set();
 
-    const tasks = userLists.map((list) => list.Tasks).flat();
+
+    
 
     console.log(tasks)
   // userLists.forEach(List => {
@@ -82,29 +161,187 @@ router.get(
     const list = userLists[i];
     let Tasks = list.Tasks
 
-      for (let j = 0; j < Tasks.length; j++) {
-        const task = Tasks[j];
-        let Tags = task.Tags
-        // console.log(Tags)
-          for (let k = 0; k < Tags.length; k++) {
-            const tag = Tags[k];
-            userTags.add(tag.name)
-          }
+    let tasks = lists.map(list => list.Tasks).flat();
+    tasks = completedSort(tasks);
+    // below provides the tags list when creating a new task
+    // for (let i = 0; i < lists.length; i++) {
+    //   const list = lists[i];
+    //   let Tasks = list.Tasks;
+    //   for (let j = 0; j < Tasks.length; j++) {
+    //     const task = Tasks[j];
+    //     let Tags = task.Tags;
+    //     for (let k = 0; k < Tags.length; k++) {
+    //       const tag = Tags[k];
+    //       userTags.add(tag.name);
+    //     }
+    //   }
+    // }
 
-      }
+    const taskCount = tasks.length.toString();
+    const tomorrowCount = 0;
+    const completedCount = tasks.length.toString();
+    const sortedBy = "Complete Tasks";
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
+    tags = Array.from(userTags);
 
-  }
-  console.log()
-  userTags = Array.from(userTags);
-  // console.log(tags)
     res.render("tasks", {
       title: "Tasks",
       languages,
       lists,
       tasks,
+      taskCount,
+      completedCount,
+      tomorrowCount,
+      sortedBy,
+      estMinutes,
+      estHrs,
       tags,
       colors,
-      userTags
+    });
+  })
+);
+
+
+
+//Get tomrrow tasks
+router.get(
+  "/tasks/Tomorrow",
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const languages = await db.Language.findAll();
+    // const lists = await db.List.findAll();
+    const colors = await db.Color.findAll();
+    const lists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: req.session.auth.userId },
+      include: { model: db.Task, include: db.Tag },
+    });
+
+    let userTags = new Set();
+
+    let tasks = lists.map(list => list.Tasks).flat();
+    tasks = tomorrowSort(tasks);
+    console.log(tasks);
+    // below provides the tags list when creating a new task
+    for (let i = 0; i < lists.length; i++) {
+      const list = lists[i];
+      let Tasks = list.Tasks;
+      for (let j = 0; j < Tasks.length; j++) {
+        const task = Tasks[j];
+        let Tags = task.Tags;
+        for (let k = 0; k < Tags.length; k++) {
+          const tag = Tags[k];
+          userTags.add(tag.name);
+        }
+      }
+    }
+
+    const taskCount = tasks.length.toString();
+    const tomorrowCount = tasks.length.toString();
+    const completedCount = completedSort(tasks).length.toString();
+    const sortedBy = "Tomorrow";
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
+    tags = Array.from(userTags);
+
+    res.render("tasks", {
+      title: "Tasks",
+      languages,
+      lists,
+      tasks,
+      taskCount,
+      tomorrowCount,
+      completedCount,
+      sortedBy,
+      estMinutes,
+      estHrs,
+      tags,
+      colors,
+    });
+  })
+);
+
+
+//Get tasks list by list Id
+router.get(
+  "/tasks/:id",
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const languages = await db.Language.findAll();
+    let tags = await db.Tag.findAll();
+    const colors = await db.Color.findAll();
+
+    const userLists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: req.session.auth.userId, id: req.params.id },
+      include: { model: db.Task, order: [["createdAt", "DESC"]] },
+    });
+
+    // const userTaskLists = await db.List.findOne({
+    //   // where:{userId:req.session.auth.userId},
+    //   where: { userId: req.session.auth.userId, id: req.params.id },
+    //   include: { model: db.Task, order: [['createdAt', 'DESC']], include: db.Tag},
+    // });
+
+    console.log(userLists[0].Tasks);
+
+    const lists = await db.List.findAll({
+      where: {
+        userId: req.session.auth.userId,
+      },
+    });
+    //below generates all user tags
+
+    const tagsLists = await db.List.findAll({
+      // where:{userId:req.session.auth.userId},
+      where: { userId: req.session.auth.userId },
+      include: { model: db.Task, include: db.Tag },
+    });
+
+    let userTags = new Set();
+
+   let tasks = userLists.map(list => list.Tasks).flat();
+   tasks = incompletedSort(tasks)
+
+    // below provides the tags list when creating a new task
+    // for (let i = 0; i < tagsLists.length; i++) {
+    //   const list = tagsLists[i];
+    //   let Tasks = list.Tasks;
+    //   for (let j = 0; j < Tasks.length; j++) {
+    //     const task = Tasks[j];
+    //     let Tags = task.Tags;
+    //     for (let k = 0; k < Tags.length; k++) {
+    //       const tag = Tags[k];
+    //       userTags.add(tag.name);
+    //     }
+    //   }
+    // }
+
+    // tags = Array.from(userTags);
+    const taskCount = tasks.length.toString();
+    const tomorrowCount = tomorrowSort(tasks).length.toString();
+    const completedCount = completedSort(tasks).length.toString();
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
+    const sortedBy = userLists[0].name
+    res.render("tasks", {
+      title: "Tasks",
+      languages,
+      lists,
+      tasks,
+      taskCount,
+
+      // tags,
+
+      tomorrowCount,
+      completedCount,
+      sortedBy,
+      estMinutes,
+      estHrs,
+
+      colors,
+      userTags,
     });
   })
 );
@@ -112,18 +349,11 @@ router.get(
 router.get(
   "/tasksArray",
   asyncHandler(async (req, res) => {
-    // const languages = await db.Language.findAll();
-    //   const lists = await db.List.findAll({
-    //     where: {
-    //       userId: req.session.auth.userId,
-    //     },
-    //   });
     const userLists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId },
       include: db.Task,
     });
-    const tasks = userLists.map((list) => list.Tasks).flat();
+    const tasks = userLists.map(list => list.Tasks).flat();
     res.json(tasks);
   })
 );
@@ -131,19 +361,8 @@ router.get(
 router.post(
   "/tasks",
   asyncHandler(async (req, res) => {
-    const {
-      taskName,
-      langId,
-      listId,
-      estTime,
-      startDate,
-      dueDate,
-      priority,
-      backlog,
-      sprintBacklog,
-      inProgress,
-      complete,
-    } = req.body;
+    const { taskName, langId, listId, estTime, startDate, dueDate, complete } =
+      req.body;
 
     // creating task
     await db.Task.create({
@@ -153,13 +372,10 @@ router.post(
       estTime,
       startDate,
       dueDate,
-      priority,
-      backlog,
-      sprintBacklog,
-      inProgress,
       complete,
     });
-    res.redirect("/users/tasks");
+
+    res.redirect(`/users/tasks/${listId}`);
   })
 );
 
@@ -188,8 +404,15 @@ router.post(
           // If the password hashes match, then login the user
           // and redirect them to the default route.
           // TODO Login the user.
+          const userAllTaskList = await db.List.findOne({
+            where: {
+              userId: user.id,
+              name: "All Tasks",
+              order: [["createdAt", "DESC"]],
+            },
+          });
           console.log("hi");
-          loginUser(req, res, user);
+          loginUser(req, res, user, userAllTaskList.id);
           // res.redirect("/users/tasks");
         }
       }
@@ -197,7 +420,7 @@ router.post(
       // Otherwise display an error message to the user.
       errors.push("line 104");
     } else {
-      errors = validatorErrors.array().map((error) => error.msg);
+      errors = validatorErrors.array().map(error => error.msg);
       res.render("log-in", {
         title: "Login",
         email,
@@ -214,12 +437,11 @@ router.post(
   csrfProtection,
   signUpValidator,
   asyncHandler(async (req, res) => {
-    const { firstName, lastName, email, username, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
     const user = db.User.build({
       firstName,
       lastName,
       email,
-      username,
     });
 
     const validatorErrors = validationResult(req);
@@ -233,33 +455,38 @@ router.post(
       };
 
       await db.List.create({
-        name: "All Tasks",
-        userId: req.session.auth.userId,
-      });
-
-      await db.List.create({
         name: "Inbox",
         userId: req.session.auth.userId,
       });
 
       await db.List.create({
-        name: "Today",
+        name: "Database Contruction",
         userId: req.session.auth.userId,
       });
 
       await db.List.create({
-        name: "Tomorrow",
+        name: "Mobile Optimization",
         userId: req.session.auth.userId,
       });
 
       await db.List.create({
-        name: "This Week",
+        name: "Personal Website Update",
         userId: req.session.auth.userId,
       });
 
-      req.session.save(() => res.redirect("/users/tasks"));
+      await db.List.create({
+        name: "New Employee On-Boarding",
+        userId: req.session.auth.userId,
+      });
+
+      await db.List.create({
+        name: "POS services",
+        userId: req.session.auth.userId,
+      });
+
+      req.session.save(() => res.redirect("/users/tasks/All-Tasks"));
     } else {
-      const errors = validatorErrors.array().map((error) => error.msg);
+      const errors = validatorErrors.array().map(error => error.msg);
       res.render("sign-up", {
         user,
         errors,

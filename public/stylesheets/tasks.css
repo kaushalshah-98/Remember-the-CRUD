@@ -1,3 +1,12 @@
+
+*{
+  font-family: "Yaldevi";
+}
+
+* > a{
+  text-decoration: none;
+}
+
 html {
   height: 100%;
   width: 100%;
@@ -36,6 +45,15 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+#logoutButton {
+  border-radius: 5px;
+  border:none;
+  background-color: orange;
+  text-decoration: none;
+  width: 1.5cm;
+  height: .8cm;
 }
 
 #logoutButton,
@@ -152,7 +170,7 @@ body {
   margin-top: 2px;
   height: 12px;
   width: 12px;
-  transform: rotate(-90deg);
+  transition: ease-in-out 300ms;
 }
 
 .alllistoptions-open {
@@ -206,7 +224,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  height: 100%;
+  height: 90%;
   width: 50%;
   margin-top: 7px;
   background: white;
@@ -236,7 +254,7 @@ body {
   margin-top: 2px;
   height: 12px;
   width: 12px;
-  transform: rotate(-90deg);
+  transition: ease-in-out 300ms;
 }
 
 .alltagoptions-open {
@@ -292,7 +310,7 @@ body {
   margin-top: 2px;
   height: 12px;
   width: 12px;
-  transform: rotate(-90deg);
+  transition: ease-in-out 300ms;
 }
 
 .alllanguageoptions-open {
@@ -389,6 +407,16 @@ body {
     "c c c"; */
 }
 
+#tasks-button {
+  border-radius: 5px;
+  border:none;
+  color: white;
+  background-color: rgb(248, 215, 152);;
+  text-decoration: none;
+  width: 3cm;
+  height: 1cm;
+}
+
 #test-div {
   justify-self: end;
   height: 50%;
@@ -408,6 +436,10 @@ body {
   justify-content: space-between;
   height: 0.65cm;
   width: 100%;
+}
+
+#createdTask:hover{
+  background-color: rgb(248, 215, 152);
 }
 
 .taskText {
@@ -443,6 +475,15 @@ body {
   color: white;
   background-color: #0060bf;
 }
+
+#completed, #delete {
+  border-radius: 5px;
+  border:none;
+  text-decoration: none;
+  width: 3cm;
+  height: 1cm;
+}
+
 #tasks-summary {
   height: 25%;
   width: 50%;
@@ -460,21 +501,25 @@ body {
 #tasksummaryitemscontainer {
   display: flex;
   justify-content: space-evenly;
-  width: 50%;
+  width: 65%;
   height: 66;
 }
 
 #taskscount_est {
   display: flex;
-  width: 50%;
-  justify-content: space-evenly;
+  width:100%;
+  align-items: flex-start;
+  justify-content: space-around;
 }
 
 #est_time {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  align-items: flex-start;
+  justify-content:flex-end;
   width: 50%;
+  padding-left: 6px;
+  border-left: 2px solid grey;
 }
 #est_numbers {
   display: flex;
@@ -488,16 +533,25 @@ body {
   width: 100%;
   height: 50%;
 }
+#hoursnum, #hours, #minutesnum, #mins{
+  margin-right:4px;
+  margin-bottom: 14px;
+  margin-left: 0px;
+  margin-top: 4px;
+}
 
 #numhrs,
 #nummin {
   display: flex;
+  height: 50%;
+  align-items: center;
   flex-direction: row;
+  margin:0px;
+  padding:0px;
 }
 #taskscount_est,
 #completedcount,
 #duetommorrowcount {
-  width: 33%;
   height: 2cm;
   padding: 6px;
   background-color: #dfebf8;
@@ -506,25 +560,21 @@ body {
   box-shadow: 5px 5px 8px 0px gray;
 }
 
-#est_title > p,
-#numhrs > p,
-#nummin > p,
-#taskcount > p,
-#duetommorrowcount > p,
-#completedcount > p {
-  display: flex;
-  text-align: left;
-  height: 0.5cm;
-  padding: 0;
-  margin: 0;
+#completedcount,
+#duetommorrowcount {
+  width:50%;
 }
 
 .bottomsummarytext {
   font-size: 10pt;
-  margin-top: 4px;
+  padding:0px;
+  margin: 0px;
 }
 
 .summarynumber {
+  margin:0px;
+  height:1cm;
+  width:.5cm;
   font-size: 15pt;
 }
 
@@ -555,4 +605,51 @@ body {
 #searchbar {
   display: flex;
 
+}
+
+
+#splashfooter{
+  position:absolute;
+  bottom: 0;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:center;
+  height:1.5cm;
+  width:100%;
+  background-color:#d7e7f5;
+}
+#aboutdiv{
+  display:flex;
+  justify-content:space-between;
+  width:50%;
+  height:100%;
+}
+#copyrightdiv{
+  width:50%;
+  height:100%;
+}
+.credentialdivs{
+  font-family: "Yaldevi";
+  display:flex;
+  flex-direction: row;
+  align-items:center;
+  justify-content: center;
+  width:50%;
+  height:100%;
+
+}
+
+
+.githublogo{
+  margin-left:10px;
+  width:30px;
+  height:30px;
+}
+.linkedinlogo{
+  width:30px;
+  height:30px;
+}
+.splashname{
+  font-size: 13pt;
 }
