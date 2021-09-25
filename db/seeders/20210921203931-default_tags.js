@@ -28,19 +28,19 @@ module.exports = {
          updatedAt: new Date(),
        },
        {
-         name: "JavaScript",
+         name: "Class",
          colorId: 2,
          createdAt: new Date(),
          updatedAt: new Date(),
        },
        {
-         name: "Python",
+         name: "Bootcamp",
          colorId: 8,
          createdAt: new Date(),
          updatedAt: new Date(),
        },
        {
-         name: "C++",
+         name: "JeffKahoot",
          colorId: 19,
          createdAt: new Date(),
          updatedAt: new Date(),

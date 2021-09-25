@@ -426,6 +426,7 @@ body {
 #tasks-container {
   height: 74%;
   width: 100%;
+  overflow: hidden;
 }
 
 /*  indivial task styling */
@@ -609,8 +610,8 @@ body {
 
 
 #splashfooter{
-  position:absolute;
-  bottom: 0;
+  /* position:absolute;
+  bottom: 0; */
   display:flex;
   flex-direction: row;
   justify-content: center;

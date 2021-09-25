@@ -11,7 +11,7 @@ const {
   signUpValidator,
   csrfProtection,
   validationResult,
-  incompletedSort
+  incompletedSort,
 } = require("./utils");
 const { generateHashedPassword, checkPassword } = require("../bcrypt");
 const db = require("../db/models");
@@ -57,9 +57,6 @@ router.get(
     // const lists = await db.List.findAll();
     const colors = await db.Color.findAll();
 
-
-    
-
     const lists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
 
@@ -69,7 +66,7 @@ router.get(
     // console.log(userLists);
     // let userTags = new Set();
 
-    let tasks = lists.map(list => list.Tasks).flat();
+    let tasks = lists.map((list) => list.Tasks).flat();
 
     // below provides the tags list when creating a new task
     // for (let i = 0; i < lists.length; i++) {
@@ -84,7 +81,7 @@ router.get(
     //     }
     //   }
     // }
-    tasks = incompletedSort(tasks)
+    tasks = incompletedSort(tasks);
     const taskCount = tasks.length.toString();
 
     // tags = Array.from(userTags);
@@ -113,22 +110,20 @@ router.get(
   })
 );
 
-
 router.post(
   "/tasks/Completed-Tasks",
   validateUser,
   asyncHandler(async (req, res) => {
     const { completedIds } = req.body;
 
-    completedIds.forEach(async id => {
+    completedIds.forEach(async (id) => {
       const task = await db.Task.findByPk(id);
       task.complete = true;
-      await task.save()
+      await task.save();
     });
-    res.redirect('/users/tasks/All-Tasks')
+    res.redirect("/users/tasks/All-Tasks");
   })
 );
-
 
 router.get(
   "/tasks/Completed-Tasks",
@@ -145,64 +140,60 @@ router.get(
 
     let userTags = new Set();
 
+    console.log(tasks);
+    // userLists.forEach(List => {
+    //   List.Tasks.forEach((task) => {
+    //     task.Tags.forEach((tag) => {
+    //       console.log(tag);
+    //     })
+    //   })
+    // })
+    console.log("hit---------------->");
+    for (let i = 0; i < userLists.length; i++) {
+      const list = userLists[i];
+      let Tasks = list.Tasks;
 
-    
+      let tasks = lists.map((list) => list.Tasks).flat();
+      tasks = completedSort(tasks);
+      // below provides the tags list when creating a new task
+      // for (let i = 0; i < lists.length; i++) {
+      //   const list = lists[i];
+      //   let Tasks = list.Tasks;
+      //   for (let j = 0; j < Tasks.length; j++) {
+      //     const task = Tasks[j];
+      //     let Tags = task.Tags;
+      //     for (let k = 0; k < Tags.length; k++) {
+      //       const tag = Tags[k];
+      //       userTags.add(tag.name);
+      //     }
+      //   }
+      // }
 
-    console.log(tasks)
-  // userLists.forEach(List => {
-  //   List.Tasks.forEach((task) => {
-  //     task.Tags.forEach((tag) => {
-  //       console.log(tag);
-  //     })
-  //   })
-  // })
-    console.log("hit---------------->")
-  for (let i = 0; i < userLists.length; i++) {
-    const list = userLists[i];
-    let Tasks = list.Tasks
+      const taskCount = tasks.length.toString();
+      const tomorrowCount = 0;
+      const completedCount = tasks.length.toString();
+      const sortedBy = "Complete Tasks";
+      const estMinutes = estMin(tasks);
+      const estHrs = estHours(tasks);
+      tags = Array.from(userTags);
 
-    let tasks = lists.map(list => list.Tasks).flat();
-    tasks = completedSort(tasks);
-    // below provides the tags list when creating a new task
-    // for (let i = 0; i < lists.length; i++) {
-    //   const list = lists[i];
-    //   let Tasks = list.Tasks;
-    //   for (let j = 0; j < Tasks.length; j++) {
-    //     const task = Tasks[j];
-    //     let Tags = task.Tags;
-    //     for (let k = 0; k < Tags.length; k++) {
-    //       const tag = Tags[k];
-    //       userTags.add(tag.name);
-    //     }
-    //   }
-    // }
-
-    const taskCount = tasks.length.toString();
-    const tomorrowCount = 0;
-    const completedCount = tasks.length.toString();
-    const sortedBy = "Complete Tasks";
-    const estMinutes = estMin(tasks);
-    const estHrs = estHours(tasks);
-    tags = Array.from(userTags);
-
-    res.render("tasks", {
-      title: "Tasks",
-      languages,
-      lists,
-      tasks,
-      taskCount,
-      completedCount,
-      tomorrowCount,
-      sortedBy,
-      estMinutes,
-      estHrs,
-      tags,
-      colors,
-    });
+      res.render("tasks", {
+        title: "Tasks",
+        languages,
+        lists,
+        tasks,
+        taskCount,
+        completedCount,
+        tomorrowCount,
+        sortedBy,
+        estMinutes,
+        estHrs,
+        tags,
+        colors,
+      });
+    }
   })
 );
-
-
 
 //Get tomrrow tasks
 router.get(
@@ -220,7 +211,7 @@ router.get(
 
     let userTags = new Set();
 
-    let tasks = lists.map(list => list.Tasks).flat();
+    let tasks = lists.map((list) => list.Tasks).flat();
     tasks = tomorrowSort(tasks);
     console.log(tasks);
     // below provides the tags list when creating a new task
@@ -262,7 +253,6 @@ router.get(
   })
 );
 
-
 //Get tasks list by list Id
 router.get(
   "/tasks/:id",
@@ -301,8 +291,8 @@ router.get(
 
     let userTags = new Set();
 
-   let tasks = userLists.map(list => list.Tasks).flat();
-   tasks = incompletedSort(tasks)
+    let tasks = userLists.map((list) => list.Tasks).flat();
+    tasks = incompletedSort(tasks);
 
     // below provides the tags list when creating a new task
     // for (let i = 0; i < tagsLists.length; i++) {
@@ -324,7 +314,7 @@ router.get(
     const completedCount = completedSort(tasks).length.toString();
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
-    const sortedBy = userLists[0].name
+    const sortedBy = userLists[0].name;
     res.render("tasks", {
       title: "Tasks",
       languages,
@@ -353,7 +343,7 @@ router.get(
       where: { userId: req.session.auth.userId },
       include: db.Task,
     });
-    const tasks = userLists.map(list => list.Tasks).flat();
+    const tasks = userLists.map((list) => list.Tasks).flat();
     res.json(tasks);
   })
 );
@@ -420,7 +410,7 @@ router.post(
       // Otherwise display an error message to the user.
       errors.push("line 104");
     } else {
-      errors = validatorErrors.array().map(error => error.msg);
+      errors = validatorErrors.array().map((error) => error.msg);
       res.render("log-in", {
         title: "Login",
         email,
@@ -486,7 +476,7 @@ router.post(
 
       req.session.save(() => res.redirect("/users/tasks/All-Tasks"));
     } else {
-      const errors = validatorErrors.array().map(error => error.msg);
+      const errors = validatorErrors.array().map((error) => error.msg);
       res.render("sign-up", {
         user,
         errors,
@@ -495,15 +485,15 @@ router.post(
     }
   })
 );
-router.post('/search',async (req, res, next) => {
-  const {searchString} = req.body
+router.post("/search", async (req, res, next) => {
+  const { searchString } = req.body;
   const userLists3 = await db.List.findAll({
     where: { userId: req.session.auth.userId },
-    include: {model:db.Task, include: db.Tag}
+    include: { model: db.Task, include: db.Tag },
   });
-  const tasks2 = userLists3.map((list) => list.Tasks).flat()
-  console.log(tasks2)
-  res.json({tasks2})
+  const tasks2 = userLists3.map((list) => list.Tasks).flat();
+  console.log(tasks2);
+  res.json({ tasks2 });
 });
 
 // router.get('/tasks/search-results',async (req,res,next) =>{
