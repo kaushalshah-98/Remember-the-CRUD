@@ -10,7 +10,9 @@ body
   div#navbartasks
     img#hamburger(src="/images/Hamburger_icon.png")
     div#searchbar
-      img(src="https://cdn.discordapp.com/attachments/868309879981477929/890757180452638780/Screen_Shot_2021-09-23_at_8.30.44_PM.png")#search-img
+
+      img(src="/images/magicon.png")#search-img
+
       form#search-form
         button#search-Button search
         input(type='search' name='searchBar' placeholder="Search Tasks")#search
@@ -79,10 +81,21 @@ body
         div#tasks-container
           if tasks
             each task in tasks
+              if !task.complete
               div.mainTaskList#createdTask
                 div.taskLeft
                   input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
-                  p.taskText= task.taskName
+                  p(taskId=`${task.id}`).taskText= task.taskName
+
+        p= "Completed:"
+        div#tasks-container
+          if tasks
+            each task in tasks
+              if task.complete
+              div.mainTaskList#createdTask
+                div.taskLeft
+                  input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
+                  p(taskId=`${task.id}` class ="completedTask").taskText= task.taskName
           div.mainTaskList
           div.mainTaskList
           div.mainTaskList

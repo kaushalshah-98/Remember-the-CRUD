@@ -1,3 +1,5 @@
+
+
 h1 {
   color: #555555;
 }
@@ -63,8 +65,10 @@ body {
 
 #signupButton {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: flex-start;
   width: 100%;
+
 }
 
 #formBox {
@@ -136,32 +140,33 @@ p {
   width: 6cm;
 }
 
-#signupButton {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  padding-top: 20px;
 
-}
 
-#loginFromSignUp {
-  height: 50%;
-  width: fit-content;
-  font-family: MuseoSansRounded, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 12pt;
-  background-color: #0060bf1a;
-  color: #00000080;
-  border: 1px solid transparent;
-  border-color: transparent;
-  border-radius: 3px;
-  padding: 4px;
-  margin: 0px;
-  /* border: none; */
-}
-
-#loginFromSignUpLink {
+.linkitems{
+  text-align: center;
+  font-family: "Yaldevi";
+  color:white;
   text-decoration: none;
+  display:flex;
+  width:fit-content;
+  height:fit-content;
+  text-align:center;
+
 }
+
+.linkbuttons{
+  font-family: "Yaldevi";
+  text-align: center;
+  margin:6px;
+  height:.8cm;
+  width:3cm;
+  border-radius: 5px;
+  border:none;
+  background-color:#009dff;
+}
+
+
+/
 
 /*sign up page specific styling above  */
 #splashfooter{

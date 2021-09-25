@@ -60,6 +60,7 @@ router.get(
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
+
     // let userTags = new Set();
 
     let tasks = lists.map(list => list.Tasks).flat();
@@ -77,7 +78,7 @@ router.get(
     //     }
     //   }
     // }
-    tasks = incompletedSort(tasks);
+    // tasks = incompletedSort(tasks);
     const taskCount = tasks.length.toString();
 
     // tags = Array.from(userTags);
@@ -163,6 +164,7 @@ router.get(
     // for (let i = 0; i < userLists.length; i++) {
     //   const list = userLists[i];
     //   let Tasks = list.Tasks;
+
     // for (let i = 0; i < lists.length; i++) {
     //   const list = userLists[i];
     //   let Tasks = list.Tasks;
@@ -227,7 +229,6 @@ router.get(
 
     let tasks = lists.map(list => list.Tasks).flat();
     tasks = tomorrowSort(tasks);
-    console.log(tasks);
     // below provides the tags list when creating a new task
     for (let i = 0; i < lists.length; i++) {
       const list = lists[i];
@@ -286,8 +287,6 @@ router.get(
     //   where: { userId: req.session.auth.userId, id: req.params.id },
     //   include: { model: db.Task, order: [['createdAt', 'DESC']], include: db.Tag},
     // });
-
-    console.log(userLists[0].Tasks);
 
     const lists = await db.List.findAll({
       where: {
@@ -399,10 +398,9 @@ router.post(
       if (user !== null) {
         // If the user exists then compare their password
         // to the provided password.
-        console.log(user.password);
-        console.log(password);
+
         const passwordMatch = await checkPassword(password, user.password);
-        console.log(passwordMatch);
+
         if (passwordMatch) {
           // If the password hashes match, then login the user
           // and redirect them to the default route.
@@ -502,7 +500,7 @@ router.post("/search", async (req, res, next) => {
     include: { model: db.Task, include: db.Tag },
   });
   const tasks2 = userLists3.map(list => list.Tasks).flat();
-  console.log(tasks2);
+
   res.json({ tasks2 });
 });
 
