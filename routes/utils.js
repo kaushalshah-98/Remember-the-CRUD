@@ -116,14 +116,30 @@ const completedSort = (tasks) => {
   return res;
 };
 
+
+const incompletedSort = (tasks) => {
+  let res = [];
+  tasks.forEach(task => {
+    if(!task.complete) res.push(task)
+  })
+  return res;
+};
+
+
+
 module.exports = {
   asyncHandler,
   validateEmailAndPassword,
   signUpValidator,
   csrfProtection,
   completedSort,
-  tomorrowSort,
+
   validationResult,
+  incompletedSort
+
+  tomorrowSort,
+
   estMin,
   estHours
+
 };

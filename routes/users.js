@@ -11,6 +11,7 @@ const {
   signUpValidator,
   csrfProtection,
   validationResult,
+  incompletedSort
 } = require("./utils");
 const { generateHashedPassword, checkPassword } = require("../bcrypt");
 const db = require("../db/models");
@@ -48,10 +49,6 @@ router.get("/signup", csrfProtection, (req, res) => {
   res.render("sign-up", { title: "Sign Up", csrfToken: req.csrfToken() });
 });
 
-router.get("/signup", (req, res) => {
-  res.render("sign-up", { title: "Sign Up", csrfToken: req.csrfToken() });
-});
-
 router.get(
   "/tasks/All-Tasks",
   validateUser,
@@ -62,35 +59,35 @@ router.get(
     const lists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId },
-      include: { model: db.Task, include: db.Tag },
+      include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
-
     // console.log(userLists);
-    let userTags = new Set();
+    // let userTags = new Set();
 
-    const tasks = lists.map(list => list.Tasks).flat();
-    console.log(tasks);
+    let tasks = lists.map(list => list.Tasks).flat();
+
     // below provides the tags list when creating a new task
-    for (let i = 0; i < lists.length; i++) {
-      const list = lists[i];
-      let Tasks = list.Tasks;
-      for (let j = 0; j < Tasks.length; j++) {
-        const task = Tasks[j];
-        let Tags = task.Tags;
-        for (let k = 0; k < Tags.length; k++) {
-          const tag = Tags[k];
-          userTags.add(tag.name);
-        }
-      }
-    }
-
+    // for (let i = 0; i < lists.length; i++) {
+    //   const list = lists[i];
+    //   let Tasks = list.Tasks;
+    //   for (let j = 0; j < Tasks.length; j++) {
+    //     const task = Tasks[j];
+    //     let Tags = task.Tags;
+    //     for (let k = 0; k < Tags.length; k++) {
+    //       const tag = Tags[k];
+    //       userTags.add(tag.name);
+    //     }
+    //   }
+    // }
+    tasks = incompletedSort(tasks)
     const taskCount = tasks.length.toString();
+
+    // tags = Array.from(userTags);
     const tomorrowCount = tomorrowSort(tasks).length.toString();
     const completedCount = completedSort(tasks).length.toString();
     const sortedBy = "All Tasks";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
-    tags = Array.from(userTags);
 
     res.render("tasks", {
       title: "Tasks",
@@ -98,17 +95,36 @@ router.get(
       lists,
       tasks,
       taskCount,
+
+      // tags,
+
       tomorrowCount,
       completedCount,
       sortedBy,
       estMinutes,
       estHrs,
-      tags,
       colors,
     });
   })
 );
-//get Completed Tasks
+
+
+router.post(
+  "/tasks/Completed-Tasks",
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const { completedIds } = req.body;
+
+    completedIds.forEach(async id => {
+      const task = await db.Task.findByPk(id);
+      task.complete = true;
+      await task.save()
+    });
+    res.redirect('/users/tasks/All-Tasks')
+  })
+);
+
+
 router.get(
   "/tasks/Completed-Tasks",
   validateUser,
@@ -119,27 +135,26 @@ router.get(
     const lists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId },
-      include: { model: db.Task, include: db.Tag },
+      include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
     let userTags = new Set();
 
     let tasks = lists.map(list => list.Tasks).flat();
     tasks = completedSort(tasks);
-    console.log(tasks);
     // below provides the tags list when creating a new task
-    for (let i = 0; i < lists.length; i++) {
-      const list = lists[i];
-      let Tasks = list.Tasks;
-      for (let j = 0; j < Tasks.length; j++) {
-        const task = Tasks[j];
-        let Tags = task.Tags;
-        for (let k = 0; k < Tags.length; k++) {
-          const tag = Tags[k];
-          userTags.add(tag.name);
-        }
-      }
-    }
+    // for (let i = 0; i < lists.length; i++) {
+    //   const list = lists[i];
+    //   let Tasks = list.Tasks;
+    //   for (let j = 0; j < Tasks.length; j++) {
+    //     const task = Tasks[j];
+    //     let Tags = task.Tags;
+    //     for (let k = 0; k < Tags.length; k++) {
+    //       const tag = Tags[k];
+    //       userTags.add(tag.name);
+    //     }
+    //   }
+    // }
 
     const taskCount = tasks.length.toString();
     const tomorrowCount = 0;
@@ -238,8 +253,16 @@ router.get(
     const userLists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId, id: req.params.id },
-      include: { model: db.Task, include: db.Tag },
+      include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
+
+    // const userTaskLists = await db.List.findOne({
+    //   // where:{userId:req.session.auth.userId},
+    //   where: { userId: req.session.auth.userId, id: req.params.id },
+    //   include: { model: db.Task, order: [['createdAt', 'DESC']], include: db.Tag},
+    // });
+
+    console.log(userLists[0].Tasks);
 
     const lists = await db.List.findAll({
       where: {
@@ -256,23 +279,24 @@ router.get(
 
     let userTags = new Set();
 
-    const tasks = userLists.map(list => list.Tasks).flat();
+   let tasks = userLists.map(list => list.Tasks).flat();
+   tasks = incompletedSort(tasks)
 
     // below provides the tags list when creating a new task
-    for (let i = 0; i < tagsLists.length; i++) {
-      const list = tagsLists[i];
-      let Tasks = list.Tasks;
-      for (let j = 0; j < Tasks.length; j++) {
-        const task = Tasks[j];
-        let Tags = task.Tags;
-        for (let k = 0; k < Tags.length; k++) {
-          const tag = Tags[k];
-          userTags.add(tag.name);
-        }
-      }
-    }
+    // for (let i = 0; i < tagsLists.length; i++) {
+    //   const list = tagsLists[i];
+    //   let Tasks = list.Tasks;
+    //   for (let j = 0; j < Tasks.length; j++) {
+    //     const task = Tasks[j];
+    //     let Tags = task.Tags;
+    //     for (let k = 0; k < Tags.length; k++) {
+    //       const tag = Tags[k];
+    //       userTags.add(tag.name);
+    //     }
+    //   }
+    // }
 
-    tags = Array.from(userTags);
+    // tags = Array.from(userTags);
     const taskCount = tasks.length.toString();
     const tomorrowCount = tomorrowSort(tasks).length.toString();
     const completedCount = completedSort(tasks).length.toString();
@@ -285,12 +309,15 @@ router.get(
       lists,
       tasks,
       taskCount,
+
+      // tags,
+
       tomorrowCount,
       completedCount,
       sortedBy,
       estMinutes,
       estHrs,
-      tags,
+
       colors,
       userTags,
     });
@@ -359,6 +386,7 @@ router.post(
             where: {
               userId: user.id,
               name: "All Tasks",
+              order: [["createdAt", "DESC"]],
             },
           });
           console.log("hi");
