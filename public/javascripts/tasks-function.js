@@ -190,7 +190,7 @@ search.addEventListener("keyup", async (e) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({completedIds: ids}),
-    })
+    }). then(location.reload())
 
     // const checkboxes = document.querySelectorAll('#taskCheckBox')
     // const taskText = [...document.querySelectorAll('.taskText')].map(task => task.innerText)
