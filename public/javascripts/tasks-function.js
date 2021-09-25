@@ -167,7 +167,19 @@ window.addEventListener("DOMContentLoaded", async e => {
     const checkedBoxes = document.querySelectorAll(
       "input[type=checkbox]:checked"
     );
+
     const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
+    console.log(ids)
+
+
+      ids.forEach(id => {
+
+        const taskTexts = document.querySelectorAll(
+          `p`
+        );
+
+
+      })
 
     await fetch("/users/tasks/Completed-Tasks", {
       method: "POST",

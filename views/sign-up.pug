@@ -12,7 +12,8 @@ block content
             div.right
                 div#signupButton
                     img#logo-signup(src="/images/logo-trans-final.png")
-                    button#loginFromSignUp: a#loginFromSignUpLink(href="/users/login") Log in
+                    button.linkbuttons#loginFromSignUp: a.linkitems#loginFromSignUpLink(href="/users/login") Log in
+                    button.linkbuttons: a.linkitems#splashDemoUser(href="/users/demo") Demo User
                 div.form
                     div#formBox
                         +validationErrorSummary(errors)
