@@ -79,7 +79,7 @@ window.addEventListener("DOMContentLoaded", async e => {
     addTaskButton.disabled = false;
   });
 
-  const feature = document.querySelectorAll(".attribute");
+  const feature = document.querySelectorAll(".feature");
   const test = document.getElementById("test-div");
   const tasksContainer = document.getElementById("tasks-container");
 

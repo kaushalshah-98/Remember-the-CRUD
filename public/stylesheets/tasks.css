@@ -625,9 +625,8 @@ body {
 }
 #searchbar {
   display: flex;
-
+  height: 20px;
 }
-
 
 #splashfooter{
   /* position:absolute;
@@ -661,7 +660,6 @@ body {
 
 }
 
-
 .githublogo{
   margin-left:10px;
   width:30px;
@@ -674,3 +672,5 @@ body {
 .splashname{
   font-size: 13pt;
 }
+
+
