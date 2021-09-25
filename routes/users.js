@@ -54,12 +54,9 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    // const lists = await db.List.findAll();
     const colors = await db.Color.findAll();
 
     const lists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
-
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
@@ -174,12 +171,10 @@ router.get(
     //     })
     //   })
     // })
-    // console.log("hit---------------->");
 
     // for (let i = 0; i < userLists.length; i++) {
     //   const list = userLists[i];
     //   let Tasks = list.Tasks;
-
 
     // for (let i = 0; i < lists.length; i++) {
     //   const list = userLists[i];

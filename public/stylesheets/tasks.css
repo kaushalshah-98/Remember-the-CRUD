@@ -635,9 +635,11 @@ body {
 }
 #searchbar {
   display: flex;
+  height: 20px;
 }
 
 #splashfooter {
+
   /* position:absolute;
   bottom: 0; */
   display: flex;
@@ -668,6 +670,7 @@ body {
   height: 100%;
 }
 
+
 .completedTask {
   text-decoration: line-through;
   text-decoration-thickness: 4px;
@@ -678,6 +681,7 @@ body {
   margin-left: 10px;
   width: 30px;
   height: 30px;
+
 }
 .linkedinlogo {
   width: 30px;
@@ -686,3 +690,5 @@ body {
 .splashname {
   font-size: 13pt;
 }
+
+
