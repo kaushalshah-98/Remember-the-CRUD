@@ -9,9 +9,9 @@ window.addEventListener("DOMContentLoaded", async e => {
   // console.log(totalTasks)
   let totalTasksSummary = document.getElementById("totalTasksSummary");
 
-  window.onload = () => {
-    totalTasksSummary.innerText = totalTasks.toString();
-  };
+  // window.onload = () => {
+  //   totalTasksSummary.innerText = totalTasks.toString();
+  // };
 
   //Sidebar whole menu dropdown functionality
   const hamburgerButton = document.getElementById("hamburger");
@@ -169,6 +169,17 @@ window.addEventListener("DOMContentLoaded", async e => {
     );
     const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
 
+
+
+    ids.forEach(id => {
+      const p = document.querySelectorAll(`p.taskText`);
+      p.forEach(el => {
+        if (id === el.getAttribute("taskId")) {
+          el.setAttribute("class", "completedTask");
+        }
+      });
+    });
+
     await fetch("/users/tasks/Completed-Tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -178,7 +189,7 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   const deleteButton = document.getElementById("delete");
 
-  deleteButton.addEventListener('click', async e => {
+  deleteButton.addEventListener("click", async e => {
     const checkedBoxes = document.querySelectorAll(
       "input[type=checkbox]:checked"
     );
@@ -188,6 +199,5 @@ window.addEventListener("DOMContentLoaded", async e => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ deletedIds: ids }),
     }).then(location.reload());
-  })
-
+  });
 });

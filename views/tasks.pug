@@ -82,10 +82,20 @@ body
         div#tasks-container
           if tasks
             each task in tasks
+              if !task.complete
               div.mainTaskList#createdTask
                 div.taskLeft
                   input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
-                  p.taskText= task.taskName
+                  p(taskId=`${task.id}`).taskText= task.taskName
+        p= "Completed:"
+        div#tasks-container
+          if tasks
+            each task in tasks
+              if task.complete
+              div.mainTaskList#createdTask
+                div.taskLeft
+                  input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
+                  p(taskId=`${task.id}` class ="completedTask").taskText= task.taskName
           div.mainTaskList
           div.mainTaskList
           div.mainTaskList
