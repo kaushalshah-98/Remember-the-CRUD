@@ -1,15 +1,21 @@
 // const db = require("../../db/models");
 
+
 window.addEventListener("DOMContentLoaded", async e => {
   let tasks = await fetch('/users/tasksArray')
   tasks = await tasks.json();
-  // console.log("hit",tasks)
+
 
 
 
   let totalTasks = tasks.length
+
+
+
+
   // console.log(totalTasks)
   let totalTasksSummary = document.getElementById("totalTasksSummary")
+
   window.onload= ()=>{
     totalTasksSummary.innerText = totalTasks.toString();
   }
@@ -107,6 +113,49 @@ window.addEventListener("DOMContentLoaded", async e => {
     search.removeAttribute("placeholder");
   })
 
+/* patches searches*/
+  const showResults = (input) => {
+    let tasksContainer = document.querySelector("#tasks-container");
+      // if(input.length === 0 && )
+for (let i = tasksContainer.children.length - 1; i >= 0;i--) {
+            tasksContainer.children[i].remove()
+
+}
+
+
+   input.forEach( result =>{
+     console.log(result)
+     console.log(result.taskName)
+      let divMain = document.createElement("div")
+      let divLeft = document.createElement("div")
+      let input1 = document.createElement("input")
+      let pTasks = document.createElement("p")
+      pTasks.innerText = `${result.taskName}`
+      divMain.classList.add('mainTaskList')
+      divLeft.classList.add('taskLeft')
+      input1.id = "taskCheckBox"
+      input1.setAttribute("type", "checkbox")
+      pTasks.classList.add('taskText')
+
+      divMain.appendChild(divLeft)
+      divLeft.appendChild(input1)
+      divLeft.appendChild(pTasks)
+      tasksContainer.appendChild(divMain)
+
+
+    });
+
+}
+search.addEventListener("blur", e => {
+  for (let i = 0; i <= 24; i++) {
+    let newDiv = document.createElement("div")
+     newDiv.classList.add('mainTaskList')
+     tasksContainer.appendChild(newDiv)
+
+  }
+
+})
+
 
   //completed button event listenter
 
@@ -117,9 +166,46 @@ window.addEventListener("DOMContentLoaded", async e => {
     // const text = document.querySelectorAll('.taskText')
     // console.log(text.values())
 
+
+const searchForm =document.getElementById('search-form')
+
+    search.addEventListener("keyup", async (e) =>{
+        try {
+            const input = e.target.value
+            const data = await fetch(`/search`,{
+              method:'POST',
+              body: JSON.stringify({input}),
+              headers:{'Content-Type': 'application/json'}
+            });
+              if(!data.ok) throw data
+            let results = await data.json();
+             results = results.tasks2.filter((ele) => ele.taskName.includes(input))
+            //  if(results.taskName.includes(input)){
+              showResults(results)
+            //  }
+
+        } catch(err) {
+            console.error('Something went wrong.', err);
+        }
+});
+
+// document
+//     .getElementById("search")
+//     .addEventListner("keyup", async (e) =>{
+//       try{
+//       const input = e.value
+//       const data = await fetch(`/search?q=${input}`);
+//       const results = await data.json();
+//       return true
+//     } catch(err) {
+//       console.error("item not found",err);
+//       return false
+//     }
+
     const checkedBoxes = document.querySelectorAll('input[type=checkbox]:checked')
     const ids = [...checkedBoxes].map(el => el.getAttribute('taskId'))
     console.log(ids)
+
 
     await fetch('/users/tasks/Completed-Tasks', {
       method: "POST",

@@ -11,8 +11,9 @@ body
     img#hamburger(src="/images/Hamburger_icon.png")
     div#searchbar
       img(src="/images/137-1378060_png-file-search-button-logo-png.png")#search-img
-      button#search-Button search
-      input(type='search' placeholder="Search Tasks")#search
+      form#search-form
+        button#search-Button search
+        input(type='search' name='searchBar' placeholder="Search Tasks")#search
     div#navButtonsTasks
       button#logoutButton: a#logoutLink(href="/users/logout") Logout
   div#largestboxtasks
@@ -53,6 +54,10 @@ body
                 li.alllanguageoptions-open= language.name
     div#mainboxtasks
       div#tasks-view
+
+
+        div#tasks-form
+
         div.taskRight
                   button#completed Completed
                   button#delete Delete
@@ -64,6 +69,7 @@ body
               each language in languages
                 option(value=language.id)=language.name
             select(name="listId" required).attribute.task-hidden
+
               each list in lists
                 option(value=list.id)=list.name
             select(name="tagId").attribute.task-hidden
@@ -82,7 +88,6 @@ body
                 div.taskLeft
                   input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
                   p.taskText= task.taskName
-          div.mainTaskList
           div.mainTaskList
           div.mainTaskList
           div.mainTaskList
