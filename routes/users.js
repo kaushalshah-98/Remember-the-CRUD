@@ -152,9 +152,11 @@ router.get(
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    let userTags = new Set();
+
+//     let userTags = new Set();
 
     // console.log(tasks);
+
     // userLists.forEach(List => {
     //   List.Tasks.forEach((task) => {
     //     task.Tags.forEach((tag) => {
@@ -163,12 +165,18 @@ router.get(
     //   })
     // })
     // console.log("hit---------------->");
+
     // for (let i = 0; i < userLists.length; i++) {
     //   const list = userLists[i];
     //   let Tasks = list.Tasks;
 
-    let tasks = lists.map(list => list.Tasks).flat();
-    tasks = completedSort(tasks);
+   
+    // for (let i = 0; i < lists.length; i++) {
+    //   const list = userLists[i];
+    //   let Tasks = list.Tasks;
+
+    let tasks = lists.map((list) => list.Tasks).flat();
+
     // below provides the tags list when creating a new task
     // for (let i = 0; i < lists.length; i++) {
     //   const list = lists[i];
@@ -189,7 +197,7 @@ router.get(
     const sortedBy = "Complete Tasks";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
-    tags = Array.from(userTags);
+
 
     res.render("tasks", {
       title: "Tasks",
@@ -202,7 +210,8 @@ router.get(
       sortedBy,
       estMinutes,
       estHrs,
-      tags,
+    // tags,
+
       colors,
     });
   })
@@ -274,7 +283,6 @@ router.get(
     const languages = await db.Language.findAll();
     let tags = await db.Tag.findAll();
     const colors = await db.Color.findAll();
-
     const userLists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId, id: req.params.id },
@@ -419,7 +427,6 @@ router.post(
       }
 
       // Otherwise display an error message to the user.
-      errors.push("line 104");
     } else {
       errors = validatorErrors.array().map(error => error.msg);
       res.render("log-in", {
