@@ -67,7 +67,13 @@ const completedSort = (tasks) => {
   return res;
 };
 
-
+const incompletedSort = (tasks) => {
+  let res = [];
+  tasks.forEach(task => {
+    if(!task.complete) res.push(task)
+  })
+  return res;
+};
 
 module.exports = {
   asyncHandler,
@@ -75,5 +81,6 @@ module.exports = {
   signUpValidator,
   csrfProtection,
   completedSort,
-  validationResult
+  validationResult,
+  incompletedSort
 };
