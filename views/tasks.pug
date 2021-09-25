@@ -10,7 +10,7 @@ body
   div#navbartasks
     img#hamburger(src="/images/Hamburger_icon.png")
     div#searchbar
-      img(src="/images/137-1378060_png-file-search-button-logo-png.png")#search-img
+      img(src="/images/magicon.png")#search-img
       form#search-form
         button#search-Button search
         input(type='search' name='searchBar' placeholder="Search Tasks")#search
@@ -87,6 +87,7 @@ body
                 div.taskLeft
                   input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
                   p(taskId=`${task.id}`).taskText= task.taskName
+
         p= "Completed:"
         div#tasks-container
           if tasks
