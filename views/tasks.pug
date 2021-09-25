@@ -41,8 +41,9 @@ body
           div#options3
             p#alltags="Tags"
             ul#options3list
-              each tag in tags
-                li.alltagoptions-open= tag
+              if tags
+                each tag in tags
+                  li.alltagoptions-open= tag
         div#languagesorts
           img#ddownarrow-languages(src="/images/blue-dright-arrow.PNG")
           div#options4
@@ -66,8 +67,9 @@ body
               each list in lists
                 option(value=list.id)=list.name
             select(name="tagId").attribute.task-hidden
-              each tag in tags
-                option(value=tag.id)=tag.name
+              if tags
+                each tag in tags
+                  option(value=tag.id)=tag.name
             input(type="number" value=0 name="estTime" required).attribute.task-hidden
             input(type="date" name="startDate" required).attribute.task-hidden
             input(type="date" name="dueDate" required).attribute.task-hidden
@@ -78,7 +80,7 @@ body
             each task in tasks
               div.mainTaskList#createdTask
                 div.taskLeft
-                  input(type="checkbox")#taskCheckBox
+                  input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
                   p.taskText= task.taskName
           div.mainTaskList
           div.mainTaskList
