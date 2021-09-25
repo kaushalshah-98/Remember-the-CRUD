@@ -56,6 +56,10 @@ body {
   height: .8cm;
 }
 
+#logoutButton:focus{
+  background-color: rgb(247, 211, 144);
+}
+
 #logoutButton,
 #logoutLink {
   border: none;
@@ -417,6 +421,10 @@ body {
   height: 1cm;
 }
 
+#tasks-button:focus {
+  background-color: rgb(247, 231, 201);;
+}
+
 #test-div {
   justify-self: end;
   height: 50%;
@@ -470,11 +478,23 @@ body {
 #delete {
   margin: 3px;
   background-color: rgb(169, 209, 235);
+  font-weight: bolder;
+  font-size: 12pt;
   /* margin-top: 5px; */
 }
+#delete:focus{
+  background-color: rgb(209, 224, 233);
+}
+
 #completed {
   color: white;
   background-color: #0060bf;
+  font-weight: bolder;
+  font-size: 12pt;
+}
+
+#completed:focus {
+  background-color: #6d92b8;
 }
 
 #completed, #delete {

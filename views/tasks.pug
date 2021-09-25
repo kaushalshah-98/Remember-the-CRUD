@@ -29,7 +29,6 @@ body
               li.alltaskoptions-open: a.listLink(href="/users/tasks/Tomorrow")= "Tomorrow"
               //- li.alltaskoptions-open= "This Week"
               li.alltaskoptions-open: a.listLink(href="/users/tasks/Completed-Tasks")= "Completed Tasks"
-              li.alltaskoptions-open= "Trash"
         div#listsorts
           img#ddownarrow-lists(src="/images/blue-dright-arrow.PNG")
           div#options2
@@ -72,10 +71,10 @@ body
 
               each list in lists
                 option(value=list.id)=list.name
-            select(name="tagId").attribute.task-hidden
-              if tags
-                each tag in tags
-                  option(value=tag.id)=tag.name
+            //- select(name="tagId").attribute.task-hidden
+            //-   if tags
+            //-     each tag in tags
+            //-       option(value=tag.id)=tag.name
             input(type="number" value=0 name="estTime" required).attribute.task-hidden
             input(type="date" name="startDate" required).attribute.task-hidden
             input(type="date" name="dueDate" required).attribute.task-hidden
