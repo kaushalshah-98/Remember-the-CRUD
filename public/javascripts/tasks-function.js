@@ -1,25 +1,17 @@
 // const db = require("../../db/models");
 
-
 window.addEventListener("DOMContentLoaded", async e => {
-  let tasks = await fetch('/users/tasksArray')
+  let tasks = await fetch("/users/tasksArray");
   tasks = await tasks.json();
 
-
-
-
-  let totalTasks = tasks.length
-
-
-
+  let totalTasks = tasks.length;
 
   // console.log(totalTasks)
-  let totalTasksSummary = document.getElementById("totalTasksSummary")
+  let totalTasksSummary = document.getElementById("totalTasksSummary");
 
-  window.onload= ()=>{
+  window.onload = () => {
     totalTasksSummary.innerText = totalTasks.toString();
-  }
-
+  };
 
   //Sidebar whole menu dropdown functionality
   const hamburgerButton = document.getElementById("hamburger");
@@ -100,106 +92,102 @@ window.addEventListener("DOMContentLoaded", async e => {
     addTaskButton.classList.add("task-hidden");
   });
 
-
   input.addEventListener("change", e => {
     if (e.target.value) {
       addTaskButton.disabled = false;
     }
   });
 
-  const search = document.getElementById("search")
+  const search = document.getElementById("search");
 
-  search.addEventListener("click",(e) => {
+  search.addEventListener("click", e => {
     search.removeAttribute("placeholder");
-  })
+  });
 
-/* patches searches*/
-  const showResults = (input) => {
+  /* patches searches*/
+  const showResults = input => {
     let tasksContainer = document.querySelector("#tasks-container");
-      // if(input.length === 0 && )
-for (let i = tasksContainer.children.length - 1; i >= 0;i--) {
-            tasksContainer.children[i].remove()
+    // if(input.length === 0 && )
+    for (let i = tasksContainer.children.length - 1; i >= 0; i--) {
+      tasksContainer.children[i].remove();
+    }
 
-}
+    input.forEach(result => {
+      console.log(result);
+      console.log(result.taskName);
+      let divMain = document.createElement("div");
+      let divLeft = document.createElement("div");
+      let input1 = document.createElement("input");
+      let pTasks = document.createElement("p");
+      pTasks.innerText = `${result.taskName}`;
+      divMain.classList.add("mainTaskList");
+      divLeft.classList.add("taskLeft");
+      input1.id = "taskCheckBox";
+      input1.setAttribute("type", "checkbox");
+      pTasks.classList.add("taskText");
 
-
-   input.forEach( result =>{
-     console.log(result)
-     console.log(result.taskName)
-      let divMain = document.createElement("div")
-      let divLeft = document.createElement("div")
-      let input1 = document.createElement("input")
-      let pTasks = document.createElement("p")
-      pTasks.innerText = `${result.taskName}`
-      divMain.classList.add('mainTaskList')
-      divLeft.classList.add('taskLeft')
-      input1.id = "taskCheckBox"
-      input1.setAttribute("type", "checkbox")
-      pTasks.classList.add('taskText')
-
-      divMain.appendChild(divLeft)
-      divLeft.appendChild(input1)
-      divLeft.appendChild(pTasks)
-      tasksContainer.appendChild(divMain)
-
-
+      divMain.appendChild(divLeft);
+      divLeft.appendChild(input1);
+      divLeft.appendChild(pTasks);
+      tasksContainer.appendChild(divMain);
     });
+  };
+  search.addEventListener("blur", e => {
+    for (let i = 0; i <= 24; i++) {
+      let newDiv = document.createElement("div");
+      newDiv.classList.add("mainTaskList");
+      tasksContainer.appendChild(newDiv);
+    }
+  });
 
-}
-search.addEventListener("blur", e => {
-  for (let i = 0; i <= 24; i++) {
-    let newDiv = document.createElement("div")
-     newDiv.classList.add('mainTaskList')
-     tasksContainer.appendChild(newDiv)
-
-  }
-
-})
-
-search.addEventListener("keyup", async (e) => {
-  try {
-    const input = e.target.value;
-    const data = await fetch(`/search`, {
-      method: "POST",
-      body: JSON.stringify({ input }),
-      headers: { "Content-Type": "application/json" },
-    });
-    if (!data.ok) throw data;
-    let results = await data.json();
-    results = results.tasks2.filter((ele) => ele.taskName.includes(input));
-    //  if(results.taskName.includes(input)){
-    showResults(results);
-    //  }
-  } catch (err) {
-    console.error("Something went wrong.", err);
-  }
-});
+  search.addEventListener("keyup", async e => {
+    try {
+      const input = e.target.value;
+      const data = await fetch(`/search`, {
+        method: "POST",
+        body: JSON.stringify({ input }),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!data.ok) throw data;
+      let results = await data.json();
+      results = results.tasks2.filter(ele => ele.taskName.includes(input));
+      //  if(results.taskName.includes(input)){
+      showResults(results);
+      //  }
+    } catch (err) {
+      console.error("Something went wrong.", err);
+    }
+  });
 
   //completed button event listenter
 
-  const completedButton = document.getElementById('completed')
+  const completedButton = document.getElementById("completed");
 
-  completedButton.addEventListener('click', async e=>{
-    
-    const checkedBoxes = document.querySelectorAll('input[type=checkbox]:checked')
-    const ids = [...checkedBoxes].map(el => el.getAttribute('taskId'))
-    console.log(ids)
+  completedButton.addEventListener("click", async e => {
+    const checkedBoxes = document.querySelectorAll(
+      "input[type=checkbox]:checked"
+    );
+    const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
 
-
-    await fetch('/users/tasks/Completed-Tasks', {
+    await fetch("/users/tasks/Completed-Tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({completedIds: ids}),
-    }). then(location.reload())
+      body: JSON.stringify({ completedIds: ids }),
+    }).then(location.reload());
+  });
 
-    // const checkboxes = document.querySelectorAll('#taskCheckBox')
-    // const taskText = [...document.querySelectorAll('.taskText')].map(task => task.innerText)
+  const deleteButton = document.getElementById("delete");
 
-    // checkboxes.forEach(checkbox => {
-    //   // console.log(task)
-    //   if(checkbox.checked){
-    //     // console.log(checkbox.innerText)
-    //   }
-    })
-
+  deleteButton.addEventListener('click', async e => {
+    const checkedBoxes = document.querySelectorAll(
+      "input[type=checkbox]:checked"
+    );
+    const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
+    await fetch("/users/tasks/Completed-Tasks", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ deletedIds: ids }),
+    }).then(location.reload());
   })
+
+});

@@ -115,6 +115,9 @@ p {
   border:none;
   border-radius: 5px;
 }
+#loginButton:focus{
+  background-color: #bfe1f7;
+}
 #reminderDiv{
   display:flex;
   align-items: center;
@@ -138,7 +141,7 @@ p {
   justify-content: space-around;
   width: 100%;
   padding-top: 20px;
-  
+
 }
 
 #loginFromSignUp {
