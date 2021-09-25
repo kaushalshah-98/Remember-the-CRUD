@@ -6,28 +6,63 @@ block content
 
 
     body
-        div.left
-            .quotebox
-                div#quote “Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”
-                div#author – Martin Fowler
-    body
-        div.right
-                div#signupButton
-                    button#loginFromSignUp: a#loginFromSignUpLink(href="/users/signup") Sign up for free
-                    button#loginDemoUserButton: a#loginDemoUser(href="/users/demo") Demo User
-                div.form
-                    div#formBox
-                        +validationErrorSummary(errors)
-                        form(action="/users/login" method="POST")
-                            input(type="hidden" name="_csrf" value=csrfToken)
-                            p Been here before? Welcome back!
-                            label(for="email")
-                            input(type="text" placeholder= "Email" name="email").formField
-                            br
-                            label(for="password")
-                            input(type="password" placeholder= "Password" name="password").formField
-                            br
-                            input(type="checkbox" name="stayLoggedIn").formField#stayLogged
-                            label(for="stayLoggedIn")#stayLoggedText Stay logged In
-                            br
-                            button.formField#loginButton Log in
+        div#mainDivLogin
+            div.left
+                .quotebox
+                    div#quote “Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”
+                    div#author – Martin Fowler
+            div.right
+                    div#signupButton
+                        button#loginFromSignUp: a#loginFromSignUpLink(href="/users/signup") Sign up for free
+                    div.form
+                        div#formBox
+                            +validationErrorSummary(errors)
+                            form(action="/users/login" method="POST")
+                                input(type="hidden" name="_csrf" value=csrfToken)
+                                p Been here before? Welcome back!
+                                label(for="email")
+                                input(type="text" placeholder= "Email" name="email").formField
+                                br
+                                label(for="password")
+                                input(type="password" placeholder= "Password" name="password").formField
+                                br
+                                input(type="checkbox" name="stayLoggedIn").formField#stayLogged
+                                label(for="stayLoggedIn")#stayLoggedText Stay logged In
+                                br
+                                button.formField#loginButton Log in
+    footer#splashfooter
+            div#aboutdiv
+                div.credentialdivs#anndiv
+                    div#annname
+                        p.splashname="Ann Donnelly"
+                    div#annlinks
+                        a(href="https://github.com/anndonnelly")
+                            img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                        a(href="https://www.linkedin.com/in/ann-donnelly/")
+                            img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+                div.credentialdivs#ajdiv
+                    div#ajname
+                        p.splashname="AJ Abushaban"
+                    div#ajlinks
+                        a(href="https://github.com/asabushaban")
+                            img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                        a(href="https://www.linkedin.com/in/aj-abushaban-919231100/")
+                            img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+                div.credentialdivs#patchdiv
+                    div#patrickname
+                        p.splashname="Patrick Story"
+                    div#patchlinks
+                        a(href="https://github.com/pstory721")
+                            img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                        a(href="https://www.linkedin.com/in/patrick-story-546539217")
+                            img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+                div.credentialdivs#williamdiv
+                    div#williamname
+                        p.splashname="William Ziller"
+                    div#williamlinks
+                        a(href="https://github.com/wziller")
+                            img.githublogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg")
+                        a(href="https://www.linkedin.com/in/william-ziller-99b45a90/")
+                            img.linkedinlogo(src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-plain.svg")
+
+

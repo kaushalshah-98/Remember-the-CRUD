@@ -138,9 +138,6 @@ router.get(
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    let userTags = new Set();
-
-    console.log(tasks);
     // userLists.forEach(List => {
     //   List.Tasks.forEach((task) => {
     //     task.Tags.forEach((tag) => {
@@ -148,50 +145,48 @@ router.get(
     //     })
     //   })
     // })
-    console.log("hit---------------->");
-    for (let i = 0; i < userLists.length; i++) {
-      const list = userLists[i];
-      let Tasks = list.Tasks;
+    // console.log("hit---------------->");
+    // for (let i = 0; i < lists.length; i++) {
+    //   const list = userLists[i];
+    //   let Tasks = list.Tasks;
 
-      let tasks = lists.map((list) => list.Tasks).flat();
-      tasks = completedSort(tasks);
-      // below provides the tags list when creating a new task
-      // for (let i = 0; i < lists.length; i++) {
-      //   const list = lists[i];
-      //   let Tasks = list.Tasks;
-      //   for (let j = 0; j < Tasks.length; j++) {
-      //     const task = Tasks[j];
-      //     let Tags = task.Tags;
-      //     for (let k = 0; k < Tags.length; k++) {
-      //       const tag = Tags[k];
-      //       userTags.add(tag.name);
-      //     }
-      //   }
-      // }
+    let tasks = lists.map((list) => list.Tasks).flat();
+    tasks = completedSort(tasks);
+    // below provides the tags list when creating a new task
+    // for (let i = 0; i < lists.length; i++) {
+    //   const list = lists[i];
+    //   let Tasks = list.Tasks;
+    //   for (let j = 0; j < Tasks.length; j++) {
+    //     const task = Tasks[j];
+    //     let Tags = task.Tags;
+    //     for (let k = 0; k < Tags.length; k++) {
+    //       const tag = Tags[k];
+    //       userTags.add(tag.name);
+    //     }
+    //   }
+    // }
 
-      const taskCount = tasks.length.toString();
-      const tomorrowCount = 0;
-      const completedCount = tasks.length.toString();
-      const sortedBy = "Complete Tasks";
-      const estMinutes = estMin(tasks);
-      const estHrs = estHours(tasks);
-      tags = Array.from(userTags);
+    const taskCount = tasks.length.toString();
+    const tomorrowCount = 0;
+    const completedCount = tasks.length.toString();
+    const sortedBy = "Complete Tasks";
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
 
-      res.render("tasks", {
-        title: "Tasks",
-        languages,
-        lists,
-        tasks,
-        taskCount,
-        completedCount,
-        tomorrowCount,
-        sortedBy,
-        estMinutes,
-        estHrs,
-        tags,
-        colors,
-      });
-    }
+    res.render("tasks", {
+      title: "Tasks",
+      languages,
+      lists,
+      tasks,
+      taskCount,
+      completedCount,
+      tomorrowCount,
+      sortedBy,
+      estMinutes,
+      estHrs,
+      // tags,
+      colors,
+    });
   })
 );
 
