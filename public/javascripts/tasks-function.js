@@ -110,40 +110,46 @@ window.addEventListener("DOMContentLoaded", async e => {
 /* patches searches*/
   const showResults = (input) => {
     let tasksContainer = document.querySelector("#tasks-container");
-   console.log(tasksContainer.children)
-
-for (let i = 0; i < tasksContainer.children.length;i++) {
+      // if(input.length === 0 && )
+for (let i = tasksContainer.children.length - 1; i >= 0;i--) {
             tasksContainer.children[i].remove()
 
 }
 
 
    input.forEach( result =>{
-     let newDiv = document.createElement("div")
+     console.log(result)
+     console.log(result.taskName)
       let divMain = document.createElement("div")
       let divLeft = document.createElement("div")
       let input1 = document.createElement("input")
       let pTasks = document.createElement("p")
+      pTasks.innerText = `${result.taskName}`
       divMain.classList.add('mainTaskList')
       divLeft.classList.add('taskLeft')
       input1.id = "taskCheckBox"
+      input1.setAttribute("type", "checkbox")
       pTasks.classList.add('taskText')
 
       divMain.appendChild(divLeft)
       divLeft.appendChild(input1)
       divLeft.appendChild(pTasks)
       tasksContainer.appendChild(divMain)
-      tasksContainer.appendChild(divLeft)
-      tasksContainer.appendChild(input1)
-      tasksContainer.appendChild(pTasks)
-      for (let i = 0; i < 24; i++) {
-         tasksContainer.appendChild(newDiv)
 
-      }
+
     });
 
-
 }
+search.addEventListener("blur", e => {
+  for (let i = 0; i <= 24; i++) {
+    let newDiv = document.createElement("div")
+     newDiv.classList.add('mainTaskList')
+     tasksContainer.appendChild(newDiv)
+
+  }
+
+})
+
 
 
 const searchForm =document.getElementById('search-form')
@@ -159,7 +165,6 @@ const searchForm =document.getElementById('search-form')
               if(!data.ok) throw data
             let results = await data.json();
              results = results.tasks2.filter((ele) => ele.taskName.includes(input))
-             console.log(results)
             //  if(results.taskName.includes(input)){
               showResults(results)
             //  }
