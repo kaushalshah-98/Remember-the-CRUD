@@ -72,10 +72,10 @@ body
 
               each list in lists
                 option(value=list.id)=list.name
-            select(name="tagId").attribute.task-hidden
-              if tags
-                each tag in tags
-                  option(value=tag.id)=tag.name
+            //- select(name="tagId").attribute.task-hidden
+            //-   if tags
+            //-     each tag in tags
+            //-       option(value=tag.id)=tag.name
             input(type="number" value=0 name="estTime" required).attribute.task-hidden
             input(type="date" name="startDate" required).attribute.task-hidden
             input(type="date" name="dueDate" required).attribute.task-hidden
