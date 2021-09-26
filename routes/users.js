@@ -210,6 +210,17 @@ router.get(
     //     }
     //   }
     // }
+    tasks = completedSort(tasks);
+
+    let incompleteTasks = incompletedSort(tasks);
+    incompleteTasks = incompleteTasks.sort((a,b) => {
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    })
+
+    let completeTasks = completedSort(tasks);
+    completeTasks = completeTasks.sort((a,b) => {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })
 
     const taskCount = tasks.length.toString();
     const tomorrowCount = 0;
@@ -223,6 +234,8 @@ router.get(
       languages,
       lists,
       tasks,
+      incompleteTasks,
+      completeTasks,
       taskCount,
       completedCount,
       tomorrowCount,
@@ -247,26 +260,37 @@ router.get(
     const lists = await db.List.findAll({
       // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId },
-      include: { model: db.Task, include: db.Tag },
+      include: { model: db.Task, order: [["createdAt", "DESC"]]  },
     });
 
-    let userTags = new Set();
+    // let userTags = new Set();
 
+
+    // // below provides the tags list when creating a new task
+    // for (let i = 0; i < lists.length; i++) {
+    //   const list = lists[i];
+    //   let Tasks = list.Tasks;
+    //   for (let j = 0; j < Tasks.length; j++) {
+    //     const task = Tasks[j];
+    //     let Tags = task.Tags;
+    //     for (let k = 0; k < Tags.length; k++) {
+    //       const tag = Tags[k];
+    //       userTags.add(tag.name);
+    //     }
+    //   }
+    // }
     let tasks = lists.map(list => list.Tasks).flat();
     tasks = tomorrowSort(tasks);
-    // below provides the tags list when creating a new task
-    for (let i = 0; i < lists.length; i++) {
-      const list = lists[i];
-      let Tasks = list.Tasks;
-      for (let j = 0; j < Tasks.length; j++) {
-        const task = Tasks[j];
-        let Tags = task.Tags;
-        for (let k = 0; k < Tags.length; k++) {
-          const tag = Tags[k];
-          userTags.add(tag.name);
-        }
-      }
-    }
+
+    let incompleteTasks = incompletedSort(tasks);
+    incompleteTasks = incompleteTasks.sort((a,b) => {
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    })
+
+    let completeTasks = completedSort(tasks);
+    completeTasks = completeTasks.sort((a,b) => {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })
 
     const taskCount = tasks.length.toString();
     const tomorrowCount = tasks.length.toString();
@@ -274,20 +298,22 @@ router.get(
     const sortedBy = "Tomorrow";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
-    tags = Array.from(userTags);
+    // tags = Array.from(userTags);
 
     res.render("tasks", {
       title: "Tasks",
       languages,
       lists,
       tasks,
+      incompleteTasks,
+      completeTasks,
       taskCount,
       tomorrowCount,
       completedCount,
       sortedBy,
       estMinutes,
       estHrs,
-      tags,
+      // tags,
       colors,
     });
   })
