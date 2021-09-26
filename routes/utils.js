@@ -74,7 +74,7 @@ const estMin = (tasks) => {
 const todaySort = (tasks) => {
   let today = new Date();
   today.setDate(today.getDate());
-  tomorrow.setDate(tomorrow.getDate() + 1);
+
 
   let res = [];
 
@@ -91,6 +91,7 @@ const todaySort = (tasks) => {
 const tomorrowSort = (tasks) => {
   let today = new Date();
   let tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
   let res = [];
 
