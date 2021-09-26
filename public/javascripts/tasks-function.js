@@ -99,7 +99,7 @@ window.addEventListener("DOMContentLoaded", async e => {
   });
 
   const search = document.getElementById("search");
-  console.log(search)
+
 
   search.addEventListener("click", e => {
     search.removeAttribute("placeholder");
@@ -134,42 +134,36 @@ window.addEventListener("DOMContentLoaded", async e => {
     });
   };
 
-  // const showResults2 = (input) => {
-  //   let tasksContainer = document.querySelector("#tasks-container-complete");
-  //   // if(input.length === 0 && )
-  //   for (let i = tasksContainer.children.length - 1; i >= 0; i--) {
-  //     tasksContainer.children[i].remove();
-  //   }
+  const showResults2 = (input) => {
+    console.log(input)
+    let tasksContainer2 = document.querySelector("#tasks-container-complete");
+    // if(input.length === 0 && )
+    for (let i = tasksContainer2.children.length - 1; i >= 0; i--) {
+      tasksContainer2.children[i].remove();
+    }
 
-  //   input.forEach(result => {
-  //     console.log(result);
-  //     console.log(result.taskName);
-  //     let divMain = document.createElement("div");
-  //     let divLeft = document.createElement("div");
-  //     let input1 = document.createElement("input");
-  //     let pTasks = document.createElement("p");
-  //     pTasks.innerText = `${result.taskName}`;
-  //     divMain.classList.add("mainTaskList");
-  //     divMain.id = "createdTask"
-  //     divLeft.classList.add("taskLeft");
-  //     input1.id = "taskCheckBox";
-  //     input1.setAttribute("type", "checkbox");
-  //     input1.classList.add("completedTask")
-  //     pTasks.classList.add("taskText");
+    input.forEach(result => {
+      console.log(result);
+      console.log(result.taskName);
+      let divMain2 = document.createElement("div");
+      let divLeft2 = document.createElement("div");
+      let input12 = document.createElement("input");
+      let pTasks2 = document.createElement("p");
+      pTasks2.innerText = `${result.taskName}`;
+      divMain2.classList.add("mainTaskList");
+      divMain2.id = "createdTask"
+      divLeft2.classList.add("taskLeft");
+      input12.id = "taskCheckBox";
+      input12.setAttribute("type", "checkbox");
+      pTasks2.classList.add("completedTask")
+      pTasks2.classList.add("taskText");
 
-  //     divMain.appendChild(divLeft);
-  //     divLeft.appendChild(input1);
-  //     divLeft.appendChild(pTasks);
-  //     tasksContainer.appendChild(divMain);
-  //   });
-  // };
-
-
-
-
-
-
-
+      divMain2.appendChild(divLeft2);
+      divLeft2.appendChild(input12);
+      divLeft2.appendChild(pTasks2);
+      tasksContainer2.appendChild(divMain2);
+    });
+  };
 
 
 
@@ -184,7 +178,6 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   search.addEventListener("keyup", async e => {
     try {
-      console.log("hit")
       const input = e.target.value;
       const data = await fetch(`/search`, {
         method: "POST",
@@ -193,13 +186,28 @@ window.addEventListener("DOMContentLoaded", async e => {
       });
       if (!data.ok) throw data;
       let results = await data.json();
-      results = results.tasks2.filter(ele => ele.taskName.includes(input));
-      // results2 = results.tasks3.filter(ele => ele.taskName.includes(input))
-      //  if(results.taskName.includes(input)){
+      results2 = results.tasks2.filter(ele => ele.taskName.includes(input));
+      // results3 = results.tasks3.filter(ele => ele.taskName.includes(input))
         console.log(results)
-      showResults(results);
-      // showResults2(results2);
-      //  }
+      showResults(results2);
+    } catch (err) {
+      console.error("Something went wrong.", err);
+    }
+  });
+
+
+  search.addEventListener("keydown", async e => {
+    try {
+      const input2 = e.target.value;
+      const data2 = await fetch(`/search2`, {
+        method: "POST",
+        body: JSON.stringify({ input2 }),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!data2.ok) throw data2;
+      let resultsComplete = await data2.json();
+      results3 = resultsComplete.tasks3.filter(ele => ele.taskName.includes(input2))
+      showResults2(results3);
     } catch (err) {
       console.error("Something went wrong.", err);
     }

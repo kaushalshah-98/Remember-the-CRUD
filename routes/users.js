@@ -548,9 +548,19 @@ router.post("/search", async (req, res, next) => {
   });
   let tasks2 = userLists3.map(list => list.Tasks).flat();
   tasks2 =  incompletedSort(tasks2);
-  tasks3 = completedSort(tasks2)
   res.json({ tasks2 });
 });
+router.post("/search2", async (req, res, next) => {
+  const { searchString } = req.body;
+  const userLists4 = await db.List.findAll({
+    where: { userId: req.session.auth.userId },
+    include: { model: db.Task },
+  });
+  let tasks3 = userLists4.map(list => list.Tasks).flat();
+  tasks3 = completedSort(tasks3)
+  res.json({ tasks3 });
+});
+
 
 
 module.exports = router;
