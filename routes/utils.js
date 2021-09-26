@@ -123,6 +123,15 @@ const incompletedSort = (tasks) => {
   return res;
 };
 
+const languageSort = (tasks, id) => {
+  let res =[];
+    tasks.forEach( task => {
+
+        if (task.langId.toString() === id)res.push(task)
+      })
+    return res;
+}
+
 module.exports = {
   asyncHandler,
   validateEmailAndPassword,
@@ -131,7 +140,9 @@ module.exports = {
   completedSort,
   validationResult,
   incompletedSort,
+  todaySort,
   tomorrowSort,
+  languageSort,
   estMin,
   estHours
 
