@@ -99,6 +99,7 @@ window.addEventListener("DOMContentLoaded", async e => {
   });
 
   const search = document.getElementById("search");
+  console.log(search)
 
   search.addEventListener("click", e => {
     search.removeAttribute("placeholder");
@@ -194,6 +195,7 @@ window.addEventListener("DOMContentLoaded", async e => {
       results = results.tasks2.filter(ele => ele.taskName.includes(input));
       // results2 = results.tasks3.filter(ele => ele.taskName.includes(input))
       //  if(results.taskName.includes(input)){
+        console.log(results)
       showResults(results);
       // showResults2(results2);
       //  }
