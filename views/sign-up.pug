@@ -10,10 +10,12 @@ block content
                     div#quote Having trouble planning and executing projects?
                     div#author Join and get more organized and productive!
             div.right
-                div#signupButton
-                    img#logo-signup(src="/images/logo-trans-final.png")
-                    button.linkbuttons#loginFromSignUp: a.linkitems#loginFromSignUpLink(href="/users/login") Log in
-                    button.linkbuttons: a.linkitems#splashDemoUser(href="/users/demo") Demo User
+                div.top
+                    div#logoSignup
+                        img#logo-signup(src="/images/logo-trans-final.png")
+                    div#signupButton
+                        button.linkbuttons#signupFromLogIn Log in
+                        button.linkbuttons#splashDemoUser Demo User
                 div.form
                     div#formBox
                         +validationErrorSummary(errors)

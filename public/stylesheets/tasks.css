@@ -50,6 +50,7 @@ body {
   border-radius: 5px;
   border: none;
   background-color: orange;
+  color:white;
   text-decoration: none;
   width: 1.5cm;
   height: 0.8cm;
@@ -570,10 +571,6 @@ body {
 /*  Will see below */
 #tasks-container {
   height: 100%;
-
-#tasks-container{
-  min-height:50%;
-
 }
 
 #tasks-container-complete {

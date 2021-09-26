@@ -17,7 +17,7 @@ body
         button#search-Button search
         input(type='search' name='searchBar' placeholder="Search Tasks")#search
     div#navButtonsTasks
-      button#logoutButton: a#logoutLink(href="/users/logout") Logout
+      button#logoutButton Logout
   div#largestboxtasks
     div#sidebartasks--open
       img#logo(src="/images/logo-trans-final.png")
@@ -41,9 +41,9 @@ body
 
           img#addListImage(src="/images/addListButton.png")
           div.modalBackground
-            div.modal
+            form.modal
               label(for="listName") Create a New List:
-              input(type="text" name="listName")#newListInput
+              input(type="text" name="listName" required="required")#newListInput
               button#completedList Submit
               span.modalClose X
         div#tagsorts

@@ -207,7 +207,6 @@ window.addEventListener("DOMContentLoaded", async e => {
   });
 
   //modal event listener to create new list
-  const modalButton = document.querySelector(".completedList");
   const modalBackground = document.querySelector(".modalBackground");
   const addListButton = document.getElementById("addListImage");
   const modalClose = document.querySelector(".modalClose");
@@ -220,13 +219,23 @@ window.addEventListener("DOMContentLoaded", async e => {
     modalBackground.classList.remove("backgroundActive");
   });
 
-  const completedListButton = document.getElementById("completedList");
-  completedListButton.addEventListener("click", async e => {
+  const modalButton = document.querySelector("#completedList");
+  modalButton.addEventListener("click", async e => {
     const newList = document.getElementById("newListInput").value;
-    await fetch("/users/tasks/New-List", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ newList }),
-    }).then(location.reload());
+    if(newList != ''){
+      await fetch("/users/tasks/New-List", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newList }),
+      }).then(location.reload());
+    }
   });
+
+  //logout button
+
+  const logoutButton = document.getElementById("logoutButton");
+  logoutButton.addEventListener("click", () => {
+    location.href = "/users/logout";
+  });
+
 });
