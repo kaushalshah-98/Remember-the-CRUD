@@ -43,15 +43,15 @@ window.addEventListener("DOMContentLoaded", async e => {
         alllistsarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
   });
 
-  const alltagslist = document.getElementById("options3list");
-  const alltagsarrow = document.getElementById("ddownarrow-tags");
-  alltagsarrow.addEventListener("click", e => {
-    alltagslist.style.display === "block"
-      ? (alltagslist.style.display = "none") &&
-        alltagsarrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
-      : (alltagslist.style.display = "block") &&
-        alltagsarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
-  });
+  // const alltagslist = document.getElementById("options3list");
+  // const alltagsarrow = document.getElementById("ddownarrow-tags");
+  // alltagsarrow.addEventListener("click", e => {
+  //   alltagslist.style.display === "block"
+  //     ? (alltagslist.style.display = "none") &&
+  //       alltagsarrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
+  //     : (alltagslist.style.display = "block") &&
+  //       alltagsarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
+  // });
 
   const alllanguagelist = document.getElementById("options4list");
   const alllanguagearrow = document.getElementById("ddownarrow-languages");
@@ -142,6 +142,7 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   search.addEventListener("keyup", async e => {
     try {
+      console.log("hit")
       const input = e.target.value;
       const data = await fetch(`/search`, {
         method: "POST",
