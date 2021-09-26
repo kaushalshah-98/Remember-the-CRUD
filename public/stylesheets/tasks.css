@@ -1,9 +1,15 @@
+* > a:visited {
+  text-decoration: none;
+  color: #0060bf;
+}
+
 * {
   font-family: "Yaldevi";
 }
 
 * > a {
   text-decoration: none;
+  color: #0060bf;
 }
 
 html {
@@ -25,7 +31,6 @@ body {
   flex-direction: row;
   width: 100%;
   height: 100%;
-  /* border: 6px solid black; */
   padding: 0px;
   margin: 0px;
   background-color: #d7e7f5;
@@ -37,9 +42,9 @@ body {
   align-items: center;
   width: 100%;
   height: 1cm;
-  /* border: 3px solid blue; */
   background-color: #0060bf;
 }
+
 #navButtonsTasks {
   display: flex;
   justify-content: space-between;
@@ -76,7 +81,6 @@ body {
   width: 4cm;
   padding: 6px;
   transition: ease-in-out 300ms;
-  /* border: 6px solid white; */
 }
 
 #sidebartasks--closed {
@@ -86,8 +90,6 @@ body {
   padding: 0;
   color: transparent;
   transition: ease-in-out 300ms;
-
-  /* border: 6px solid white; */
 }
 
 #logo {
@@ -96,13 +98,14 @@ body {
   width: 135%;
   overflow: hidden;
 }
+
 #tasksorts {
   display: flex;
   flex-direction: row;
   height: max-content;
   width: 100%;
-  /* border: 6px solid black; */
 }
+
 #ddownarrow-tasks {
   margin-top: 2px;
   height: 12px;
@@ -116,9 +119,8 @@ body {
   width: 100%;
   height: fit-content;
   padding-left: 2px;
-
-  /* border:2px solid black; */
 }
+
 #alltasks:hover,
 #alltasks:focus,
 .alltaskoptions-open:hover,
@@ -127,6 +129,7 @@ body {
   color: white;
   cursor: pointer;
 }
+
 #options1 {
   display: flex;
   flex-direction: column;
@@ -135,6 +138,7 @@ body {
   padding: 0px;
   border: 0px solid green;
 }
+
 #options1list {
   display: block;
   border-bottom: 0.5px solid rgb(151, 151, 151);
@@ -153,26 +157,22 @@ body {
   width: 100%;
   height: fit-content;
 }
+
 #mainboxtasks {
   display: flex;
   flex-direction: row;
   height: 100%;
   width: 100%;
-  /* border: 6px solid purple; */
 }
-
-/*List Styling*/
 
 #listsorts {
   display: flex;
   flex-direction: row;
   height: max-content;
   width: 100%;
-  /* border: 6px solid black; */
 }
 
 /* Create new list styling below */
-
 #addListImage {
   margin-top: 2px;
   height: 14px;
@@ -245,7 +245,6 @@ body {
 }
 
 /* Create new list styling above */
-
 #ddownarrow-lists {
   margin-top: 2px;
   height: 12px;
@@ -258,9 +257,8 @@ body {
   width: 100%;
   height: fit-content;
   padding-left: 2px;
-
-  /* border:2px solid black; */
 }
+
 #alllists:hover,
 #alllists:focus,
 .alllistoptions-open:hover,
@@ -269,6 +267,7 @@ body {
   color: white;
   cursor: pointer;
 }
+
 #options2 {
   display: flex;
   flex-direction: column;
@@ -276,6 +275,7 @@ body {
   margin: 0px;
   padding: 0px;
 }
+
 #options2list {
   display: none;
   margin-top: 0px;
@@ -284,6 +284,7 @@ body {
   list-style: none;
   width: 100%;
 }
+
 #alllists {
   margin: 0px;
   padding-left: 2px;
@@ -292,12 +293,12 @@ body {
   height: fit-content;
   border-top: 1px solid rgb(177, 177, 177);
 }
+
 #mainboxtasks {
   display: flex;
   flex-direction: row;
   height: 100%;
   width: 100%;
-  /* border: 6px solid purple; */
 }
 
 #tasks-view {
@@ -315,7 +316,6 @@ body {
 #tasks-summary {
   height: 100%;
   width: 50%;
-  /* border:6px solid green; */
   background-color: #e4eef8;
   margin-top: 7px;
   margin-right: 7px;
@@ -323,13 +323,13 @@ body {
 }
 
 /*Tag Styling*/
-
 #tagsorts {
   display: flex;
   flex-direction: row;
   height: max-content;
   width: 100%;
 }
+
 #ddownarrow-tags {
   margin-top: 2px;
   height: 12px;
@@ -353,6 +353,7 @@ body {
   color: white;
   cursor: pointer;
 }
+
 #options3 {
   display: flex;
   flex-direction: column;
@@ -360,6 +361,7 @@ body {
   margin: 0px;
   padding: 0px;
 }
+
 #options3list {
   display: none;
   margin-top: 0px;
@@ -368,6 +370,7 @@ body {
   list-style: none;
   width: 100%;
 }
+
 #alltags {
   margin: 0px;
   padding-left: 2px;
@@ -378,14 +381,13 @@ body {
 }
 
 /* languages styling  */
-
 #languagesorts {
   display: flex;
   flex-direction: row;
   height: max-content;
   width: 100%;
-  /* border: 6px solid black; */
 }
+
 #ddownarrow-languages {
   margin-top: 2px;
   height: 12px;
@@ -399,9 +401,8 @@ body {
   width: 100%;
   height: fit-content;
   padding-left: 2px;
-
-  /* border:2px solid black; */
 }
+
 #alllanguages:hover,
 #alllanguages:focus,
 .alllanguageoptions-open:hover,
@@ -410,6 +411,7 @@ body {
   color: white;
   cursor: pointer;
 }
+
 #options4 {
   display: flex;
   flex-direction: column;
@@ -418,6 +420,7 @@ body {
   padding: 0px;
   border: 0px solid green;
 }
+
 #options4list {
   display: none;
   margin-top: 0px;
@@ -426,6 +429,7 @@ body {
   list-style: none;
   width: 100%;
 }
+
 #alllanguages {
   margin: 0px;
   padding-left: 2px;
@@ -438,7 +442,6 @@ body {
 #tasks-summary {
   height: 100%;
   width: 50%;
-  /* border:6px solid green; */
   background-color: #e4eef8;
   margin-top: 7px;
   margin-right: 7px;
@@ -450,13 +453,11 @@ body {
   flex-direction: row;
   height: 100%;
   width: 100%;
-  /* border: 6px solid purple; */
 }
 
 #tasks-summary {
   height: 100%;
   width: 50%;
-  /* border:6px solid green; */
   background-color: #e4eef8;
   margin-top: 7px;
   margin-right: 7px;
@@ -465,26 +466,12 @@ body {
 
 /* Tasks Styling*/
 
-/* #form{
-  width: 100%;
-  height: 100;
-  grid-area: b;
-  border: 1px solid tomato;
-} */
-
 #tasks-form {
   width: 100%;
   height: 5%;
-  /* margin-top: 10px; */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  /* grid-template-rows: 115px;
-  grid-template-columns: auto;
-  grid-template-areas:
-    "a a a"
-    "b b b"
-    "c c c"; */
 }
 
 #tasks-button {
@@ -512,8 +499,7 @@ body {
   overflow: hidden;
 }
 
-/*  indivial task styling */
-
+/*  individual task styling */
 .mainTaskList {
   display: flex;
   border-bottom: 0.5px solid lightgrey;
@@ -555,8 +541,8 @@ body {
   background-color: rgb(169, 209, 235);
   font-weight: bolder;
   font-size: 12pt;
-  /* margin-top: 5px; */
 }
+
 #delete:focus {
   background-color: rgb(209, 224, 233);
 }
@@ -567,17 +553,16 @@ body {
   font-weight: bolder;
   font-size: 12pt;
 }
-/* tasks-container-incomplete */
-/*  Will see below */
+
 #tasks-container {
   height: 100%;
 }
-
 
 #tasks-container-complete {
   max-height: 50%;
   min-height: 15%;
 }
+
 #completed:focus {
   background-color: #6d92b8;
 }
@@ -628,6 +613,7 @@ body {
   padding-left: 6px;
   border-left: 2px solid grey;
 }
+
 #est_numbers {
   display: flex;
   flex-direction: row;
@@ -640,6 +626,7 @@ body {
   width: 100%;
   height: 50%;
 }
+
 #hoursnum,
 #hours,
 #minutesnum,
@@ -659,6 +646,7 @@ body {
   margin: 0px;
   padding: 0px;
 }
+
 #taskscount_est,
 #completedcount,
 #duetommorrowcount {
@@ -689,14 +677,8 @@ body {
 }
 
 #tasks-input {
-  /* justify-self: stretch;
-  align-self: stretch; */
-  /* place-self: center stretch; */
   width: 100%;
   height: 25px;
-  /* margin-top: 50px;
-  margin-left: 10px;
-  margin-right: 10px; */
   border: 2px solid rgb(187, 186, 186);
 }
 
@@ -718,8 +700,6 @@ body {
 }
 
 #splashfooter {
-  /* position:absolute;
-  bottom: 0; */
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -728,16 +708,19 @@ body {
   width: 100%;
   background-color: #d7e7f5;
 }
+
 #aboutdiv {
   display: flex;
   justify-content: space-between;
   width: 50%;
   height: 100%;
 }
+
 #copyrightdiv {
   width: 50%;
   height: 100%;
 }
+
 .credentialdivs {
   font-family: "Yaldevi";
   display: flex;
@@ -759,10 +742,21 @@ body {
   width: 30px;
   height: 30px;
 }
+
 .linkedinlogo {
   width: 30px;
   height: 30px;
 }
+
 .splashname {
   font-size: 13pt;
+}
+
+#toDo {
+  margin-top: 20px;
+  margin-bottom: -10px;
+}
+
+#formBreak {
+  z-index: -2;
 }

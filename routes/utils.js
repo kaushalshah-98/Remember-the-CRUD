@@ -114,7 +114,6 @@ const completedSort = (tasks) => {
   return res;
 };
 
-
 const incompletedSort = (tasks) => {
   let res = [];
   tasks.forEach(task => {

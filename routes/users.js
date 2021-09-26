@@ -146,8 +146,6 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-   
-   
     const lists = await db.List.findAll({
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
@@ -196,29 +194,11 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    // const lists = await db.List.findAll();
     const colors = await db.Color.findAll();
     const lists = await db.List.findAll({
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]]  },
     });
-
-    // let userTags = new Set();
-
-
-    // // below provides the tags list when creating a new task
-    // for (let i = 0; i < lists.length; i++) {
-    //   const list = lists[i];
-    //   let Tasks = list.Tasks;
-    //   for (let j = 0; j < Tasks.length; j++) {
-    //     const task = Tasks[j];
-    //     let Tags = task.Tags;
-    //     for (let k = 0; k < Tags.length; k++) {
-    //       const tag = Tags[k];
-    //       userTags.add(tag.name);
-    //     }
-    //   }
-    // }
     let tasks = lists.map(list => list.Tasks).flat();
     tasks = todaySort(tasks);
 
@@ -238,7 +218,6 @@ router.get(
     const sortedBy = "Today";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
-    // tags = Array.from(userTags);
 
     res.render("tasks", {
       title: "Tasks",
@@ -253,8 +232,6 @@ router.get(
       sortedBy,
       estMinutes,
       estHrs,
-      // tags,
-      colors,
     });
   })
 );
@@ -315,41 +292,21 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    // let tags = await db.Tag.findAll();
-    // const colors = await db.Color.findAll();
     const userLists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId,
-        // id: req.params.id
       },
       include: { model: db.Language, model: db.Task, order: [["createdAt", "DESC"]] },
     });
-
-    // const userTaskLists = await db.List.findOne({
-    //   // where:{userId:req.session.auth.userId},
-    //   where: { userId: req.session.auth.userId, id: req.params.id },
-    //   include: { model: db.Task, order: [['createdAt', 'DESC']], include: db.Tag},
-    // });
 
     const lists = await db.List.findAll({
       where: {
         userId: req.session.auth.userId,
       },
     });
-    //below generates all user tags
-
-    // const tagsLists = await db.List.findAll({
-    //   // where:{userId:req.session.auth.userId},
-    //   where: { userId: req.session.auth.userId },
-    //   include: { model: db.Task, include: db.Tag },
-    // });
-
-    // let userTags = new Set();
     let tasks = userLists.map(list => list.Tasks).flat();
 
 
     tasks = languageSort(tasks, req.params.id);
-    console.log(tasks);
 
     let incompleteTasks = incompletedSort(tasks);
     incompleteTasks = incompleteTasks.sort((a, b) => {
@@ -361,21 +318,6 @@ router.get(
       return new Date(b.updatedAt) - new Date(a.updatedAt);
     });
 
-    // below provides the tags list when creating a new task
-    // for (let i = 0; i < tagsLists.length; i++) {
-    //   const list = tagsLists[i];
-    //   let Tasks = list.Tasks;
-    //   for (let j = 0; j < Tasks.length; j++) {
-    //     const task = Tasks[j];
-    //     let Tags = task.Tags;
-    //     for (let k = 0; k < Tags.length; k++) {
-    //       const tag = Tags[k];
-    //       userTags.add(tag.name);
-    //     }
-    //   }
-    // }
-
-    // tags = Array.from(userTags);
     const taskCount = tasks.length.toString();
     const tomorrowCount = tomorrowSort(tasks).length.toString();
     const completedCount = completedSort(tasks).length.toString();
@@ -389,16 +331,12 @@ router.get(
       tasks,
       incompleteTasks,
       completeTasks,
-
-      // tags,
       tomorrowCount,
       completedCount,
       sortedBy,
       taskCount,
       estMinutes,
-      estHrs,
-      // colors,
-      // userTags,
+      estHrs
     });
   })
 );

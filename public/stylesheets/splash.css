@@ -24,13 +24,16 @@ html{
     width:40%;
     height:80%;
 }
+
 #splashnavplaceholder{
 width:100%;
 }
+
 #splashlogo{
     width: 200px;
     height:100px;
 }
+
 .splashlinkitems{
     text-align: center;
     font-family: "Yaldevi";
@@ -52,6 +55,7 @@ width:100%;
     border:none;
     background-color:#2b74be;
 }
+
 #splashmain{
     height:100%;
     width:100%;
@@ -68,7 +72,6 @@ width:100%;
     height:20%;
 }
 
-
 #welcomeMessage{
     text-align:center;
     color:white;
@@ -83,6 +86,7 @@ width:100%;
     width: 100%;
     height:5%;
 }
+
 #welcomeSignUpButton{
     border-radius: 5px;
     border:none;
@@ -91,6 +95,7 @@ width:100%;
     width: 12cm;
     height: 1.5cm;
 }
+
 #welcomeSignUpLink{
     font-family: "Yaldevi";
     text-decoration: none;
@@ -121,11 +126,12 @@ width:100%;
 }
 #welcomeTextContainer{
     height:10%;
-   display:flex;
-   justify-content: flex-end;
-   flex-direction: column;
-   align-items: center;
+    display:flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
 }
+
 #welcomeTextBodyContainer{
     height:20%;
     width:20%;
@@ -144,16 +150,19 @@ width:100%;
     width:100%;
     background-color:#d7e7f5;
 }
+
 #aboutdiv{
     display:flex;
     justify-content:space-between;
     width:50%;
     height:100%;
 }
+
 #copyrightdiv{
     width:50%;
     height:100%;
 }
+
 .credentialdivs{
     font-family: "Yaldevi";
     display:flex;
@@ -165,16 +174,17 @@ width:100%;
 
 }
 
-
 .githublogo{
     margin-left:10px;
     width:30px;
     height:30px;
 }
+
 .linkedinlogo{
     width:30px;
     height:30px;
 }
+
 .splashname{
     font-size: 13pt;
 }

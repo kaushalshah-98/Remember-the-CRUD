@@ -17,7 +17,6 @@ body {
   margin: 0cm;
   height: 100%;
   width: 100%;
-  /* display: flex; */
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -114,7 +113,16 @@ p {
 #loginButton {
   background-color: #009dff;
   color: white;
-  width: 103.5%;
+  width: 106.5%;
+  height: 25%;
+  border:none;
+  border-radius: 5px;
+}
+
+#signUpButton{
+  background-color: #009dff;
+  color: white;
+  width: 104%;
   height: 25%;
   border:none;
   border-radius: 5px;
@@ -134,7 +142,7 @@ p {
   color:#009dff
 }
 
-/* sign up page specific styling below */
+/* sign up page */
 #logo-signup {
   justify-content: flex-start;
   margin-right: 230px;
@@ -159,18 +167,7 @@ p {
 
 }
 
-/* .linkbuttons{
-  font-family: "Yaldevi";
-  text-align: center;
-  margin:6px;
-  height:.8cm;
-  width:3cm;
-  border-radius: 5px;
-  border:none;
-  background-color:#009dff;
-} */
-
-/* login and signup Buttons buttons for sign and login page below */
+/* login and signup buttons buttons for sign and login page below */
 
 #loginFromSignUp, #splashDemoUser, #signupFromLogIn {
   font-size: 10pt;
@@ -204,12 +201,10 @@ background-color: #6d92b8;
   background-color: #6d92b8;
   }
 
-/* login and signup Buttons buttons for sign and login page above */
-
+/* login and signup buttons for sign up and login page above */
 /*sign up page specific styling above  */
+
 #splashfooter{
-  /* position:absolute;
-  bottom: 0; */
   display:flex;
   flex-direction: row;
   justify-content: center;
@@ -236,19 +231,19 @@ background-color: #6d92b8;
   justify-content: center;
   width:60%;
   height:100%;
-
 }
-
 
 .githublogo{
   margin-left:10px;
   width:30px;
   height:30px;
 }
+
 .linkedinlogo{
   width:30px;
   height:30px;
 }
+
 .splashname{
   font-size: 13pt;
 }
