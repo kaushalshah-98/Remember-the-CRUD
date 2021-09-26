@@ -105,7 +105,7 @@ window.addEventListener("DOMContentLoaded", async e => {
   });
 
   /* patches searches*/
-  const showResults = input => {
+  const showResults = (input) => {
     let tasksContainer = document.querySelector("#tasks-container");
     // if(input.length === 0 && )
     for (let i = tasksContainer.children.length - 1; i >= 0; i--) {
@@ -132,6 +132,47 @@ window.addEventListener("DOMContentLoaded", async e => {
       tasksContainer.appendChild(divMain);
     });
   };
+
+  // const showResults2 = (input) => {
+  //   let tasksContainer = document.querySelector("#tasks-container-complete");
+  //   // if(input.length === 0 && )
+  //   for (let i = tasksContainer.children.length - 1; i >= 0; i--) {
+  //     tasksContainer.children[i].remove();
+  //   }
+
+  //   input.forEach(result => {
+  //     console.log(result);
+  //     console.log(result.taskName);
+  //     let divMain = document.createElement("div");
+  //     let divLeft = document.createElement("div");
+  //     let input1 = document.createElement("input");
+  //     let pTasks = document.createElement("p");
+  //     pTasks.innerText = `${result.taskName}`;
+  //     divMain.classList.add("mainTaskList");
+  //     divMain.id = "createdTask"
+  //     divLeft.classList.add("taskLeft");
+  //     input1.id = "taskCheckBox";
+  //     input1.setAttribute("type", "checkbox");
+  //     input1.classList.add("completedTask")
+  //     pTasks.classList.add("taskText");
+
+  //     divMain.appendChild(divLeft);
+  //     divLeft.appendChild(input1);
+  //     divLeft.appendChild(pTasks);
+  //     tasksContainer.appendChild(divMain);
+  //   });
+  // };
+
+
+
+
+
+
+
+
+
+
+
   search.addEventListener("blur", e => {
     for (let i = 0; i <= 24; i++) {
       let newDiv = document.createElement("div");
@@ -151,8 +192,10 @@ window.addEventListener("DOMContentLoaded", async e => {
       if (!data.ok) throw data;
       let results = await data.json();
       results = results.tasks2.filter(ele => ele.taskName.includes(input));
+      // results2 = results.tasks3.filter(ele => ele.taskName.includes(input))
       //  if(results.taskName.includes(input)){
       showResults(results);
+      // showResults2(results2);
       //  }
     } catch (err) {
       console.error("Something went wrong.", err);

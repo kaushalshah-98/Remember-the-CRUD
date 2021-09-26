@@ -522,6 +522,7 @@ router.post("/search", async (req, res, next) => {
   });
   let tasks2 = userLists3.map(list => list.Tasks).flat();
   tasks2 = incompletedSort(tasks2);
+  tasks3 = completedSort(tasks2)
   res.json({ tasks2 });
 });
 
