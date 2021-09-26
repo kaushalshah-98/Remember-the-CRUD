@@ -169,19 +169,11 @@ window.addEventListener("DOMContentLoaded", async e => {
     );
 
     const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
-    console.log(ids)
+    console.log(ids);
 
-
-      ids.forEach(id => {
-
-        const taskTexts = document.querySelectorAll(
-          `p`
-        );
-
-
-      })
-
-
+    ids.forEach(id => {
+      const taskTexts = document.querySelectorAll(`p`);
+    });
 
     ids.forEach(id => {
       const p = document.querySelectorAll(`p.taskText`);
@@ -212,4 +204,18 @@ window.addEventListener("DOMContentLoaded", async e => {
       body: JSON.stringify({ deletedIds: ids }),
     }).then(location.reload());
   });
+
+  const modalButton = document.querySelector(".completedList");
+  const modalBackground = document.querySelector(".modalBackground");
+  const addListButton = document.getElementById("addListImage");
+  const modalClose = document.querySelector(".modalClose");
+
+  addListButton.addEventListener("click", e => {
+    modalBackground.classList.add("backgroundActive");
+  });
+
+  modalClose.addEventListener("click", e => {
+    modalBackground.classList.remove("backgroundActive");
+  });
+
 });
