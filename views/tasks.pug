@@ -27,7 +27,7 @@ body
           div#options1
             p#alltasks: a.listLink(href="/users/tasks/All-Tasks")="All Tasks"
             ul#options1list
-              li.alltaskoptions-open= "Today"
+              li.alltaskoptions-open: a.listLink(href="/users/tasks/Today")= "Today"
               li.alltaskoptions-open: a.listLink(href="/users/tasks/Tomorrow")= "Tomorrow"
               //- li.alltaskoptions-open= "This Week"
               li.alltaskoptions-open: a.listLink(href="/users/tasks/Completed-Tasks")= "Completed Tasks"
@@ -39,21 +39,13 @@ body
               each list in lists
                 li.alllistoptions-open: a.listLink(href=`/users/tasks/${list.id}`) #{list.name}
 
-          img#addListImage(src="/images/addListButton.png")
+          img#addListImage(src="/images/add-list-modal.png")
           div.modalBackground
             form.modal
               label(for="listName") Create a New List:
               input(type="text" name="listName" required="required")#newListInput
               button#completedList Submit
               span.modalClose X
-        div#tagsorts
-          img#ddownarrow-tags(src="/images/blue-dright-arrow.PNG")
-          div#options3
-            p#alltags="Tags"
-            ul#options3list
-              if tags
-                each tag in tags
-                  li.alltagoptions-open= tag
 
         //- div#tagsorts
         //-   img#ddownarrow-tags(src="/images/blue-dright-arrow.PNG")
@@ -70,7 +62,7 @@ body
             p#alllanguages="Languages"
             ul#options4list
               each language in languages
-                li.alllanguageoptions-open= language.name
+                li.alllanguageoptions-open: a.listLink(href=`/users/tasks/languages/${language.id}`) #{language.name}
     div#mainboxtasks
       div#tasks-view
         div#tasks-form

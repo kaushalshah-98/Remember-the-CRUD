@@ -80,7 +80,7 @@ body {
 }
 
 #sidebartasks--closed {
-  transform: translateY(-300px);
+  transform: translateY(-900px);
   height: 0;
   width: 0;
   padding: 0;
