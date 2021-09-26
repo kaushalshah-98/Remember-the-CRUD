@@ -93,10 +93,11 @@ body {
 }
 
 #logo {
-  transform: translateX(-25px);
-  height: 8%;
-  width: 135%;
+  transform: translateX(-15px);
+  height: 2cm;
+  width: 4cm;
   overflow: hidden;
+  
 }
 
 #tasksorts {
@@ -211,7 +212,7 @@ body {
 
 .modal {
   position: relative;
-  background-color: #76b6ee;
+  background-color: rgba(90, 130, 163, 0.75);
   border: 2px solid blue;
   border-radius: 8px;
   width: 30%;
@@ -257,6 +258,7 @@ body {
   width: 100%;
   height: fit-content;
   padding-left: 2px;
+  margin-bottom: 2px;
 }
 
 #alllists:hover,
@@ -283,6 +285,7 @@ body {
   padding: 0;
   list-style: none;
   width: 100%;
+  border-bottom: 0.5px solid rgb(151, 151, 151);
 }
 
 #alllists {
@@ -291,7 +294,7 @@ body {
   font-size: 10pt;
   width: 100%;
   height: fit-content;
-  border-top: 1px solid rgb(177, 177, 177);
+
 }
 
 #mainboxtasks {
@@ -377,7 +380,6 @@ body {
   font-size: 10pt;
   width: 100%;
   height: fit-content;
-  border-top: 1px solid rgb(177, 177, 177);
 }
 
 /* languages styling  */
@@ -436,7 +438,6 @@ body {
   font-size: 10pt;
   width: 100%;
   height: fit-content;
-  border-top: 1px solid rgb(177, 177, 177);
 }
 
 #tasks-summary {
