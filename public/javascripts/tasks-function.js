@@ -170,19 +170,11 @@ window.addEventListener("DOMContentLoaded", async e => {
     );
 
     const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
-    console.log(ids)
+    console.log(ids);
 
-
-      ids.forEach(id => {
-
-        const taskTexts = document.querySelectorAll(
-          `p`
-        );
-
-
-      })
-
-
+    ids.forEach(id => {
+      const taskTexts = document.querySelectorAll(`p`);
+    });
 
     ids.forEach(id => {
       const p = document.querySelectorAll(`p.taskText`);
@@ -213,4 +205,37 @@ window.addEventListener("DOMContentLoaded", async e => {
       body: JSON.stringify({ deletedIds: ids }),
     }).then(location.reload());
   });
+
+  //modal event listener to create new list
+  const modalBackground = document.querySelector(".modalBackground");
+  const addListButton = document.getElementById("addListImage");
+  const modalClose = document.querySelector(".modalClose");
+
+  addListButton.addEventListener("click", e => {
+    modalBackground.classList.add("backgroundActive");
+  });
+
+  modalClose.addEventListener("click", e => {
+    modalBackground.classList.remove("backgroundActive");
+  });
+
+  const modalButton = document.querySelector("#completedList");
+  modalButton.addEventListener("click", async e => {
+    const newList = document.getElementById("newListInput").value;
+    if(newList != ''){
+      await fetch("/users/tasks/New-List", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newList }),
+      }).then(location.reload());
+    }
+  });
+
+  //logout button
+
+  const logoutButton = document.getElementById("logoutButton");
+  logoutButton.addEventListener("click", () => {
+    location.href = "/users/logout";
+  });
+
 });

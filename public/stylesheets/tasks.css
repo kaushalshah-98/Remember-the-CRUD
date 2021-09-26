@@ -50,6 +50,7 @@ body {
   border-radius: 5px;
   border: none;
   background-color: orange;
+  color:white;
   text-decoration: none;
   width: 1.5cm;
   height: 0.8cm;
@@ -169,6 +170,82 @@ body {
   width: 100%;
   /* border: 6px solid black; */
 }
+
+/* Create new list styling below */
+
+#addListImage {
+  margin-top: 2px;
+  height: 14px;
+  width: 14px;
+  transition: ease-in-out 300ms;
+  margin-left: 2cm;
+}
+
+.modalBackground {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0,.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s opacity 0,5s;
+}
+
+.backgroundActive {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modalClose{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal {
+  position: relative;
+  background-color: #76b6ee;
+  border: 2px solid blue;
+  border-radius: 8px;
+  width: 30%;
+  height: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+#newListInput{
+  width: 80%;
+  height: 15%;
+  font-size: 18pt;
+}
+
+#completedList {
+  color: white;
+  background-color: #0060bf;
+  font-weight: bolder;
+  font-size: 12pt;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  width: 3cm;
+  height: 1cm;
+}
+
+#completedList:focus {
+  background-color: #6d92b8;
+}
+
+/* Create new list styling above */
+
 #ddownarrow-lists {
   margin-top: 2px;
   height: 12px;
@@ -491,15 +568,14 @@ body {
   font-size: 12pt;
 }
 /* tasks-container-incomplete */
-#tasks-container{
-  height:50%;
+/*  Will see below */
+#tasks-container {
+  height: 100%;
 }
 
-#tasks-container-complete{
-  overflow:-moz-hidden-unscrollable;
-  height:50%;
-
-
+#tasks-container-complete {
+  max-height: 50%;
+  min-height: 15%;
 }
 #completed:focus {
   background-color: #6d92b8;
@@ -641,7 +717,6 @@ body {
 }
 
 #splashfooter {
-
   /* position:absolute;
   bottom: 0; */
   display: flex;
@@ -672,7 +747,6 @@ body {
   height: 100%;
 }
 
-
 .completedTask {
   text-decoration: line-through;
   text-decoration-thickness: 4px;
@@ -683,7 +757,6 @@ body {
   margin-left: 10px;
   width: 30px;
   height: 30px;
-
 }
 .linkedinlogo {
   width: 30px;
