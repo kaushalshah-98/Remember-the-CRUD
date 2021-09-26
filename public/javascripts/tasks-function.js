@@ -1,18 +1,4 @@
-// const db = require("../../db/models");
-
 window.addEventListener("DOMContentLoaded", async e => {
-  let tasks = await fetch("/users/tasksArray");
-  tasks = await tasks.json();
-
-  let totalTasks = tasks.length;
-
-  // console.log(totalTasks)
-  let totalTasksSummary = document.getElementById("totalTasksSummary");
-
-  // window.onload = () => {
-  //   totalTasksSummary.innerText = totalTasks.toString();
-  // };
-
   //Sidebar whole menu dropdown functionality
   const hamburgerButton = document.getElementById("hamburger");
   const sideBar = document.getElementById("sidebartasks--open");
@@ -114,8 +100,7 @@ window.addEventListener("DOMContentLoaded", async e => {
     }
 
     input.forEach(result => {
-      console.log(result);
-      console.log(result.taskName);
+      
       let divMain = document.createElement("div");
       let divLeft = document.createElement("div");
       let input1 = document.createElement("input");
@@ -135,7 +120,7 @@ window.addEventListener("DOMContentLoaded", async e => {
   };
 
   const showResults2 = (input) => {
-    console.log(input)
+    
     let tasksContainer2 = document.querySelector("#tasks-container-complete");
     // if(input.length === 0 && )
     for (let i = tasksContainer2.children.length - 1; i >= 0; i--) {
@@ -143,8 +128,7 @@ window.addEventListener("DOMContentLoaded", async e => {
     }
 
     input.forEach(result => {
-      console.log(result);
-      console.log(result.taskName);
+      
       let divMain2 = document.createElement("div");
       let divLeft2 = document.createElement("div");
       let input12 = document.createElement("input");
@@ -188,10 +172,10 @@ window.addEventListener("DOMContentLoaded", async e => {
       let results = await data.json();
       results2 = results.tasks2.filter(ele => ele.taskName.includes(input));
       // results3 = results.tasks3.filter(ele => ele.taskName.includes(input))
-        console.log(results)
+        
       showResults(results2);
     } catch (err) {
-      console.error("Something went wrong.", err);
+      
     }
   });
 
@@ -223,7 +207,7 @@ window.addEventListener("DOMContentLoaded", async e => {
     );
 
     const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
-    console.log(ids);
+
 
     ids.forEach(id => {
       const taskTexts = document.querySelectorAll(`p`);
