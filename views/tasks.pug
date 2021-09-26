@@ -51,7 +51,7 @@ body
             p#alllanguages="Languages"
             ul#options4list
               each language in languages
-                li.alllanguageoptions-open: a.listLink(href=`/users/tasks/languages/${language.id}`) #{language.name}
+                li.alllanguageoptions-open: a.listLink(href=`/users/tasks/languages/${language.id}`) - #{language.name}
     div#mainboxtasks
       div#tasks-view
         div#tasks-form
