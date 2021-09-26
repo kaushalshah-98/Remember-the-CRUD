@@ -24,8 +24,9 @@ body
         div#tasksorts
           img#ddownarrow-tasks(src="/images/blue-ddown-arrow.PNG")
           div#options1
-            p#alltasks: a.listLink(href="/users/tasks/All-Tasks")="All Tasks"
+            p#alltasks= "Tasks"
             ul#options1list
+              li.alltaskoptions-open: a.listLink(href="/users/tasks/All-Tasks")="All Tasks"
               li.alltaskoptions-open: a.listLink(href="/users/tasks/Today")= "Today"
               li.alltaskoptions-open: a.listLink(href="/users/tasks/Tomorrow")= "Tomorrow"
               li.alltaskoptions-open: a.listLink(href="/users/tasks/Completed-Tasks")= "Completed Tasks"
@@ -44,16 +45,6 @@ body
               input(type="text" name="listName" required="required")#newListInput
               button#completedList Submit
               span.modalClose X
-
-        //- div#tagsorts
-        //-   img#ddownarrow-tags(src="/images/blue-dright-arrow.PNG")
-          //- div#options3
-          //-   p#alltags="Tags"
-          //-   ul#options3list
-          //-     if tags
-          //-       each tag in tags
-          //-         li.alltagoptions-open= tag
-
         div#languagesorts
           img#ddownarrow-languages(src="/images/blue-dright-arrow.PNG")
           div#options4
@@ -75,18 +66,17 @@ body
               each language in languages
                 option(value=language.id)=language.name
             select(name="listId" required).feature.task-hidden
-
               each list in lists
                 option(value=list.id)=list.name
-            //- select(name="tagId").feature.task-hidden
-            //-   if tags
-            //-     each tag in tags
-            //-       option(value=tag.id)=tag.name
             input(type="number" value=0 name="estTime" title="Estimated Time" required).feature.task-hidden
             input(type="date" name="startDate" title="Start Date" required).feature.task-hidden
             input(type="date" name="dueDate" title="Due Date" required).feature.task-hidden
             button#tasks-button.task-hidden(disabled) Add Task
-        p= "To Do:"
+        div#formBreak
+          br
+          br
+        p#toDo= "To Do:"
+        br
         div.tasks-container#tasks-container
           if tasks
             each task in incompleteTasks
