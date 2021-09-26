@@ -211,12 +211,20 @@ body {
 .modal {
   position: relative;
   background-color: #76b6ee;
+  border: 2px solid blue;
+  border-radius: 8px;
   width: 30%;
   height: 30%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
+}
+
+#newListInput{
+  width: 80%;
+  height: 15%;
+  font-size: 18pt;
 }
 
 #completedList {
