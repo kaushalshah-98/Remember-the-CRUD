@@ -40,8 +40,6 @@ router.get("/login", csrfProtection, (req, res) => {
 router.get(
   "/demo",
   asyncHandler(async (req, res) => {
-    // const email = "demo@rtc.com";
-    // const user = await db.User.findOne({ where: { email } });
     loginDemoUser(req, res);
   })
 );
@@ -62,22 +60,7 @@ router.get(
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    // let userTags = new Set();
     let tasks = lists.map(list => list.Tasks).flat();
-
-    // below provides the tags list when creating a new task
-    // for (let i = 0; i < lists.length; i++) {
-    //   const list = lists[i];
-    //   let Tasks = list.Tasks;
-    //   for (let j = 0; j < Tasks.length; j++) {
-    //     const task = Tasks[j];
-    //     let Tags = task.Tags;
-    //     for (let k = 0; k < Tags.length; k++) {
-    //       const tag = Tags[k];
-    //       userTags.add(tag.name);
-    //     }
-    //   }
-    // }
 
     let incompleteTasks = incompletedSort(tasks);
     incompleteTasks = incompleteTasks.sort((a, b) => {
@@ -91,7 +74,6 @@ router.get(
 
     const taskCount = tasks.length.toString();
 
-    // tags = Array.from(userTags);
     const tomorrowCount = tomorrowSort(tasks).length.toString();
     const completedCount = completedSort(tasks).length.toString();
     const sortedBy = "All Tasks";
@@ -106,13 +88,11 @@ router.get(
       completeTasks,
       incompleteTasks,
       taskCount,
-      // tags,
       tomorrowCount,
       completedCount,
       sortedBy,
       estMinutes,
-      estHrs,
-      colors,
+      estHrs
     });
   })
 );
@@ -166,51 +146,13 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    // const lists = await db.List.findAll();
-    const colors = await db.Color.findAll();
     const lists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    // let userTags = new Set();
-
-    //     let userTags = new Set();
-
-    // console.log(tasks);
-
-    // userLists.forEach(List => {
-    //   List.Tasks.forEach((task) => {
-    //     task.Tags.forEach((tag) => {
-    //       console.log(tag);
-    //     })
-    //   })
-    // })
-
-    // for (let i = 0; i < userLists.length; i++) {
-    //   const list = userLists[i];
-    //   let Tasks = list.Tasks;
-
-    // for (let i = 0; i < lists.length; i++) {
-    //   const list = userLists[i];
-    //   let Tasks = list.Tasks;
-
     let tasks = lists.map(list => list.Tasks).flat();
 
-    // below provides the tags list when creating a new task
-    // for (let i = 0; i < lists.length; i++) {
-    //   const list = lists[i];
-    //   let Tasks = list.Tasks;
-    //   for (let j = 0; j < Tasks.length; j++) {
-    //     const task = Tasks[j];
-    //     let Tags = task.Tags;
-    //     for (let k = 0; k < Tags.length; k++) {
-    //       const tag = Tags[k];
-    //       userTags.add(tag.name);
-    //     }
-    //   }
-    // }
     tasks = completedSort(tasks);
 
     let incompleteTasks = incompletedSort(tasks);
@@ -242,10 +184,7 @@ router.get(
       tomorrowCount,
       sortedBy,
       estMinutes,
-      estHrs,
-      // tags,
-
-      colors,
+      estHrs
     });
   })
 );
@@ -255,29 +194,11 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    // const lists = await db.List.findAll();
     const colors = await db.Color.findAll();
     const lists = await db.List.findAll({
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]]  },
     });
-
-    // let userTags = new Set();
-
-
-    // // below provides the tags list when creating a new task
-    // for (let i = 0; i < lists.length; i++) {
-    //   const list = lists[i];
-    //   let Tasks = list.Tasks;
-    //   for (let j = 0; j < Tasks.length; j++) {
-    //     const task = Tasks[j];
-    //     let Tags = task.Tags;
-    //     for (let k = 0; k < Tags.length; k++) {
-    //       const tag = Tags[k];
-    //       userTags.add(tag.name);
-    //     }
-    //   }
-    // }
     let tasks = lists.map(list => list.Tasks).flat();
     tasks = todaySort(tasks);
 
@@ -297,7 +218,6 @@ router.get(
     const sortedBy = "Today";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
-    // tags = Array.from(userTags);
 
     res.render("tasks", {
       title: "Tasks",
@@ -312,12 +232,9 @@ router.get(
       sortedBy,
       estMinutes,
       estHrs,
-      // tags,
-      colors,
     });
   })
 );
-
 
 //Get tomorrow tasks
 router.get(
@@ -325,30 +242,12 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    // const lists = await db.List.findAll();
-    const colors = await db.Color.findAll();
+  
     const lists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]]  },
     });
 
-    // let userTags = new Set();
-
-
-    // // below provides the tags list when creating a new task
-    // for (let i = 0; i < lists.length; i++) {
-    //   const list = lists[i];
-    //   let Tasks = list.Tasks;
-    //   for (let j = 0; j < Tasks.length; j++) {
-    //     const task = Tasks[j];
-    //     let Tags = task.Tags;
-    //     for (let k = 0; k < Tags.length; k++) {
-    //       const tag = Tags[k];
-    //       userTags.add(tag.name);
-    //     }
-    //   }
-    // }
     let tasks = lists.map(list => list.Tasks).flat();
     tasks = tomorrowSort(tasks);
 
@@ -368,7 +267,6 @@ router.get(
     const sortedBy = "Tomorrow";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
-    // tags = Array.from(userTags);
 
     res.render("tasks", {
       title: "Tasks",
@@ -382,9 +280,7 @@ router.get(
       completedCount,
       sortedBy,
       estMinutes,
-      estHrs,
-      // tags,
-      colors,
+      estHrs
     });
   })
 );
@@ -396,41 +292,21 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    // let tags = await db.Tag.findAll();
-    // const colors = await db.Color.findAll();
     const userLists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId,
-        // id: req.params.id
       },
       include: { model: db.Language, model: db.Task, order: [["createdAt", "DESC"]] },
     });
-
-    // const userTaskLists = await db.List.findOne({
-    //   // where:{userId:req.session.auth.userId},
-    //   where: { userId: req.session.auth.userId, id: req.params.id },
-    //   include: { model: db.Task, order: [['createdAt', 'DESC']], include: db.Tag},
-    // });
 
     const lists = await db.List.findAll({
       where: {
         userId: req.session.auth.userId,
       },
     });
-    //below generates all user tags
-
-    // const tagsLists = await db.List.findAll({
-    //   // where:{userId:req.session.auth.userId},
-    //   where: { userId: req.session.auth.userId },
-    //   include: { model: db.Task, include: db.Tag },
-    // });
-
-    // let userTags = new Set();
     let tasks = userLists.map(list => list.Tasks).flat();
 
 
     tasks = languageSort(tasks, req.params.id);
-    console.log(tasks);
 
     let incompleteTasks = incompletedSort(tasks);
     incompleteTasks = incompleteTasks.sort((a, b) => {
@@ -442,21 +318,6 @@ router.get(
       return new Date(b.updatedAt) - new Date(a.updatedAt);
     });
 
-    // below provides the tags list when creating a new task
-    // for (let i = 0; i < tagsLists.length; i++) {
-    //   const list = tagsLists[i];
-    //   let Tasks = list.Tasks;
-    //   for (let j = 0; j < Tasks.length; j++) {
-    //     const task = Tasks[j];
-    //     let Tags = task.Tags;
-    //     for (let k = 0; k < Tags.length; k++) {
-    //       const tag = Tags[k];
-    //       userTags.add(tag.name);
-    //     }
-    //   }
-    // }
-
-    // tags = Array.from(userTags);
     const taskCount = tasks.length.toString();
     const tomorrowCount = tomorrowSort(tasks).length.toString();
     const completedCount = completedSort(tasks).length.toString();
@@ -470,16 +331,12 @@ router.get(
       tasks,
       incompleteTasks,
       completeTasks,
-
-      // tags,
       tomorrowCount,
       completedCount,
       sortedBy,
       taskCount,
       estMinutes,
-      estHrs,
-      // colors,
-      // userTags,
+      estHrs
     });
   })
 );
@@ -490,34 +347,16 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    // let tags = await db.Tag.findAll();
-    const colors = await db.Color.findAll();
     const userLists = await db.List.findAll({
-      // where:{userId:req.session.auth.userId},
       where: { userId: req.session.auth.userId, id: req.params.id },
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
-
-    // const userTaskLists = await db.List.findOne({
-    //   // where:{userId:req.session.auth.userId},
-    //   where: { userId: req.session.auth.userId, id: req.params.id },
-    //   include: { model: db.Task, order: [['createdAt', 'DESC']], include: db.Tag},
-    // });
 
     const lists = await db.List.findAll({
       where: {
         userId: req.session.auth.userId,
       },
     });
-    //below generates all user tags
-
-    // const tagsLists = await db.List.findAll({
-    //   // where:{userId:req.session.auth.userId},
-    //   where: { userId: req.session.auth.userId },
-    //   include: { model: db.Task, include: db.Tag },
-    // });
-
-    // let userTags = new Set();
 
     let tasks = userLists.map(list => list.Tasks).flat();
 
@@ -531,21 +370,6 @@ router.get(
       return new Date(b.updatedAt) - new Date(a.updatedAt);
     });
 
-    // below provides the tags list when creating a new task
-    // for (let i = 0; i < tagsLists.length; i++) {
-    //   const list = tagsLists[i];
-    //   let Tasks = list.Tasks;
-    //   for (let j = 0; j < Tasks.length; j++) {
-    //     const task = Tasks[j];
-    //     let Tags = task.Tags;
-    //     for (let k = 0; k < Tags.length; k++) {
-    //       const tag = Tags[k];
-    //       userTags.add(tag.name);
-    //     }
-    //   }
-    // }
-
-    // tags = Array.from(userTags);
     const taskCount = tasks.length.toString();
     const tomorrowCount = tomorrowSort(tasks).length.toString();
     const completedCount = completedSort(tasks).length.toString();
@@ -559,16 +383,12 @@ router.get(
       tasks,
       incompleteTasks,
       completeTasks,
-
-      // tags,
       tomorrowCount,
       completedCount,
       sortedBy,
       taskCount,
       estMinutes,
       estHrs,
-      colors,
-      // userTags,
     });
   })
 );
@@ -611,13 +431,12 @@ router.post(
   validateEmailAndPassword,
   csrfProtection,
   asyncHandler(async (req, res, next) => {
-    const { email, password, stayLoggedIn } = req.body;
-    // if(stayLoggedIn)res.render("tasks") to be implemented with session storage
+    const { email, password } = req.body;
+
     let errors = [];
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
-      // Attempt to get the user by their email address.
       const user = await db.User.findOne({ where: { email } });
 
       if (user !== null) {
@@ -627,21 +446,9 @@ router.post(
         const passwordMatch = await checkPassword(password, user.password);
 
         if (passwordMatch) {
-          // If the password hashes match, then login the user
-          // and redirect them to the default route.
-          // TODO Login the user.
-          // const userAllTaskList = await db.List.findOne({
-          //   where: {
-          //     userId: user.id,
-          //     name: "All Tasks",
-          //     order: [["createdAt", "DESC"]],
-          //   },
-          // });
           loginUser(req, res, user);
         }
       }
-
-      // Otherwise display an error message to the user.
     } else {
       errors = validatorErrors.array().map(error => error.msg);
       res.render("log-in", {
@@ -651,7 +458,6 @@ router.post(
         csrfToken: req.csrfToken(),
       });
     }
-    console.log(errors);
   })
 );
 
@@ -718,8 +524,8 @@ router.post(
     }
   })
 );
-router.post("/search", async (req, res, next) => {
-  const { searchString } = req.body;
+router.post("/search", async (req, res) => {
+  
   const userLists3 = await db.List.findAll({
     where: { userId: req.session.auth.userId },
     include: { model: db.Task },
@@ -728,8 +534,8 @@ router.post("/search", async (req, res, next) => {
   tasks2 =  incompletedSort(tasks2);
   res.json({ tasks2 });
 });
-router.post("/search2", async (req, res, next) => {
-  const { searchString } = req.body;
+router.post("/search2", async (req, res) => {
+  
   const userLists4 = await db.List.findAll({
     where: { userId: req.session.auth.userId },
     include: { model: db.Task },

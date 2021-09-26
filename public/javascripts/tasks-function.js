@@ -1,18 +1,4 @@
-// const db = require("../../db/models");
-
 window.addEventListener("DOMContentLoaded", async e => {
-  let tasks = await fetch("/users/tasksArray");
-  tasks = await tasks.json();
-
-  let totalTasks = tasks.length;
-
-  // console.log(totalTasks)
-  let totalTasksSummary = document.getElementById("totalTasksSummary");
-
-  // window.onload = () => {
-  //   totalTasksSummary.innerText = totalTasks.toString();
-  // };
-
   //Sidebar whole menu dropdown functionality
   const hamburgerButton = document.getElementById("hamburger");
   const sideBar = document.getElementById("sidebartasks--open");
@@ -22,44 +8,41 @@ window.addEventListener("DOMContentLoaded", async e => {
       : sideBar.setAttribute("id", "sidebartasks--open");
   });
 
-  //sidebar list Dropdown Functionality
+  //Sidebar list Dropdown Functionality
   const alltaskslist = document.getElementById("options1list");
   const alltasksarrow = document.getElementById("ddownarrow-tasks");
+  const alllistslist = document.getElementById("options2list");
+  const alllanguagelist = document.getElementById("options4list");
   alltasksarrow.addEventListener("click", e => {
     alltaskslist.style.display === "block"
       ? (alltaskslist.style.display = "none") &&
         alltasksarrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
       : (alltaskslist.style.display = "block") &&
+        (alllistslist.style.display = "none") &&
+        (alllanguagelist.style.display = "none") &&
         alltasksarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
   });
 
-  const alllistslist = document.getElementById("options2list");
+  
   const alllistsarrow = document.getElementById("ddownarrow-lists");
   alllistsarrow.addEventListener("click", e => {
     alllistslist.style.display === "block"
       ? (alllistslist.style.display = "none") &&
         alllistsarrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
       : (alllistslist.style.display = "block") &&
+        (alltaskslist.style.display = "none") &&
+        (alllanguagelist.style.display = "none") &&
         alllistsarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
   });
 
-  // const alltagslist = document.getElementById("options3list");
-  // const alltagsarrow = document.getElementById("ddownarrow-tags");
-  // alltagsarrow.addEventListener("click", e => {
-  //   alltagslist.style.display === "block"
-  //     ? (alltagslist.style.display = "none") &&
-  //       alltagsarrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
-  //     : (alltagslist.style.display = "block") &&
-  //       alltagsarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
-  // });
-
-  const alllanguagelist = document.getElementById("options4list");
   const alllanguagearrow = document.getElementById("ddownarrow-languages");
   alllanguagearrow.addEventListener("click", e => {
     alllanguagelist.style.display === "block"
       ? (alllanguagelist.style.display = "none") &&
         alllanguagearrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
       : (alllanguagelist.style.display = "block") &&
+        (alllistslist.style.display = "none") &&
+        (alltaskslist.style.display = "none") &&
         alllanguagearrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
   });
 
@@ -105,17 +88,16 @@ window.addEventListener("DOMContentLoaded", async e => {
     search.removeAttribute("placeholder");
   });
 
-  /* patches searches*/
+  /* Searches*/
   const showResults = (input) => {
     let tasksContainer = document.querySelector("#tasks-container");
-    // if(input.length === 0 && )
+  
     for (let i = tasksContainer.children.length - 1; i >= 0; i--) {
       tasksContainer.children[i].remove();
     }
 
     input.forEach(result => {
-      console.log(result);
-      console.log(result.taskName);
+      
       let divMain = document.createElement("div");
       let divLeft = document.createElement("div");
       let input1 = document.createElement("input");
@@ -135,16 +117,15 @@ window.addEventListener("DOMContentLoaded", async e => {
   };
 
   const showResults2 = (input) => {
-    console.log(input)
+    
     let tasksContainer2 = document.querySelector("#tasks-container-complete");
-    // if(input.length === 0 && )
+
     for (let i = tasksContainer2.children.length - 1; i >= 0; i--) {
       tasksContainer2.children[i].remove();
     }
 
     input.forEach(result => {
-      console.log(result);
-      console.log(result.taskName);
+      
       let divMain2 = document.createElement("div");
       let divLeft2 = document.createElement("div");
       let input12 = document.createElement("input");
@@ -165,9 +146,6 @@ window.addEventListener("DOMContentLoaded", async e => {
     });
   };
 
-
-
-
   search.addEventListener("blur", e => {
     for (let i = 0; i <= 24; i++) {
       let newDiv = document.createElement("div");
@@ -187,11 +165,10 @@ window.addEventListener("DOMContentLoaded", async e => {
       if (!data.ok) throw data;
       let results = await data.json();
       results2 = results.tasks2.filter(ele => ele.taskName.includes(input));
-      // results3 = results.tasks3.filter(ele => ele.taskName.includes(input))
-        console.log(results)
+        
       showResults(results2);
     } catch (err) {
-      console.error("Something went wrong.", err);
+      
     }
   });
 
@@ -213,21 +190,14 @@ window.addEventListener("DOMContentLoaded", async e => {
     }
   });
 
-  //completed button event listenter
 
   const completedButton = document.getElementById("completed");
-
   completedButton.addEventListener("click", async e => {
     const checkedBoxes = document.querySelectorAll(
       "input[type=checkbox]:checked"
     );
 
     const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
-    console.log(ids);
-
-    ids.forEach(id => {
-      const taskTexts = document.querySelectorAll(`p`);
-    });
 
     ids.forEach(id => {
       const p = document.querySelectorAll(`p.taskText`);
@@ -259,7 +229,7 @@ window.addEventListener("DOMContentLoaded", async e => {
     }).then(location.reload());
   });
 
-  //modal event listener to create new list
+  // Modal event listener to create new list
   const modalBackground = document.querySelector(".modalBackground");
   const addListButton = document.getElementById("addListImage");
   const modalClose = document.querySelector(".modalClose");
@@ -284,7 +254,7 @@ window.addEventListener("DOMContentLoaded", async e => {
     }
   });
 
-  //logout button
+  // Logout button
 
   const logoutButton = document.getElementById("logoutButton");
   logoutButton.addEventListener("click", () => {
