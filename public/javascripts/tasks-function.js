@@ -100,12 +100,13 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   const search = document.getElementById("search");
 
+
   search.addEventListener("click", e => {
     search.removeAttribute("placeholder");
   });
 
   /* patches searches*/
-  const showResults = input => {
+  const showResults = (input) => {
     let tasksContainer = document.querySelector("#tasks-container");
     // if(input.length === 0 && )
     for (let i = tasksContainer.children.length - 1; i >= 0; i--) {
@@ -132,6 +133,41 @@ window.addEventListener("DOMContentLoaded", async e => {
       tasksContainer.appendChild(divMain);
     });
   };
+
+  const showResults2 = (input) => {
+    console.log(input)
+    let tasksContainer2 = document.querySelector("#tasks-container-complete");
+    // if(input.length === 0 && )
+    for (let i = tasksContainer2.children.length - 1; i >= 0; i--) {
+      tasksContainer2.children[i].remove();
+    }
+
+    input.forEach(result => {
+      console.log(result);
+      console.log(result.taskName);
+      let divMain2 = document.createElement("div");
+      let divLeft2 = document.createElement("div");
+      let input12 = document.createElement("input");
+      let pTasks2 = document.createElement("p");
+      pTasks2.innerText = `${result.taskName}`;
+      divMain2.classList.add("mainTaskList");
+      divMain2.id = "createdTask"
+      divLeft2.classList.add("taskLeft");
+      input12.id = "taskCheckBox";
+      input12.setAttribute("type", "checkbox");
+      pTasks2.classList.add("completedTask")
+      pTasks2.classList.add("taskText");
+
+      divMain2.appendChild(divLeft2);
+      divLeft2.appendChild(input12);
+      divLeft2.appendChild(pTasks2);
+      tasksContainer2.appendChild(divMain2);
+    });
+  };
+
+
+
+
   search.addEventListener("blur", e => {
     for (let i = 0; i <= 24; i++) {
       let newDiv = document.createElement("div");
@@ -142,7 +178,6 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   search.addEventListener("keyup", async e => {
     try {
-      console.log("hit")
       const input = e.target.value;
       const data = await fetch(`/search`, {
         method: "POST",
@@ -151,10 +186,28 @@ window.addEventListener("DOMContentLoaded", async e => {
       });
       if (!data.ok) throw data;
       let results = await data.json();
-      results = results.tasks2.filter(ele => ele.taskName.includes(input));
-      //  if(results.taskName.includes(input)){
-      showResults(results);
-      //  }
+      results2 = results.tasks2.filter(ele => ele.taskName.includes(input));
+      // results3 = results.tasks3.filter(ele => ele.taskName.includes(input))
+        console.log(results)
+      showResults(results2);
+    } catch (err) {
+      console.error("Something went wrong.", err);
+    }
+  });
+
+
+  search.addEventListener("keydown", async e => {
+    try {
+      const input2 = e.target.value;
+      const data2 = await fetch(`/search2`, {
+        method: "POST",
+        body: JSON.stringify({ input2 }),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!data2.ok) throw data2;
+      let resultsComplete = await data2.json();
+      results3 = resultsComplete.tasks3.filter(ele => ele.taskName.includes(input2))
+      showResults2(results3);
     } catch (err) {
       console.error("Something went wrong.", err);
     }
