@@ -559,8 +559,13 @@ body {
   font-size: 12pt;
 }
 /* tasks-container-incomplete */
+/*  Will see below */
 #tasks-container {
   height: 100%;
+
+#tasks-container{
+  min-height:50%;
+
 }
 
 #tasks-container-complete {
