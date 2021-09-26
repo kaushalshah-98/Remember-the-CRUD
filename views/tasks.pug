@@ -38,6 +38,23 @@ body
             ul#options2list
               each list in lists
                 li.alllistoptions-open: a.listLink(href=`/users/tasks/${list.id}`) #{list.name}
+
+          img#addListImage(src="/images/addListButton.png")
+          div.modalBackground
+            div.modal
+              label(for="listName") Create a New List:
+              input(type="text" name="listName")
+              button#completedList Submit
+              span.modalClose X
+        div#tagsorts
+          img#ddownarrow-tags(src="/images/blue-dright-arrow.PNG")
+          div#options3
+            p#alltags="Tags"
+            ul#options3list
+              if tags
+                each tag in tags
+                  li.alltagoptions-open= tag
+
         //- div#tagsorts
         //-   img#ddownarrow-tags(src="/images/blue-dright-arrow.PNG")
           //- div#options3
@@ -46,6 +63,7 @@ body
           //-     if tags
           //-       each tag in tags
           //-         li.alltagoptions-open= tag
+
         div#languagesorts
           img#ddownarrow-languages(src="/images/blue-dright-arrow.PNG")
           div#options4

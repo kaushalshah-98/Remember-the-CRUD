@@ -43,15 +43,15 @@ window.addEventListener("DOMContentLoaded", async e => {
         alllistsarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
   });
 
-  const alltagslist = document.getElementById("options3list");
-  const alltagsarrow = document.getElementById("ddownarrow-tags");
-  alltagsarrow.addEventListener("click", e => {
-    alltagslist.style.display === "block"
-      ? (alltagslist.style.display = "none") &&
-        alltagsarrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
-      : (alltagslist.style.display = "block") &&
-        alltagsarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
-  });
+  // const alltagslist = document.getElementById("options3list");
+  // const alltagsarrow = document.getElementById("ddownarrow-tags");
+  // alltagsarrow.addEventListener("click", e => {
+  //   alltagslist.style.display === "block"
+  //     ? (alltagslist.style.display = "none") &&
+  //       alltagsarrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
+  //     : (alltagslist.style.display = "block") &&
+  //       alltagsarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
+  // });
 
   const alllanguagelist = document.getElementById("options4list");
   const alllanguagearrow = document.getElementById("ddownarrow-languages");
@@ -184,6 +184,7 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   search.addEventListener("keyup", async e => {
     try {
+      console.log("hit")
       const input = e.target.value;
       const data = await fetch(`/search`, {
         method: "POST",
@@ -214,19 +215,11 @@ window.addEventListener("DOMContentLoaded", async e => {
     );
 
     const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
-    console.log(ids)
+    console.log(ids);
 
-
-      ids.forEach(id => {
-
-        const taskTexts = document.querySelectorAll(
-          `p`
-        );
-
-
-      })
-
-
+    ids.forEach(id => {
+      const taskTexts = document.querySelectorAll(`p`);
+    });
 
     ids.forEach(id => {
       const p = document.querySelectorAll(`p.taskText`);
@@ -257,4 +250,18 @@ window.addEventListener("DOMContentLoaded", async e => {
       body: JSON.stringify({ deletedIds: ids }),
     }).then(location.reload());
   });
+
+  const modalButton = document.querySelector(".completedList");
+  const modalBackground = document.querySelector(".modalBackground");
+  const addListButton = document.getElementById("addListImage");
+  const modalClose = document.querySelector(".modalClose");
+
+  addListButton.addEventListener("click", e => {
+    modalBackground.classList.add("backgroundActive");
+  });
+
+  modalClose.addEventListener("click", e => {
+    modalBackground.classList.remove("backgroundActive");
+  });
+
 });
