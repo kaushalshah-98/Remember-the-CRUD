@@ -492,7 +492,7 @@ body {
 }
 /* tasks-container-incomplete */
 #tasks-container{
-  height:100%;
+  min-height:50%;
 }
 
 #tasks-container-complete{
@@ -690,5 +690,3 @@ body {
 .splashname {
   font-size: 13pt;
 }
-
-
