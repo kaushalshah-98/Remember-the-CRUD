@@ -12,7 +12,6 @@ body
     div#searchbar
 
       img(src="/images/magicon.png")#search-img
-
       form#search-form
         button#search-Button search
         input(type='search' name='searchBar' placeholder="Search Tasks")#search
@@ -29,7 +28,6 @@ body
             ul#options1list
               li.alltaskoptions-open= "Today"
               li.alltaskoptions-open: a.listLink(href="/users/tasks/Tomorrow")= "Tomorrow"
-              //- li.alltaskoptions-open= "This Week"
               li.alltaskoptions-open: a.listLink(href="/users/tasks/Completed-Tasks")= "Completed Tasks"
         div#listsorts
           img#ddownarrow-lists(src="/images/blue-dright-arrow.PNG")

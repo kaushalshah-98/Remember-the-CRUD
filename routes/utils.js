@@ -45,6 +45,7 @@ const validateEmailAndPassword = [
     .exists({ checkFalsy: true })
     .withMessage("Sorry, that wasn't a valid login. Please try again."),
 ];
+
 //taskSorting Functions
 const dateToDay = (date) => {
   if(date === null) return;
@@ -77,7 +78,6 @@ const todaySort = (tasks) => {
   today.setDate(today.getDate() - 1);
 
   let res =[];
-
   today = dateToDay(today);
 
 
@@ -106,8 +106,6 @@ const tomorrowSort = (tasks) => {
   return res;
 };
 
-const thisWeekSort = (tasks) => {};
-
 const completedSort = (tasks) => {
   let res = [];
   tasks.forEach((task) => {
@@ -124,8 +122,6 @@ const incompletedSort = (tasks) => {
   })
   return res;
 };
-
-
 
 module.exports = {
   asyncHandler,
