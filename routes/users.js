@@ -79,14 +79,14 @@ router.get(
     // }
 
     let incompleteTasks = incompletedSort(tasks);
-    incompleteTasks = incompleteTasks.sort((a,b) => {
+    incompleteTasks = incompleteTasks.sort((a, b) => {
       return new Date(a.createdAt) - new Date(b.createdAt);
-    })
+    });
 
     let completeTasks = completedSort(tasks);
-    completeTasks = completeTasks.sort((a,b) => {
+    completeTasks = completeTasks.sort((a, b) => {
       return new Date(b.updatedAt) - new Date(a.updatedAt);
-    })
+    });
 
     const taskCount = tasks.length.toString();
 
@@ -131,6 +131,21 @@ router.post(
   })
 );
 
+router.post(
+  "/tasks/New-List",
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const { newList } = req.body;
+
+    await db.List.create({
+      name: newList,
+      userId: req.session.auth.userId,
+    });
+
+    res.redirect("/users/tasks/All-Tasks");
+  })
+);
+
 router.delete(
   "/tasks/Completed-Tasks",
   validateUser,
@@ -158,9 +173,9 @@ router.get(
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
- // let userTags = new Set();
+    // let userTags = new Set();
 
-//     let userTags = new Set();
+    //     let userTags = new Set();
 
     // console.log(tasks);
 
@@ -180,7 +195,7 @@ router.get(
     //   const list = userLists[i];
     //   let Tasks = list.Tasks;
 
-    let tasks = lists.map((list) => list.Tasks).flat();
+    let tasks = lists.map(list => list.Tasks).flat();
 
     // below provides the tags list when creating a new task
     // for (let i = 0; i < lists.length; i++) {
@@ -214,7 +229,6 @@ router.get(
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
 
-
     res.render("tasks", {
       title: "Tasks",
       languages,
@@ -228,7 +242,7 @@ router.get(
       sortedBy,
       estMinutes,
       estHrs,
-    // tags,
+      // tags,
 
       colors,
     });
@@ -343,15 +357,14 @@ router.get(
     let tasks = userLists.map(list => list.Tasks).flat();
 
     let incompleteTasks = incompletedSort(tasks);
-    incompleteTasks = incompleteTasks.sort((a,b) => {
+    incompleteTasks = incompleteTasks.sort((a, b) => {
       return new Date(a.createdAt) - new Date(b.createdAt);
-    })
+    });
 
     let completeTasks = completedSort(tasks);
-    completeTasks = completeTasks.sort((a,b) => {
+    completeTasks = completeTasks.sort((a, b) => {
       return new Date(b.updatedAt) - new Date(a.updatedAt);
-    })
-
+    });
 
     // below provides the tags list when creating a new task
     // for (let i = 0; i < tagsLists.length; i++) {
@@ -547,8 +560,18 @@ router.post("/search", async (req, res, next) => {
     include: { model: db.Task },
   });
   let tasks2 = userLists3.map(list => list.Tasks).flat();
-  tasks2 = incompletedSort(tasks2);
+  tasks2 =  incompletedSort(tasks2);
   res.json({ tasks2 });
+});
+router.post("/search2", async (req, res, next) => {
+  const { searchString } = req.body;
+  const userLists4 = await db.List.findAll({
+    where: { userId: req.session.auth.userId },
+    include: { model: db.Task },
+  });
+  let tasks3 = userLists4.map(list => list.Tasks).flat();
+  tasks3 = completedSort(tasks3)
+  res.json({ tasks3 });
 });
 
 

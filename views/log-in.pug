@@ -12,9 +12,12 @@ block content
                     div#quote “Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”
                     div#author – Martin Fowler
             div.right
-                    div#signupButton
-                        button.linkbuttons#loginFromSignUp: a.linkitems#loginFromSignUpLink(href="/users/signup") Sign up for free
-                        button.linkbuttons: a.linkitems#splashDemoUser(href="/users/demo") Demo User
+                    div.top
+                        div#logoSignup
+                            img#logo-signup(src="/images/logo-trans-final.png")
+                        div#signupButton
+                            button.linkbuttons#loginFromSignUp Sign up for free
+                            button.linkbuttons#splashDemoUser Demo User
                     div.form
                         div#formBox
                             +validationErrorSummary(errors)

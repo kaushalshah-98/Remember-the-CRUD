@@ -65,10 +65,10 @@ body {
 
 #signupButton {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-start;
   width: 100%;
-
+  margin-top: 15px;
 }
 
 #formBox {
@@ -136,11 +136,16 @@ p {
 
 /* sign up page specific styling below */
 #logo-signup {
+  justify-content: flex-start;
+  margin-right: 230px;
   height: 3cm;
   width: 6cm;
 }
 
-
+.top{
+  display: flex;
+  justify-content: space-between;
+}
 
 .linkitems{
   text-align: center;
@@ -154,7 +159,7 @@ p {
 
 }
 
-.linkbuttons{
+/* .linkbuttons{
   font-family: "Yaldevi";
   text-align: center;
   margin:6px;
@@ -163,7 +168,43 @@ p {
   border-radius: 5px;
   border:none;
   background-color:#009dff;
+} */
+
+/* login and signup Buttons buttons for sign and login page below */
+
+#loginFromSignUp, #splashDemoUser, #signupFromLogIn {
+  font-size: 10pt;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  width: 3cm;
+  height: 1cm;
+  background-color:#009dff;
+  color: white;
 }
+
+#loginFromSignUp, #signupFromLogIn{
+  margin-right: 5px;
+}
+
+#splashDemoUser{
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+#loginFromSignUp:focus{
+background-color: #6d92b8;
+}
+
+#splashDemoUser:focus{
+background-color: #6d92b8;
+}
+
+#signupFromLogIn:focus{
+  background-color: #6d92b8;
+  }
+
+/* login and signup Buttons buttons for sign and login page above */
 
 /*sign up page specific styling above  */
 #splashfooter{
