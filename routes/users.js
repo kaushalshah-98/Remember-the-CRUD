@@ -194,7 +194,6 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-    const colors = await db.Color.findAll();
     const lists = await db.List.findAll({
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]]  },
@@ -242,7 +241,7 @@ router.get(
   validateUser,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
-  
+
     const lists = await db.List.findAll({
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]]  },
@@ -525,7 +524,7 @@ router.post(
   })
 );
 router.post("/search", async (req, res) => {
-  
+
   const userLists3 = await db.List.findAll({
     where: { userId: req.session.auth.userId },
     include: { model: db.Task },
@@ -535,7 +534,7 @@ router.post("/search", async (req, res) => {
   res.json({ tasks2 });
 });
 router.post("/search2", async (req, res) => {
-  
+
   const userLists4 = await db.List.findAll({
     where: { userId: req.session.auth.userId },
     include: { model: db.Task },
