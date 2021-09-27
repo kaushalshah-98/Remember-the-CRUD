@@ -76,9 +76,7 @@ const todaySort = (tasks) => {
   let today = new Date();
   today.setDate(today.getDate() - 1);
 
-
   let res = [];
-
 
   today = dateToDay(today);
 
@@ -124,14 +122,12 @@ const incompletedSort = (tasks) => {
 };
 
 const languageSort = (tasks, id) => {
-
   let res = [];
   tasks.forEach((task) => {
     if (task.langId.toString() === id) res.push(task);
   });
   return res;
 };
-
 
 module.exports = {
   asyncHandler,

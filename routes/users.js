@@ -12,7 +12,7 @@ const {
   csrfProtection,
   validationResult,
   incompletedSort,
-  languageSort
+  languageSort,
 } = require("./utils");
 const { generateHashedPassword, checkPassword } = require("../bcrypt");
 const db = require("../db/models");
@@ -60,7 +60,7 @@ router.get(
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    let tasks = lists.map(list => list.Tasks).flat();
+    let tasks = lists.map((list) => list.Tasks).flat();
 
     let incompleteTasks = incompletedSort(tasks);
     incompleteTasks = incompleteTasks.sort((a, b) => {
@@ -92,7 +92,7 @@ router.get(
       completedCount,
       sortedBy,
       estMinutes,
-      estHrs
+      estHrs,
     });
   })
 );
@@ -103,7 +103,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const { completedIds } = req.body;
 
-    completedIds.forEach(async id => {
+    completedIds.forEach(async (id) => {
       const task = await db.Task.findByPk(id);
       task.complete = true;
       await task.save();
@@ -133,7 +133,7 @@ router.delete(
   asyncHandler(async (req, res) => {
     const { deletedIds } = req.body;
 
-    deletedIds.forEach(async id => {
+    deletedIds.forEach(async (id) => {
       const task = await db.Task.findByPk(id);
       await task.destroy();
     });
@@ -151,19 +151,19 @@ router.get(
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    let tasks = lists.map(list => list.Tasks).flat();
+    let tasks = lists.map((list) => list.Tasks).flat();
 
     tasks = completedSort(tasks);
 
     let incompleteTasks = incompletedSort(tasks);
-    incompleteTasks = incompleteTasks.sort((a,b) => {
+    incompleteTasks = incompleteTasks.sort((a, b) => {
       return new Date(a.createdAt) - new Date(b.createdAt);
-    })
+    });
 
     let completeTasks = completedSort(tasks);
-    completeTasks = completeTasks.sort((a,b) => {
+    completeTasks = completeTasks.sort((a, b) => {
       return new Date(b.updatedAt) - new Date(a.updatedAt);
-    })
+    });
 
     const taskCount = tasks.length.toString();
     const tomorrowCount = 0;
@@ -184,7 +184,7 @@ router.get(
       tomorrowCount,
       sortedBy,
       estMinutes,
-      estHrs
+      estHrs,
     });
   })
 );
@@ -196,20 +196,20 @@ router.get(
     const languages = await db.Language.findAll();
     const lists = await db.List.findAll({
       where: { userId: req.session.auth.userId },
-      include: { model: db.Task, order: [["createdAt", "DESC"]]  },
+      include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
-    let tasks = lists.map(list => list.Tasks).flat();
+    let tasks = lists.map((list) => list.Tasks).flat();
     tasks = todaySort(tasks);
 
     let incompleteTasks = incompletedSort(tasks);
-    incompleteTasks = incompleteTasks.sort((a,b) => {
+    incompleteTasks = incompleteTasks.sort((a, b) => {
       return new Date(a.createdAt) - new Date(b.createdAt);
-    })
+    });
 
     let completeTasks = completedSort(tasks);
-    completeTasks = completeTasks.sort((a,b) => {
+    completeTasks = completeTasks.sort((a, b) => {
       return new Date(b.updatedAt) - new Date(a.updatedAt);
-    })
+    });
 
     const taskCount = tasks.length.toString();
     const tomorrowCount = tomorrowSort(tasks).length;
@@ -244,21 +244,21 @@ router.get(
 
     const lists = await db.List.findAll({
       where: { userId: req.session.auth.userId },
-      include: { model: db.Task, order: [["createdAt", "DESC"]]  },
+      include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    let tasks = lists.map(list => list.Tasks).flat();
+    let tasks = lists.map((list) => list.Tasks).flat();
     tasks = tomorrowSort(tasks);
 
     let incompleteTasks = incompletedSort(tasks);
-    incompleteTasks = incompleteTasks.sort((a,b) => {
+    incompleteTasks = incompleteTasks.sort((a, b) => {
       return new Date(a.createdAt) - new Date(b.createdAt);
-    })
+    });
 
     let completeTasks = completedSort(tasks);
-    completeTasks = completeTasks.sort((a,b) => {
+    completeTasks = completeTasks.sort((a, b) => {
       return new Date(b.updatedAt) - new Date(a.updatedAt);
-    })
+    });
 
     const taskCount = tasks.length.toString();
     const tomorrowCount = tasks.length.toString();
@@ -279,7 +279,7 @@ router.get(
       completedCount,
       sortedBy,
       estMinutes,
-      estHrs
+      estHrs,
     });
   })
 );
@@ -292,9 +292,12 @@ router.get(
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
     const userLists = await db.List.findAll({
-      where: { userId: req.session.auth.userId,
+      where: { userId: req.session.auth.userId },
+      include: {
+        model: db.Language,
+        model: db.Task,
+        order: [["createdAt", "DESC"]],
       },
-      include: { model: db.Language, model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
     const lists = await db.List.findAll({
@@ -302,8 +305,7 @@ router.get(
         userId: req.session.auth.userId,
       },
     });
-    let tasks = userLists.map(list => list.Tasks).flat();
-
+    let tasks = userLists.map((list) => list.Tasks).flat();
 
     tasks = languageSort(tasks, req.params.id);
 
@@ -335,7 +337,7 @@ router.get(
       sortedBy,
       taskCount,
       estMinutes,
-      estHrs
+      estHrs,
     });
   })
 );
@@ -357,7 +359,7 @@ router.get(
       },
     });
 
-    let tasks = userLists.map(list => list.Tasks).flat();
+    let tasks = userLists.map((list) => list.Tasks).flat();
 
     let incompleteTasks = incompletedSort(tasks);
     incompleteTasks = incompleteTasks.sort((a, b) => {
@@ -399,7 +401,7 @@ router.get(
       where: { userId: req.session.auth.userId },
       include: db.Task,
     });
-    const tasks = userLists.map(list => list.Tasks).flat();
+    const tasks = userLists.map((list) => list.Tasks).flat();
     res.json(tasks);
   })
 );
@@ -449,7 +451,7 @@ router.post(
         }
       }
     } else {
-      errors = validatorErrors.array().map(error => error.msg);
+      errors = validatorErrors.array().map((error) => error.msg);
       res.render("log-in", {
         title: "Login",
         email,
@@ -514,7 +516,7 @@ router.post(
 
       req.session.save(() => res.redirect("/users/tasks/All-Tasks"));
     } else {
-      const errors = validatorErrors.array().map(error => error.msg);
+      const errors = validatorErrors.array().map((error) => error.msg);
       res.render("sign-up", {
         user,
         errors,
@@ -524,25 +526,22 @@ router.post(
   })
 );
 router.post("/search", async (req, res) => {
-
   const userLists3 = await db.List.findAll({
     where: { userId: req.session.auth.userId },
     include: { model: db.Task },
   });
-  let tasks2 = userLists3.map(list => list.Tasks).flat();
-  tasks2 =  incompletedSort(tasks2);
+  let tasks2 = userLists3.map((list) => list.Tasks).flat();
+  tasks2 = incompletedSort(tasks2);
   res.json({ tasks2 });
 });
 router.post("/search2", async (req, res) => {
-
   const userLists4 = await db.List.findAll({
     where: { userId: req.session.auth.userId },
     include: { model: db.Task },
   });
-  let tasks3 = userLists4.map(list => list.Tasks).flat();
-  tasks3 = completedSort(tasks3)
+  let tasks3 = userLists4.map((list) => list.Tasks).flat();
+  tasks3 = completedSort(tasks3);
   res.json({ tasks3 });
 });
-
 
 module.exports = router;

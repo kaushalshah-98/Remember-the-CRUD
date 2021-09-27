@@ -1,5 +1,4 @@
-window.addEventListener("DOMContentLoaded", async e => {
-    
+window.addEventListener("DOMContentLoaded", async (e) => {
   if (document.getElementById("loginFromSignUp")) {
     const signupFromLogin = document.getElementById("loginFromSignUp");
     signupFromLogin.addEventListener("click", () => {
@@ -18,5 +17,4 @@ window.addEventListener("DOMContentLoaded", async e => {
       location.href = "/users/login";
     });
   }
-
 });

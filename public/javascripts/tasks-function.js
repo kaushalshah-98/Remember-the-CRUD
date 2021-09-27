@@ -1,8 +1,8 @@
-window.addEventListener("DOMContentLoaded", async e => {
+window.addEventListener("DOMContentLoaded", async (e) => {
   //Sidebar whole menu dropdown functionality
   const hamburgerButton = document.getElementById("hamburger");
   const sideBar = document.getElementById("sidebartasks--open");
-  hamburgerButton.addEventListener("click", e => {
+  hamburgerButton.addEventListener("click", (e) => {
     sideBar.id === "sidebartasks--open"
       ? sideBar.setAttribute("id", "sidebartasks--closed")
       : sideBar.setAttribute("id", "sidebartasks--open");
@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", async e => {
   const alltasksarrow = document.getElementById("ddownarrow-tasks");
   const alllistslist = document.getElementById("options2list");
   const alllanguagelist = document.getElementById("options4list");
-  alltasksarrow.addEventListener("click", e => {
+  alltasksarrow.addEventListener("click", (e) => {
     alltaskslist.style.display === "block"
       ? (alltaskslist.style.display = "none") &&
         alltasksarrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
@@ -23,9 +23,8 @@ window.addEventListener("DOMContentLoaded", async e => {
         alltasksarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
   });
 
-  
   const alllistsarrow = document.getElementById("ddownarrow-lists");
-  alllistsarrow.addEventListener("click", e => {
+  alllistsarrow.addEventListener("click", (e) => {
     alllistslist.style.display === "block"
       ? (alllistslist.style.display = "none") &&
         alllistsarrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
@@ -36,7 +35,7 @@ window.addEventListener("DOMContentLoaded", async e => {
   });
 
   const alllanguagearrow = document.getElementById("ddownarrow-languages");
-  alllanguagearrow.addEventListener("click", e => {
+  alllanguagearrow.addEventListener("click", (e) => {
     alllanguagelist.style.display === "block"
       ? (alllanguagelist.style.display = "none") &&
         alllanguagearrow.setAttribute("src", "/images/blue-dright-arrow.PNG")
@@ -49,13 +48,13 @@ window.addEventListener("DOMContentLoaded", async e => {
   // Functionality adding button or create task but not active until typing begins
   const input = document.getElementById("tasks-input");
   const addTaskButton = document.getElementById("tasks-button");
-  input.addEventListener("click", e => {
+  input.addEventListener("click", (e) => {
     input.removeAttribute("placeholder");
     addTaskButton.classList.remove("task-hidden");
   });
 
-  input.addEventListener("keypress", e => {
-    feature.forEach(el => {
+  input.addEventListener("keypress", (e) => {
+    feature.forEach((el) => {
       el.classList.remove("task-hidden");
     });
     test.classList.remove("task-hidden");
@@ -66,16 +65,16 @@ window.addEventListener("DOMContentLoaded", async e => {
   const test = document.getElementById("test-div");
   const tasksContainer = document.getElementById("tasks-container");
 
-  tasksContainer.addEventListener("click", e => {
+  tasksContainer.addEventListener("click", (e) => {
     input.removeAttribute("placeholder");
-    feature.forEach(el => {
+    feature.forEach((el) => {
       el.classList.add("task-hidden");
     });
     test.classList.add("task-hidden");
     addTaskButton.classList.add("task-hidden");
   });
 
-  input.addEventListener("change", e => {
+  input.addEventListener("change", (e) => {
     if (e.target.value) {
       addTaskButton.disabled = false;
     }
@@ -83,21 +82,19 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   const search = document.getElementById("search");
 
-
-  search.addEventListener("click", e => {
+  search.addEventListener("click", (e) => {
     search.removeAttribute("placeholder");
   });
 
   /* Searches*/
   const showResults = (input) => {
     let tasksContainer = document.querySelector("#tasks-container");
-  
+
     for (let i = tasksContainer.children.length - 1; i >= 0; i--) {
       tasksContainer.children[i].remove();
     }
 
-    input.forEach(result => {
-      
+    input.forEach((result) => {
       let divMain = document.createElement("div");
       let divLeft = document.createElement("div");
       let input1 = document.createElement("input");
@@ -117,26 +114,24 @@ window.addEventListener("DOMContentLoaded", async e => {
   };
 
   const showResults2 = (input) => {
-    
     let tasksContainer2 = document.querySelector("#tasks-container-complete");
 
     for (let i = tasksContainer2.children.length - 1; i >= 0; i--) {
       tasksContainer2.children[i].remove();
     }
 
-    input.forEach(result => {
-      
+    input.forEach((result) => {
       let divMain2 = document.createElement("div");
       let divLeft2 = document.createElement("div");
       let input12 = document.createElement("input");
       let pTasks2 = document.createElement("p");
       pTasks2.innerText = `${result.taskName}`;
       divMain2.classList.add("mainTaskList");
-      divMain2.id = "createdTask"
+      divMain2.id = "createdTask";
       divLeft2.classList.add("taskLeft");
       input12.id = "taskCheckBox";
       input12.setAttribute("type", "checkbox");
-      pTasks2.classList.add("completedTask")
+      pTasks2.classList.add("completedTask");
       pTasks2.classList.add("taskText");
 
       divMain2.appendChild(divLeft2);
@@ -146,7 +141,7 @@ window.addEventListener("DOMContentLoaded", async e => {
     });
   };
 
-  search.addEventListener("blur", e => {
+  search.addEventListener("blur", (e) => {
     for (let i = 0; i <= 24; i++) {
       let newDiv = document.createElement("div");
       newDiv.classList.add("mainTaskList");
@@ -154,7 +149,7 @@ window.addEventListener("DOMContentLoaded", async e => {
     }
   });
 
-  search.addEventListener("keyup", async e => {
+  search.addEventListener("keyup", async (e) => {
     try {
       const input = e.target.value;
       const data = await fetch(`/search`, {
@@ -164,16 +159,13 @@ window.addEventListener("DOMContentLoaded", async e => {
       });
       if (!data.ok) throw data;
       let results = await data.json();
-      results2 = results.tasks2.filter(ele => ele.taskName.includes(input));
-        
+      results2 = results.tasks2.filter((ele) => ele.taskName.includes(input));
+
       showResults(results2);
-    } catch (err) {
-      
-    }
+    } catch (err) {}
   });
 
-
-  search.addEventListener("keydown", async e => {
+  search.addEventListener("keydown", async (e) => {
     try {
       const input2 = e.target.value;
       const data2 = await fetch(`/search2`, {
@@ -183,25 +175,24 @@ window.addEventListener("DOMContentLoaded", async e => {
       });
       if (!data2.ok) throw data2;
       let resultsComplete = await data2.json();
-      results3 = resultsComplete.tasks3.filter(ele => ele.taskName.includes(input2))
+      results3 = resultsComplete.tasks3.filter((ele) =>
+        ele.taskName.includes(input2)
+      );
       showResults2(results3);
-    } catch (err) {
-      console.error("Something went wrong.", err);
-    }
+    } catch (err) {}
   });
 
-
   const completedButton = document.getElementById("completed");
-  completedButton.addEventListener("click", async e => {
+  completedButton.addEventListener("click", async (e) => {
     const checkedBoxes = document.querySelectorAll(
       "input[type=checkbox]:checked"
     );
 
-    const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
+    const ids = [...checkedBoxes].map((el) => el.getAttribute("taskId"));
 
-    ids.forEach(id => {
+    ids.forEach((id) => {
       const p = document.querySelectorAll(`p.taskText`);
-      p.forEach(el => {
+      p.forEach((el) => {
         if (id === el.getAttribute("taskId")) {
           el.setAttribute("class", "completedTask");
         }
@@ -217,11 +208,11 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   const deleteButton = document.getElementById("delete");
 
-  deleteButton.addEventListener("click", async e => {
+  deleteButton.addEventListener("click", async (e) => {
     const checkedBoxes = document.querySelectorAll(
       "input[type=checkbox]:checked"
     );
-    const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
+    const ids = [...checkedBoxes].map((el) => el.getAttribute("taskId"));
     await fetch("/users/tasks/Completed-Tasks", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -234,18 +225,18 @@ window.addEventListener("DOMContentLoaded", async e => {
   const addListButton = document.getElementById("addListImage");
   const modalClose = document.querySelector(".modalClose");
 
-  addListButton.addEventListener("click", e => {
+  addListButton.addEventListener("click", (e) => {
     modalBackground.classList.add("backgroundActive");
   });
 
-  modalClose.addEventListener("click", e => {
+  modalClose.addEventListener("click", (e) => {
     modalBackground.classList.remove("backgroundActive");
   });
 
   const modalButton = document.querySelector("#completedList");
-  modalButton.addEventListener("click", async e => {
+  modalButton.addEventListener("click", async (e) => {
     const newList = document.getElementById("newListInput").value;
-    if(newList != ''){
+    if (newList != "") {
       await fetch("/users/tasks/New-List", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -260,5 +251,4 @@ window.addEventListener("DOMContentLoaded", async e => {
   logoutButton.addEventListener("click", () => {
     location.href = "/users/logout";
   });
-
 });
