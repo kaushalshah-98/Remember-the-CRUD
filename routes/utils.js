@@ -74,7 +74,7 @@ const estMin = (tasks) => {
 
 const todaySort = (tasks) => {
   let today = new Date();
-  today.setDate(today.getDate());
+  today.setDate(today.getDate() - 1);
 
 
   let res = [];
@@ -93,7 +93,7 @@ const todaySort = (tasks) => {
 const tomorrowSort = (tasks) => {
   let today = new Date();
   let tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setDate(tomorrow.getDate());
 
   let res = [];
 
@@ -124,7 +124,7 @@ const incompletedSort = (tasks) => {
 };
 
 const languageSort = (tasks, id) => {
-  
+
   let res = [];
   tasks.forEach((task) => {
     if (task.langId.toString() === id) res.push(task);
