@@ -186,7 +186,7 @@ window.addEventListener("DOMContentLoaded", async e => {
       results3 = resultsComplete.tasks3.filter(ele => ele.taskName.includes(input2))
       showResults2(results3);
     } catch (err) {
-      console.error("Something went wrong.", err);
+      
     }
   });
 
