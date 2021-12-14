@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", async e => {
         alltasksarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
   });
 
-  
+
   const alllistsarrow = document.getElementById("ddownarrow-lists");
   alllistsarrow.addEventListener("click", e => {
     alllistslist.style.display === "block"
@@ -91,13 +91,13 @@ window.addEventListener("DOMContentLoaded", async e => {
   /* Searches*/
   const showResults = (input) => {
     let tasksContainer = document.querySelector("#tasks-container");
-  
+
     for (let i = tasksContainer.children.length - 1; i >= 0; i--) {
       tasksContainer.children[i].remove();
     }
 
     input.forEach(result => {
-      
+
       let divMain = document.createElement("div");
       let divLeft = document.createElement("div");
       let input1 = document.createElement("input");
@@ -117,7 +117,7 @@ window.addEventListener("DOMContentLoaded", async e => {
   };
 
   const showResults2 = (input) => {
-    
+
     let tasksContainer2 = document.querySelector("#tasks-container-complete");
 
     for (let i = tasksContainer2.children.length - 1; i >= 0; i--) {
@@ -125,7 +125,7 @@ window.addEventListener("DOMContentLoaded", async e => {
     }
 
     input.forEach(result => {
-      
+
       let divMain2 = document.createElement("div");
       let divLeft2 = document.createElement("div");
       let input12 = document.createElement("input");
@@ -165,10 +165,10 @@ window.addEventListener("DOMContentLoaded", async e => {
       if (!data.ok) throw data;
       let results = await data.json();
       results2 = results.tasks2.filter(ele => ele.taskName.includes(input));
-        
+
       showResults(results2);
     } catch (err) {
-      
+
     }
   });
 
@@ -186,7 +186,6 @@ window.addEventListener("DOMContentLoaded", async e => {
       results3 = resultsComplete.tasks3.filter(ele => ele.taskName.includes(input2))
       showResults2(results3);
     } catch (err) {
-      console.error("Something went wrong.", err);
     }
   });
 
