@@ -180,7 +180,7 @@ window.addEventListener("DOMContentLoaded", async e => {
       );
       showResults2(results3);
     } catch (err) {
-      console.error("Something went wrong.", err);
+      
     }
   });
 
