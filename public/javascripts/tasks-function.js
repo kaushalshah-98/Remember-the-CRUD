@@ -23,7 +23,6 @@ window.addEventListener("DOMContentLoaded", async e => {
         alltasksarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
   });
 
-
   const alllistsarrow = document.getElementById("ddownarrow-lists");
   alllistsarrow.addEventListener("click", e => {
     alllistslist.style.display === "block"
@@ -83,13 +82,12 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   const search = document.getElementById("search");
 
-
   search.addEventListener("click", e => {
     search.removeAttribute("placeholder");
   });
 
   /* Searches*/
-  const showResults = (input) => {
+  const showResults = input => {
     let tasksContainer = document.querySelector("#tasks-container");
 
     for (let i = tasksContainer.children.length - 1; i >= 0; i--) {
@@ -97,7 +95,6 @@ window.addEventListener("DOMContentLoaded", async e => {
     }
 
     input.forEach(result => {
-
       let divMain = document.createElement("div");
       let divLeft = document.createElement("div");
       let input1 = document.createElement("input");
@@ -125,18 +122,17 @@ window.addEventListener("DOMContentLoaded", async e => {
     }
 
     input.forEach(result => {
-
       let divMain2 = document.createElement("div");
       let divLeft2 = document.createElement("div");
       let input12 = document.createElement("input");
       let pTasks2 = document.createElement("p");
       pTasks2.innerText = `${result.taskName}`;
       divMain2.classList.add("mainTaskList");
-      divMain2.id = "createdTask"
+      divMain2.id = "createdTask";
       divLeft2.classList.add("taskLeft");
       input12.id = "taskCheckBox";
       input12.setAttribute("type", "checkbox");
-      pTasks2.classList.add("completedTask")
+      pTasks2.classList.add("completedTask");
       pTasks2.classList.add("taskText");
 
       divMain2.appendChild(divLeft2);
@@ -172,7 +168,6 @@ window.addEventListener("DOMContentLoaded", async e => {
     }
   });
 
-
   search.addEventListener("keydown", async e => {
     try {
       const input2 = e.target.value;
@@ -183,12 +178,13 @@ window.addEventListener("DOMContentLoaded", async e => {
       });
       if (!data2.ok) throw data2;
       let resultsComplete = await data2.json();
-      results3 = resultsComplete.tasks3.filter(ele => ele.taskName.includes(input2))
+      results3 = resultsComplete.tasks3.filter(ele =>
+        ele.taskName.includes(input2)
+      );
       showResults2(results3);
     } catch (err) {
     }
   });
-
 
   const completedButton = document.getElementById("completed");
   completedButton.addEventListener("click", async e => {
@@ -221,11 +217,21 @@ window.addEventListener("DOMContentLoaded", async e => {
       "input[type=checkbox]:checked"
     );
     const ids = [...checkedBoxes].map(el => el.getAttribute("taskId"));
-    await fetch("/users/tasks/Completed-Tasks", {
+    console.log("=======================================", ids);
+
+    await fetch("/users/tagsjoins", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ deletedIds: ids }),
-    }).then(location.reload());
+    });
+
+    await fetch("/users/tasks", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ deletedIds: ids }),
+    });
+
+    await location.reload();
   });
 
   // Modal event listener to create new list
@@ -244,7 +250,7 @@ window.addEventListener("DOMContentLoaded", async e => {
   const modalButton = document.querySelector("#completedList");
   modalButton.addEventListener("click", async e => {
     const newList = document.getElementById("newListInput").value;
-    if(newList != ''){
+    if (newList != "") {
       await fetch("/users/tasks/New-List", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -259,5 +265,4 @@ window.addEventListener("DOMContentLoaded", async e => {
   logoutButton.addEventListener("click", () => {
     location.href = "/users/logout";
   });
-
 });
