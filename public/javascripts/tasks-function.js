@@ -113,7 +113,8 @@ window.addEventListener("DOMContentLoaded", async e => {
     });
   };
 
-  const showResults2 = input => {
+  const showResults2 = (input) => {
+
     let tasksContainer2 = document.querySelector("#tasks-container-complete");
 
     for (let i = tasksContainer2.children.length - 1; i >= 0; i--) {
@@ -162,7 +163,9 @@ window.addEventListener("DOMContentLoaded", async e => {
       results2 = results.tasks2.filter(ele => ele.taskName.includes(input));
 
       showResults(results2);
-    } catch (err) {}
+    } catch (err) {
+
+    }
   });
 
   search.addEventListener("keydown", async e => {
@@ -180,7 +183,6 @@ window.addEventListener("DOMContentLoaded", async e => {
       );
       showResults2(results3);
     } catch (err) {
-      
     }
   });
 
