@@ -555,13 +555,30 @@ body {
 
 #tasks-container {
   height: 100%;
+  overflow:scroll;
+  overflow:hidden;
 }
 
 #tasks-container-complete {
   max-height: 50%;
   min-height: 15%;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background:rgb(209, 224, 233);
+  border-radius: 100vw;
+  margin-block: .5em;
 }
 
+::-webkit-scrollbar-thumb{
+  background:#0060bf;
+  border-radius: 100vw;
+
+}
 #completed:focus {
   background-color: #6d92b8;
 }

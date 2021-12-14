@@ -134,7 +134,7 @@ router.delete(
       const task = await db.Task.findByPk(id);
       await task.destroy();
     });
-    res.redirect("/users/tasks/All-Tasks");
+    res.sendStatus(200).end();
   })
 );
 
@@ -153,7 +153,7 @@ router.delete(
           await tag.destroy();
         });
       }
-      res.redirect("/users/tasks/All-Tasks");
+      res.sendStatus(200).end();
     });
   })
 );
