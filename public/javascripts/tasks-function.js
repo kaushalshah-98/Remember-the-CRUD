@@ -113,8 +113,7 @@ window.addEventListener("DOMContentLoaded", async e => {
     });
   };
 
-  const showResults2 = (input) => {
-
+  const showResults2 = input => {
     let tasksContainer2 = document.querySelector("#tasks-container-complete");
 
     for (let i = tasksContainer2.children.length - 1; i >= 0; i--) {
@@ -163,9 +162,7 @@ window.addEventListener("DOMContentLoaded", async e => {
       results2 = results.tasks2.filter(ele => ele.taskName.includes(input));
 
       showResults(results2);
-    } catch (err) {
-
-    }
+    } catch (err) {}
   });
 
   search.addEventListener("keydown", async e => {
@@ -182,8 +179,7 @@ window.addEventListener("DOMContentLoaded", async e => {
         ele.taskName.includes(input2)
       );
       showResults2(results3);
-    } catch (err) {
-    }
+    } catch (err) {}
   });
 
   const completedButton = document.getElementById("completed");
@@ -207,7 +203,9 @@ window.addEventListener("DOMContentLoaded", async e => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ completedIds: ids }),
-    }).then(location.reload());
+    });
+
+    await location.reload();
   });
 
   const deleteButton = document.getElementById("delete");
