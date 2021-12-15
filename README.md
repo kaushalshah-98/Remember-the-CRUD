@@ -12,7 +12,7 @@ iv. Go to the specified localhost port in the config/index.js file
 
 ## Technologies implemented
 * Javascript
-* HTML/CSS
+* CSS
 * Node.js
 * Express
 * Postgres
