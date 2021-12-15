@@ -1,4 +1,5 @@
 doctype html
+include utils
 head
   title= `${title}`
   link(rel="preconnect" href="https://fonts.googleapis.com")
@@ -35,8 +36,9 @@ body
           div#options2
             p#alllists="Lists"
             ul#options2list
-              each list in lists
-                li.alllistoptions-open: a.listLink(href=`/users/tasks/${list.id}`) #{list.name}
+              if lists
+                each list in lists
+                    li.alllistoptions-open: a.listLink(href=`/users/tasks/${list.id}`) #{list.name}
 
           img#addListImage(src="/images/add-list-modal.png")
           div.modalBackground
@@ -50,66 +52,72 @@ body
           div#options4
             p#alllanguages="Languages"
             ul#options4list
-              each language in languages
-                li.alllanguageoptions-open: a.listLink(href=`/users/tasks/languages/${language.id}`) - #{language.name}
+                if languages
+                    each language in languages
+                        li.alllanguageoptions-open: a.listLink(href=`/users/tasks/languages/${language.id}`) - #{language.name}
     div#mainboxtasks
       div#tasks-view
+        +validationErrorSummary(errors)
         div#tasks-form
         div.taskRight
                   button#completed Completed
                   button#delete Delete
         form(action="/users/tasks" method="POST")#tasks-form
           input(type="hidden" name="_csrf" value=csrfToken)
-          input(type="text" placeholder="Add a task..." name="taskName" required)#tasks-input
+          input(type="text" placeholder="Add a task..." name="taskName")#tasks-input
           div#test-div
             select(name="langId" required).feature.task-hidden
-              each language in languages
-                option(value=language.id)=language.name
+                 if languages
+                    each language in languages
+                        option(value=language.id)=language.name
             select(name="listId" required).feature.task-hidden
-              each list in lists
-                option(value=list.id)=list.name
+                 if lists
+                    each list in lists
+                        option(value=list.id)=list.name
             input(type="number" value=0 name="estTime" title="Estimated Time" required).feature.task-hidden
             input(type="date" name="startDate" title="Start Date" required).feature.task-hidden
             input(type="date" name="dueDate" title="Due Date" required).feature.task-hidden
-            button#tasks-button.task-hidden(disabled) Add Task
+            button#tasks-button.task-hidden(disabled) Add Task   
         div#formBreak
           br
           br
         p#toDo= "To Do:"
         br
         div.tasks-container#tasks-container
-          if tasks
-            each task in incompleteTasks
-              div.mainTaskList#createdTask
-                div.taskLeft
-                  input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
-                  p(taskId=`${task.id}`).taskText= task.taskName
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
-          div.mainTaskList
+            if incompleteTasks
+                if tasks
+                    each task in incompleteTasks
+                        div.mainTaskList#createdTask
+                            div.taskLeft
+                                input(type="checkbox" taskId=`${task.id}`)#taskCheckBox
+                                p(taskId=`${task.id}`).taskText= task.taskName
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
+            div.mainTaskList
         p= "Completed:"
         div.tasks-container#tasks-container-complete
+         if incompleteTasks
           if tasks
             each task in completeTasks
               div.mainTaskList#createdTask

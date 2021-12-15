@@ -693,6 +693,7 @@ body {
 .task-hidden {
   visibility: hidden;
 }
+
 #search-Button {
   width: 15px;
   visibility: hidden;
