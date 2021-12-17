@@ -81,14 +81,14 @@ router.get(
     });
 
     const taskCount = tasks.length.toString();
-    let errors = []
+    let errors = [];
     const tomorrowCount = tomorrowSort(tasks).length.toString();
     const completedCount = completedSort(tasks).length.toString();
     const sortedBy = "All Tasks";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
     const validatorErrors = validationResult(req);
-    
+
     if (validatorErrors) {
       errors = validatorErrors.array().map((error) => error.msg);
     }
@@ -423,29 +423,76 @@ router.post(
   "/tasks",
   tasksValidators,
   asyncHandler(async (req, res) => {
-        const validatorErrors = validationResult(req);
+    const validatorErrors = validationResult(req);
     const { taskName, langId, listId, estTime, startDate, dueDate, complete } =
       req.body;
-      
-   
+
+      const languages = await db.Language.findAll();
+    // const colors = await db.Color.findAll();
+    const lists = await db.List.findAll({
+      where: { userId: req.session.auth.userId },
+      include: { model: db.Task, order: [["createdAt", "DESC"]] },
+    });
+
+    let tasks = lists.map((list) => list.Tasks).flat();
+
+    let incompleteTasks = incompletedSort(tasks);
+    incompleteTasks = incompleteTasks.sort((a, b) => {
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
+
+    let completeTasks = completedSort(tasks);
+    completeTasks = completeTasks.sort((a, b) => {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    });
+
+    const taskCount = tasks.length.toString();
+    const tomorrowCount = tomorrowSort(tasks).length.toString();
+    const completedCount = completedSort(tasks).length.toString();
+    const sortedBy = "All Tasks";
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
+    // const validatorErrors = validationResult(req);
+
     // creating task
-    if(validatorErrors.isEmpty()){
-        await db.Task.create({
-          taskName,
-          langId,
-          listId,
-          estTime,
-          startDate,
-          dueDate,
-          complete,
-        });
-        res.redirect(`/users/tasks/${listId}`);
+    if (validatorErrors.isEmpty()) {
+      await db.Task.create({
+        taskName,
+        langId,
+        listId,
+        estTime,
+        startDate,
+        dueDate,
+        complete,
+      });
+      res.redirect(`/users/tasks/${listId}`);
     } else {
-        const errors = validatorErrors.array().map((error) => error.msg);
-        res.redirect(`/users/tasks/All-Tasks`, {
-            ...req,
-            errors,
-        });
+      const errors = validatorErrors.array().map((error) => error.msg);
+      // res.redirect(`/users/tasks/All-Tasks`, {
+      //     // ...req,
+      //     errors,
+      // });
+    //   res.status(401).json({
+    //     taskName,
+    //     //   body,
+    //     errors,
+    //     //   csrfToken: req.csrfToken(),
+    //   });
+      res.render("tasks", {
+      title: "Tasks",
+      languages,
+      lists,
+      tasks,
+      incompleteTasks,
+      completeTasks,
+      tomorrowCount,
+      completedCount,
+      sortedBy,
+      taskCount,
+      estMinutes,
+      estHrs,
+      errors
+      });
     }
   })
 );

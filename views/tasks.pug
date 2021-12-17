@@ -57,7 +57,8 @@ body
                         li.alllanguageoptions-open: a.listLink(href=`/users/tasks/languages/${language.id}`) - #{language.name}
     div#mainboxtasks
       div#tasks-view
-        +validationErrorSummary(errors)
+        if errors.length
+            +validationErrorSummary(errors)
         div#tasks-form
         div.taskRight
                   button#completed Completed
