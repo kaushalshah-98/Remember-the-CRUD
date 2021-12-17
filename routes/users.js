@@ -30,7 +30,44 @@ const tasksValidators = [
   check("taskName")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a task name"),
-];
+  check("startDate")
+    // .exists({ checkFalsy: true })
+    .trim()
+    // Custom validator
+    .custom((startDate, { req }) => {
+      // Fetch year, month and day of
+      // respective dates
+      const [sd, sm, sy] = startDate.split("-");
+      const [ed, em, ey] = req.body.dueDate.split("-");
+
+      // Constructing dates from given
+      // string date input
+      const startDate2 = new Date(sy, sm, sd);
+      const dueDate2 = new Date(ey, em, ed);
+
+      // Validate start date so that it must
+      // comes before end date
+      if (startDate2 > dueDate2) {
+        throw new Error("Start date of task must be before due date of task");
+      }
+      return true;
+    }),
+  check("estTime")
+    .isInt({ min: 1 })
+    // .exists({ checkFalsy: true })
+    .withMessage("Please provide an approximate amount of time for your task"),
+ ];
+
+
+
+        
+
+
+// const listValidators = [
+//   check("list")
+//     .exists({ checkFalsy: true })
+//     .withMessage("Please provide a valid name for your list"),
+// ];
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -128,17 +165,27 @@ router.post(
 router.post(
   "/tasks/New-List",
   validateUser,
+//   listValidators,
   asyncHandler(async (req, res) => {
     const { newList } = req.body;
+    const validatorErrors = validationResult(req);
 
-    await db.List.create({
-      name: newList,
-      userId: req.session.auth.userId,
-    });
+    // if (validatorErrors.isEmpty()) {
+      await db.List.create({
+        name: newList,
+        userId: req.session.auth.userId,
+      });
 
-    res.redirect("/users/tasks/All-Tasks");
-  })
-);
+      res.redirect("/users/tasks/All-Tasks");
+//     } else {
+//         const errors = validatorErrors.array().map((error) => error.msg);
+//        res.render("tasks", {
+//         title: "Tasks",
+
+//        })
+//     }
+//   })
+  }));
 
 router.delete(
   "/tasks/Completed-Tasks",
@@ -427,7 +474,7 @@ router.post(
     const { taskName, langId, listId, estTime, startDate, dueDate, complete } =
       req.body;
 
-      const languages = await db.Language.findAll();
+    const languages = await db.Language.findAll();
     // const colors = await db.Color.findAll();
     const lists = await db.List.findAll({
       where: { userId: req.session.auth.userId },
@@ -468,30 +515,20 @@ router.post(
       res.redirect(`/users/tasks/${listId}`);
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
-      // res.redirect(`/users/tasks/All-Tasks`, {
-      //     // ...req,
-      //     errors,
-      // });
-    //   res.status(401).json({
-    //     taskName,
-    //     //   body,
-    //     errors,
-    //     //   csrfToken: req.csrfToken(),
-    //   });
       res.render("tasks", {
-      title: "Tasks",
-      languages,
-      lists,
-      tasks,
-      incompleteTasks,
-      completeTasks,
-      tomorrowCount,
-      completedCount,
-      sortedBy,
-      taskCount,
-      estMinutes,
-      estHrs,
-      errors
+        title: "Tasks",
+        languages,
+        lists,
+        tasks,
+        incompleteTasks,
+        completeTasks,
+        tomorrowCount,
+        completedCount,
+        sortedBy,
+        taskCount,
+        estMinutes,
+        estHrs,
+        errors,
       });
     }
   })
