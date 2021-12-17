@@ -1,190 +1,185 @@
-html{
-    height:100%;
-    width:100%;
+html {
+  height: 100%;
+  width: 100%;
 }
-#splashbody{
-    margin: 0px;
-    padding: 0px;
-    width:100%;
-    height:100%;
-    display:flex;
-    flex-direction: column;
+#splashbody {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-#navbar{
-    height:2.5cm;
-    width:100%;
-    display:flex;
-    justify-content: space-around;
-}
-
-#splashlinks{
-    display:flex;
-    justify-content: space-around;
-    align-items:flex-end;
-    width:40%;
-    height:80%;
+#navbar {
+  height: 2.5cm;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
-#splashnavplaceholder{
-width:100%;
+#splashlinks {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  width: 40%;
+  height: 80%;
 }
 
-#splashlogo{
-    width: 200px;
-    height:100px;
+#splashnavplaceholder {
+  width: 100%;
 }
 
-.splashlinkitems{
-    text-align: center;
-    font-family: "Yaldevi";
-    color:white;
-    text-decoration: none;
-    display:flex;
-    width:fit-content;
-    height:fit-content;
-    text-align:center;
-
+#splashlogo {
+  width: 200px;
+  height: 100px;
 }
 
-.splashlinkbuttons{
-    text-align: center;
-    margin:6px;
-    height:.8cm;
-    width:3cm;
-    border-radius: 5px;
-    border:none;
-    background-color:#2b74be;
+.splashlinkitems {
+  text-align: center;
+  font-family: "Yaldevi";
+  color: white;
+  text-decoration: none;
+  width: fit-content;
+  height: fit-content;
 }
 
-#splashmain{
-    height:100%;
-    width:100%;
-    background-color:#0060bf;
+.splashlinkbuttons {
+  text-align: center;
+  margin: 6px;
+  height: 0.8cm;
+  width: 3cm;
+  border-radius: 5px;
+  border: none;
+  background-color: #2b74be;
 }
 
-#welcomeMessage{
-    display:flex;
-
-    justify-content: center;
-    align-items: center;
-    font-size: 45pt;
-    width:100%;
-    height:20%;
+#splashmain {
+  height: 100%;
+  width: 100%;
+  background-color: #0060bf;
 }
 
-#welcomeMessage{
-    text-align:center;
-    color:white;
-    font-family: "Yaldevi";
+#welcomeMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 45pt;
+  width: 100%;
+  height: 20%;
 }
 
-#welcomeSignUp{
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    justify-content: center;
-    width: 100%;
-    height:5%;
+#welcomeMessage {
+  text-align: center;
+  color: white;
+  font-family: "Yaldevi";
 }
 
-#welcomeSignUpButton{
-    border-radius: 5px;
-    border:none;
-    text-decoration: none;
-    background-color:rgba(245, 107, 16, 0.8);
-    width: 12cm;
-    height: 1.5cm;
+#welcomeSignUp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 5%;
 }
 
-#welcomeSignUpLink{
-    font-family: "Yaldevi";
-    text-decoration: none;
-    color:white;
-    font-size: 22pt;
+#welcomeSignUpButton {
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  background-color: rgba(245, 107, 16, 0.8);
+  width: 12cm;
+  height: 1.5cm;
 }
 
-#welcomeImageContainer{
-    width:100%;
-    height:50%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
+#welcomeSignUpLink {
+  font-family: "Yaldevi";
+  text-decoration: none;
+  color: white;
+  font-size: 22pt;
 }
 
-#welcomeImageText{
-    font-size: 26pt;
-    text-align:center;
-    color:white;
-    font-family: "Yaldevi";
+#welcomeImageContainer {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#welcomeImageTextBody{
-    font-size: 18pt;
-    text-align:center;
-    color:white;
-    font-family: "Yaldevi";
-}
-#welcomeTextContainer{
-    height:10%;
-    display:flex;
-    justify-content: flex-end;
-    flex-direction: column;
-    align-items: center;
+#welcomeImageText {
+  font-size: 26pt;
+  text-align: center;
+  color: white;
+  font-family: "Yaldevi";
 }
 
-#welcomeTextBodyContainer{
-    height:20%;
-    width:20%;
+#welcomeImageTextBody {
+  font-size: 18pt;
+  text-align: center;
+  color: white;
+  font-family: "Yaldevi";
+}
+#welcomeTextContainer {
+  height: 10%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
 }
 
-#welcomeImage{
-    height:100%;
+#welcomeTextBodyContainer {
+  height: 20%;
+  width: 20%;
 }
 
-#splashfooter{
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items:center;
-    height:1.5cm;
-    width:100%;
-    background-color:#d7e7f5;
+#welcomeImage {
+  height: 100%;
 }
 
-#aboutdiv{
-    display:flex;
-    justify-content:space-between;
-    width:50%;
-    height:100%;
+#splashfooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 1.5cm;
+  width: 100%;
+  background-color: #d7e7f5;
 }
 
-#copyrightdiv{
-    width:50%;
-    height:100%;
+#aboutdiv {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  height: 100%;
 }
 
-.credentialdivs{
-    font-family: "Yaldevi";
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    justify-content: center;
-    width:50%;
-    height:100%;
-
+#copyrightdiv {
+  width: 50%;
+  height: 100%;
 }
 
-.githublogo{
-    margin-left:10px;
-    width:30px;
-    height:30px;
+.credentialdivs {
+  font-family: "Yaldevi";
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
 }
 
-.linkedinlogo{
-    width:30px;
-    height:30px;
+.githublogo {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
 }
 
-.splashname{
-    font-size: 13pt;
+.linkedinlogo {
+  width: 30px;
+  height: 30px;
+}
+
+.splashname {
+  font-size: 13pt;
 }

@@ -1,5 +1,4 @@
 const validateUser = (req, res, next) => {
-  
   if (!req.session.auth) {
     res.redirect("/users/login");
   } else {
@@ -11,6 +10,7 @@ const loginUser = (req, res, user, listId) => {
   req.session.auth = {
     userId: user.id,
   };
+
   req.session.save(() => res.redirect(`/users/tasks/All-Tasks`));
 };
 

@@ -100,6 +100,7 @@ router.get(
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
     // const colors = await db.Color.findAll();
+
     const lists = await db.List.findAll({
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
@@ -169,7 +170,6 @@ router.post(
   asyncHandler(async (req, res) => {
     const { newList } = req.body;
     const validatorErrors = validationResult(req);
-
     // if (validatorErrors.isEmpty()) {
       await db.List.create({
         name: newList,
@@ -187,17 +187,38 @@ router.post(
 //   })
   }));
 
+
 router.delete(
-  "/tasks/Completed-Tasks",
+  "/tasks",
   validateUser,
   asyncHandler(async (req, res) => {
     const { deletedIds } = req.body;
-
     deletedIds.forEach(async (id) => {
+
       const task = await db.Task.findByPk(id);
       await task.destroy();
     });
-    res.redirect("/users/tasks/All-Tasks");
+    res.sendStatus(200).end();
+  })
+);
+
+router.delete(
+  "/tagsjoins",
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const { deletedIds } = req.body;
+    console.log("===================", deletedIds);
+    deletedIds.forEach(async id => {
+      const tags = await db.tagsJoin.findAll({
+        where: { taskId: id },
+      });
+      if (tags.length) {
+        tags.forEach(async tag => {
+          await tag.destroy();
+        });
+      }
+      res.sendStatus(200).end();
+    });
   })
 );
 
@@ -366,6 +387,7 @@ router.get(
       },
     });
     let tasks = userLists.map((list) => list.Tasks).flat();
+
 
     tasks = languageSort(tasks, req.params.id);
 
@@ -637,7 +659,9 @@ router.post("/search", async (req, res) => {
     where: { userId: req.session.auth.userId },
     include: { model: db.Task },
   });
+
   let tasks2 = userLists3.map((list) => list.Tasks).flat();
+
   tasks2 = incompletedSort(tasks2);
   res.json({ tasks2 });
 });
@@ -646,7 +670,9 @@ router.post("/search2", async (req, res) => {
     where: { userId: req.session.auth.userId },
     include: { model: db.Task },
   });
+
   let tasks3 = userLists4.map((list) => list.Tasks).flat();
+
   tasks3 = completedSort(tasks3);
   res.json({ tasks3 });
 });
