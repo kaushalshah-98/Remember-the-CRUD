@@ -36,8 +36,9 @@ body
             p#alllists="Lists"
             ul#options2list
               each list in lists
-                li.alllistoptions-open: a.listLink(href=`/users/tasks/${list.id}`) #{list.name}
-
+                li.alllistoptions-open: div#listmenuname
+                                          a.listLink(href=`/users/tasks/${list.id}`) #{list.name}
+                                          a.listLink(href=`/users/tasks/${list.id}`) #{DELETE}
           img#addListImage(src="/images/add-list-modal.png")
           div.modalBackground
             form.modal

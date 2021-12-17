@@ -579,6 +579,13 @@ body {
   border-radius: 100vw;
 
 }
+
+@supports (scrollbar-color:rgb(209, 224, 233) #0060bf){
+  *{
+    scrollbar-color:(rgb(209, 224, 233) #0060bf);
+    scrollbar-width: auto;
+  }
+}
 #completed:focus {
   background-color: #6d92b8;
 }
