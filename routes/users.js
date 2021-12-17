@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { Task } = require("../db/models");
 const {
   asyncHandler,
   validateEmailAndPassword,
@@ -11,6 +12,7 @@ const {
   signUpValidator,
   csrfProtection,
   validationResult,
+  check,
   incompletedSort,
   languageSort,
 } = require("./utils");
@@ -23,6 +25,49 @@ const {
   validateUser,
   loginDemoUser,
 } = require("../auth");
+
+const tasksValidators = [
+  check("taskName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a task name"),
+  check("startDate")
+    // .exists({ checkFalsy: true })
+    .trim()
+    // Custom validator
+    .custom((startDate, { req }) => {
+      // Fetch year, month and day of
+      // respective dates
+      const [sd, sm, sy] = startDate.split("-");
+      const [ed, em, ey] = req.body.dueDate.split("-");
+
+      // Constructing dates from given
+      // string date input
+      const startDate2 = new Date(sy, sm, sd);
+      const dueDate2 = new Date(ey, em, ed);
+
+      // Validate start date so that it must
+      // comes before end date
+      if (startDate2 > dueDate2) {
+        throw new Error("Start date of task must be before due date of task");
+      }
+      return true;
+    }),
+  check("estTime")
+    .isInt({ min: 1 })
+    // .exists({ checkFalsy: true })
+    .withMessage("Please provide an approximate amount of time for your task"),
+ ];
+
+
+
+        
+
+
+// const listValidators = [
+//   check("list")
+//     .exists({ checkFalsy: true })
+//     .withMessage("Please provide a valid name for your list"),
+// ];
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -51,6 +96,7 @@ router.get("/signup", csrfProtection, (req, res) => {
 router.get(
   "/tasks/All-Tasks",
   validateUser,
+  //   tasksValidators,
   asyncHandler(async (req, res) => {
     const languages = await db.Language.findAll();
     // const colors = await db.Color.findAll();
@@ -60,7 +106,7 @@ router.get(
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    let tasks = lists.map(list => list.Tasks).flat();
+    let tasks = lists.map((list) => list.Tasks).flat();
 
     let incompleteTasks = incompletedSort(tasks);
     incompleteTasks = incompleteTasks.sort((a, b) => {
@@ -73,13 +119,17 @@ router.get(
     });
 
     const taskCount = tasks.length.toString();
-
+    let errors = [];
     const tomorrowCount = tomorrowSort(tasks).length.toString();
     const completedCount = completedSort(tasks).length.toString();
     const sortedBy = "All Tasks";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
+    const validatorErrors = validationResult(req);
 
+    if (validatorErrors) {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
     res.render("tasks", {
       title: "Tasks",
       languages,
@@ -93,6 +143,7 @@ router.get(
       sortedBy,
       estMinutes,
       estHrs,
+      errors,
     });
   })
 );
@@ -103,7 +154,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const { completedIds } = req.body;
 
-    completedIds.forEach(async id => {
+    completedIds.forEach(async (id) => {
       const task = await db.Task.findByPk(id);
       task.complete = true;
       await task.save();
@@ -115,22 +166,35 @@ router.post(
 router.post(
   "/tasks/New-List",
   validateUser,
+//   listValidators,
   asyncHandler(async (req, res) => {
     const { newList } = req.body;
+    const validatorErrors = validationResult(req);
+    // if (validatorErrors.isEmpty()) {
+      await db.List.create({
+        name: newList,
+        userId: req.session.auth.userId,
+      });
 
-    await db.List.create({
-      name: newList,
-      userId: req.session.auth.userId,
-    });
-  })
-);
+      res.redirect("/users/tasks/All-Tasks");
+//     } else {
+//         const errors = validatorErrors.array().map((error) => error.msg);
+//        res.render("tasks", {
+//         title: "Tasks",
+
+//        })
+//     }
+//   })
+  }));
+
 
 router.delete(
   "/tasks",
   validateUser,
   asyncHandler(async (req, res) => {
     const { deletedIds } = req.body;
-    deletedIds.forEach(async id => {
+    deletedIds.forEach(async (id) => {
+
       const task = await db.Task.findByPk(id);
       await task.destroy();
     });
@@ -168,7 +232,7 @@ router.get(
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    let tasks = lists.map(list => list.Tasks).flat();
+    let tasks = lists.map((list) => list.Tasks).flat();
 
     tasks = completedSort(tasks);
 
@@ -215,7 +279,7 @@ router.get(
       where: { userId: req.session.auth.userId },
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
-    let tasks = lists.map(list => list.Tasks).flat();
+    let tasks = lists.map((list) => list.Tasks).flat();
     tasks = todaySort(tasks);
 
     let incompleteTasks = incompletedSort(tasks);
@@ -264,7 +328,7 @@ router.get(
       include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    let tasks = lists.map(list => list.Tasks).flat();
+    let tasks = lists.map((list) => list.Tasks).flat();
     tasks = tomorrowSort(tasks);
 
     let incompleteTasks = incompletedSort(tasks);
@@ -322,7 +386,8 @@ router.get(
         userId: req.session.auth.userId,
       },
     });
-    let tasks = userLists.map(list => list.Tasks).flat();
+    let tasks = userLists.map((list) => list.Tasks).flat();
+
 
     tasks = languageSort(tasks, req.params.id);
 
@@ -376,7 +441,7 @@ router.get(
       },
     });
 
-    let tasks = userLists.map(list => list.Tasks).flat();
+    let tasks = userLists.map((list) => list.Tasks).flat();
 
     let incompleteTasks = incompletedSort(tasks);
     incompleteTasks = incompleteTasks.sort((a, b) => {
@@ -418,29 +483,76 @@ router.get(
       where: { userId: req.session.auth.userId },
       include: db.Task,
     });
-    const tasks = userLists.map(list => list.Tasks).flat();
+    const tasks = userLists.map((list) => list.Tasks).flat();
     res.json(tasks);
   })
 );
 
 router.post(
   "/tasks",
+  tasksValidators,
   asyncHandler(async (req, res) => {
+    const validatorErrors = validationResult(req);
     const { taskName, langId, listId, estTime, startDate, dueDate, complete } =
       req.body;
 
-    // creating task
-    await db.Task.create({
-      taskName,
-      langId,
-      listId,
-      estTime,
-      startDate,
-      dueDate,
-      complete,
+    const languages = await db.Language.findAll();
+    // const colors = await db.Color.findAll();
+    const lists = await db.List.findAll({
+      where: { userId: req.session.auth.userId },
+      include: { model: db.Task, order: [["createdAt", "DESC"]] },
     });
 
-    res.redirect(`/users/tasks/${listId}`);
+    let tasks = lists.map((list) => list.Tasks).flat();
+
+    let incompleteTasks = incompletedSort(tasks);
+    incompleteTasks = incompleteTasks.sort((a, b) => {
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
+
+    let completeTasks = completedSort(tasks);
+    completeTasks = completeTasks.sort((a, b) => {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    });
+
+    const taskCount = tasks.length.toString();
+    const tomorrowCount = tomorrowSort(tasks).length.toString();
+    const completedCount = completedSort(tasks).length.toString();
+    const sortedBy = "All Tasks";
+    const estMinutes = estMin(tasks);
+    const estHrs = estHours(tasks);
+    // const validatorErrors = validationResult(req);
+
+    // creating task
+    if (validatorErrors.isEmpty()) {
+      await db.Task.create({
+        taskName,
+        langId,
+        listId,
+        estTime,
+        startDate,
+        dueDate,
+        complete,
+      });
+      res.redirect(`/users/tasks/${listId}`);
+    } else {
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.render("tasks", {
+        title: "Tasks",
+        languages,
+        lists,
+        tasks,
+        incompleteTasks,
+        completeTasks,
+        tomorrowCount,
+        completedCount,
+        sortedBy,
+        taskCount,
+        estMinutes,
+        estHrs,
+        errors,
+      });
+    }
   })
 );
 
@@ -468,7 +580,7 @@ router.post(
         }
       }
     } else {
-      errors = validatorErrors.array().map(error => error.msg);
+      errors = validatorErrors.array().map((error) => error.msg);
       res.render("log-in", {
         title: "Login",
         email,
@@ -533,7 +645,7 @@ router.post(
 
       req.session.save(() => res.redirect("/users/tasks/All-Tasks"));
     } else {
-      const errors = validatorErrors.array().map(error => error.msg);
+      const errors = validatorErrors.array().map((error) => error.msg);
       res.render("sign-up", {
         user,
         errors,
@@ -547,7 +659,9 @@ router.post("/search", async (req, res) => {
     where: { userId: req.session.auth.userId },
     include: { model: db.Task },
   });
-  let tasks2 = userLists3.map(list => list.Tasks).flat();
+
+  let tasks2 = userLists3.map((list) => list.Tasks).flat();
+
   tasks2 = incompletedSort(tasks2);
   res.json({ tasks2 });
 });
@@ -556,7 +670,9 @@ router.post("/search2", async (req, res) => {
     where: { userId: req.session.auth.userId },
     include: { model: db.Task },
   });
-  let tasks3 = userLists4.map(list => list.Tasks).flat();
+
+  let tasks3 = userLists4.map((list) => list.Tasks).flat();
+
   tasks3 = completedSort(tasks3);
   res.json({ tasks3 });
 });

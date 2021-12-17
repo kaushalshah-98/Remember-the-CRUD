@@ -81,6 +81,7 @@ body {
   width: 4cm;
   padding: 6px;
   transition: ease-in-out 300ms;
+  padding-left: 15px
 }
 
 #sidebartasks--closed {
@@ -97,6 +98,14 @@ body {
   height: 2cm;
   width: 4cm;
   overflow: hidden;
+}
+
+#tasklogo {
+  transform: translateX(-15px);
+  height: 2cm;
+  width: 4cm;
+  overflow: hidden;
+  
 }
 
 #tasksorts {
@@ -701,6 +710,7 @@ body {
 .task-hidden {
   visibility: hidden;
 }
+
 #search-Button {
   width: 15px;
   visibility: hidden;
