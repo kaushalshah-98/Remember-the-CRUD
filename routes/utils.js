@@ -139,6 +139,7 @@ module.exports = {
   signUpValidator,
   csrfProtection,
   completedSort,
+  check,
   validationResult,
   incompletedSort,
   todaySort,
