@@ -459,6 +459,7 @@ router.get(
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
     const sortedBy = userLists[0].name;
+    const errors = []
     res.render("tasks", {
       title: "Tasks",
       languages,
@@ -472,6 +473,7 @@ router.get(
       taskCount,
       estMinutes,
       estHrs,
+      errors
     });
   })
 );

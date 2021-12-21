@@ -39,12 +39,11 @@ body
               if lists
                 each list in lists
                     li.alllistoptions-open: a.listLink(href=`/users/tasks/${list.id}`) #{list.name}
-
           img#addListImage(src="/images/add-list-modal.png")
           div.modalBackground
             form.modal
               label(for="listName") Create a New List:
-              input(type="text" name="listName")#newListInput
+              input(type="text" name="listName" required="required")#newListInput
               button#completedList Submit
               span.modalClose X
         div#languagesorts
