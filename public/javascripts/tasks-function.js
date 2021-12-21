@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", async e => {
 
   //Sidebar list Dropdown Functionality
   const alltaskslist = document.getElementById("options1list");
-  const alltasksarrow = document.getElementById("ddownarrow-tasks");
+  const alltasksarrow = document.getElementById("tasksorts");
   const alllistslist = document.getElementById("options2list");
   const alllanguagelist = document.getElementById("options4list");
   alltasksarrow.addEventListener("click", e => {
@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", async e => {
         alltasksarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
   });
 
-  const alllistsarrow = document.getElementById("ddownarrow-lists");
+  const alllistsarrow = document.getElementById("listsorts");
   alllistsarrow.addEventListener("click", e => {
     alllistslist.style.display === "block"
       ? (alllistslist.style.display = "none") &&
@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", async e => {
         alllistsarrow.setAttribute("src", "/images/blue-ddown-arrow.PNG");
   });
 
-  const alllanguagearrow = document.getElementById("ddownarrow-languages");
+  const alllanguagearrow = document.getElementById("languagesorts");
   alllanguagearrow.addEventListener("click", e => {
     alllanguagelist.style.display === "block"
       ? (alllanguagelist.style.display = "none") &&
