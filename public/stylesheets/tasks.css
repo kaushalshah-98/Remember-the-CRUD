@@ -78,7 +78,8 @@ body {
 
 #sidebartasks--open {
   height: 100%;
-  width: 4cm;
+  align-items: center;
+  width: 6cm;
   padding: 6px;
   transition: ease-in-out 300ms;
   padding-left: 15px
@@ -103,9 +104,9 @@ body {
 #tasklogo {
   transform: translateX(-15px);
   height: 2cm;
-  width: 4cm;
+  width: 7cm;
   overflow: hidden;
-  
+
 }
 
 #tasksorts {
@@ -124,7 +125,7 @@ body {
 
 .alltaskoptions-open {
   display: "";
-  font-size: 10pt;
+  font-size: 12pt;
   width: 100%;
   height: fit-content;
   padding-left: 2px;
@@ -162,7 +163,7 @@ body {
 #alltasks {
   margin: 0px;
   padding-left: 2px;
-  font-size: 10pt;
+  font-size: 12pt;
   width: 100%;
   height: fit-content;
 }
@@ -177,6 +178,7 @@ body {
 #listsorts {
   display: flex;
   flex-direction: row;
+  align-items: center;
   height: max-content;
   width: 100%;
 }
@@ -255,7 +257,7 @@ body {
 
 /* Create new list styling above */
 #ddownarrow-lists {
-  margin-top: 2px;
+  margin-top: 3px;
   height: 12px;
   width: 12px;
   transition: ease-in-out 300ms;
@@ -299,7 +301,7 @@ body {
 #alllists {
   margin: 0px;
   padding-left: 2px;
-  font-size: 10pt;
+  font-size: 12pt;
   width: 100%;
   height: fit-content;
 }
