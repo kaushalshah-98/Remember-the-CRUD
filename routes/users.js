@@ -252,7 +252,7 @@ router.get(
     const sortedBy = "Complete Tasks";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
-
+    const errors = []
     res.render("tasks", {
       title: "Tasks",
       languages,
@@ -266,6 +266,7 @@ router.get(
       sortedBy,
       estMinutes,
       estHrs,
+      errors
     });
   })
 );
@@ -298,6 +299,7 @@ router.get(
     const sortedBy = "Today";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
+    const errors = []
 
     res.render("tasks", {
       title: "Tasks",
@@ -312,6 +314,7 @@ router.get(
       sortedBy,
       estMinutes,
       estHrs,
+      errors
     });
   })
 );
@@ -347,6 +350,7 @@ router.get(
     const sortedBy = "Tomorrow";
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
+    const errors = []
 
     res.render("tasks", {
       title: "Tasks",
@@ -361,6 +365,7 @@ router.get(
       sortedBy,
       estMinutes,
       estHrs,
+      errors
     });
   })
 );
@@ -407,6 +412,7 @@ router.get(
     const estMinutes = estMin(tasks);
     const estHrs = estHours(tasks);
     const sortedBy = languages[req.params.id - 1].name;
+    const errors = []
     res.render("tasks", {
       title: "Tasks",
       languages,
@@ -420,6 +426,7 @@ router.get(
       taskCount,
       estMinutes,
       estHrs,
+      errors
     });
   })
 );
