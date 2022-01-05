@@ -25,7 +25,7 @@ iv. Go to the specified localhost port in the config/index.js file
    The site features a main page that displays all of the user's current and completed tasks.
 2. Dynamic Sorting
    ![Alt text](https://wziller-personal-portfolio.s3.us-east-2.amazonaws.com/project-images/rtc-dynamic-sorting-screenshot.PNG)
-   Throught the sidebaar a user is able tto sort their tasks by Category and Language.
+   Throught the sidebar a user is able to sort their tasks by Category and Language.
 3. Error Handling
    ![Alt text](https://wziller-personal-portfolio.s3.us-east-2.amazonaws.com/project-images/rtc-error-handling-screenshot.PNG)
    The add task compnenet utilizes Express validation to avoid invalid data being input by the user.
